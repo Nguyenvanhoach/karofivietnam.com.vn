@@ -12,23 +12,38 @@
 ?><!DOCTYPE html>
 
 <html class="no-js" <?php language_attributes(); ?>>
-
 	<head>
-
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
 		<link rel="profile" href="https://gmpg.org/xfn/11">
-
-		<?php wp_head(); ?>
-
+		<link rel="Shortcut Icon" href="<?php echo get_template_directory_uri();?>/assets/images/favicon.ico" type="image/x-icon">
+		<meta name="description" content="<?php bloginfo('description'); ?>" />
+		<?php wp_head();
+			echo '<link href="'.get_template_directory_uri().'/assets/revslider/settings.css" type="text/css" rel="stylesheet" media="screen" />';
+			if (is_home() || is_front_page()) {
+			echo '<meta property="og:image" content="'.get_template_directory_uri().'/assets/images/thumbnail.jpg"> ';    
+			}
+		?>
 	</head>
 
 	<body <?php body_class(); ?>>
-
 		<?php
 		wp_body_open();
 		?>
+
+	<header class="header" id="header">
+		<div class="header-top d-none d-md-block">
+			<div class="container">
+				<div class="row">
+					<div class="col pr-0"><a class="d-block" href="<?php bloginfo('url'); ?>" title="<?php echo get_bloginfo( 'name' ); ?>"><img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/banner-top_1.jpg" class="img-fluid d-block" alt="<?php echo get_bloginfo( 'name' ); ?>"></a></div>
+					<div class="col px-0"><a class="d-block" href="<?php bloginfo('url'); ?>" title="<?php echo get_bloginfo( 'name' ); ?>"><img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/banner-top_2.jpg" class="img-fluid d-block" alt="<?php echo get_bloginfo( 'name' ); ?>"></a></div>
+					<div class="col pl-0"><a class="d-block" href="<?php bloginfo('url'); ?>" title="<?php echo get_bloginfo( 'name' ); ?>"><img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/banner-top_3.jpg" class="img-fluid d-block" alt="<?php echo get_bloginfo( 'name' ); ?>"></a></div>
+				</div>
+			</div>
+		</div>
+		<div class="container">s</div>
+	</header>
+
 
 		<header id="site-header" class="header-footer-group" role="banner">
 
