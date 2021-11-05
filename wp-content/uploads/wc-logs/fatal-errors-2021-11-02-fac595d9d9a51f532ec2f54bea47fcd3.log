@@ -1,0 +1,46 @@
+2021-11-02T04:00:40+00:00 CRITICAL Uncaught Error: Undefined constant "WP_ENVIRONMENT_TYPE" in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\packages\woocommerce-admin\src\Schedulers\MailchimpScheduler.php:90
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\packages\woocommerce-admin\src\Schedulers\MailchimpScheduler.php(90): constant('WP_ENVIRONMENT_...')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\packages\woocommerce-admin\src\Schedulers\MailchimpScheduler.php(58): Automattic\WooCommerce\Admin\Schedulers\MailchimpScheduler->make_request('automails123@gm...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\packages\woocommerce-admin\src\Events.php(109): Automattic\WooCommerce\Admin\Schedulers\MailchimpScheduler->run()
+#3 G:\Pxamp\karofivietnam.com.vn\wp-includes\class-wp-hook.php(303): Automattic\WooCommerce\Admin\Events->do_wc_admin_daily()
+#4 G:\Pxamp\karofivietnam.com.vn\wp-includes\class-wp-hook.php(327): WP_Hook->apply_filters('', Array)
+#5 G:\Pxamp\karofivietnam.com.vn\wp-includes\plugin.php(518): WP_Hook->do_action(Array)
+#6 G:\Pxamp\karofivietnam.com.vn\wp-cron.php(138): do_action_ref_array('wc_admin_daily', Array)
+#7 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\packages\woocommerce-admin\src\Schedulers\MailchimpScheduler.php on line 90
+
+2021-11-02T04:58:15+00:00 CRITICAL Uncaught Error: Call to undefined function catalog_grid() in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\archive.php:147
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#3 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\archive.php on line 147
+
+2021-11-02T04:59:13+00:00 CRITICAL Uncaught Error: Call to undefined function catalog_grid() in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php:17
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#3 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 17
+
+2021-11-02T05:00:06+00:00 CRITICAL Uncaught Error: Call to undefined function catalog_grid() in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php:17
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#3 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 17
+
+2021-11-02T05:09:59+00:00 CRITICAL syntax error, unexpected token "}", expecting "," or ";" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 9
+
+2021-11-02T05:18:38+00:00 CRITICAL syntax error, unexpected token ";" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 16
+
+2021-11-02T09:00:29+00:00 CRITICAL Unmatched '}' in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 92
+
+2021-11-02T09:17:52+00:00 CRITICAL syntax error, unexpected integer "0", expecting ")" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 75
+
+2021-11-02T09:18:30+00:00 CRITICAL syntax error, unexpected integer "0", expecting ")" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\category-tin-tuc.php on line 75
+

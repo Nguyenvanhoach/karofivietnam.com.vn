@@ -63,3 +63,5 @@ Stack trace:
 #5 {main}
   thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 827
 
+2021-10-26T13:01:04+00:00 CRITICAL syntax error, unexpected identifier "name", expecting "," or ";" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\header.php on line 81
+

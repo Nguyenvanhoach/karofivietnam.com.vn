@@ -18,6 +18,7 @@ use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
+use MailPoetVendor\Doctrine\ORM\Query;
 
 /**
  * @extends Repository<SegmentEntity>
@@ -151,7 +152,7 @@ class SegmentsRepository extends Repository {
       $segmentTable = $entityManager->getClassMetadata(SegmentEntity::class)->getTableName();
       $segmentFiltersTable = $entityManager->getClassMetadata(DynamicSegmentFilterEntity::class)->getTableName();
 
-      $entityManager->getConnection()->executeUpdate("
+      $entityManager->getConnection()->executeStatement("
          DELETE ss FROM $subscriberSegmentTable ss
          JOIN $segmentTable s ON ss.`segment_id` = s.`id`
          WHERE ss.`segment_id` IN (:ids)
@@ -161,14 +162,14 @@ class SegmentsRepository extends Repository {
         'type' => $type,
       ], ['ids' => Connection::PARAM_INT_ARRAY]);
 
-      $entityManager->getConnection()->executeUpdate("
+      $entityManager->getConnection()->executeStatement("
          DELETE df FROM $segmentFiltersTable df
          WHERE df.`segment_id` IN (:ids)
       ", [
         'ids' => $ids,
       ], ['ids' => Connection::PARAM_INT_ARRAY]);
 
-      return $entityManager->getConnection()->executeUpdate("
+      return $entityManager->getConnection()->executeStatement("
          DELETE s FROM $segmentTable s
          WHERE s.`id` IN (:ids)
          AND s.`type` = :type
@@ -223,5 +224,19 @@ class SegmentsRepository extends Repository {
       ->getQuery()
       ->setMaxResults($limit)
       ->getResult();
+  }
+
+  /**
+   * Returns count of segments that have more than one dynamic filter
+   */
+  public function getSegmentCountWithMultipleFilters(): int {
+    $qb = $this->entityManager->createQueryBuilder()
+      ->select('COUNT(DISTINCT s.id) AS segmentCount')
+      ->from(SegmentEntity::class, 's')
+      ->join('s.dynamicFilters', 'ds')
+      ->groupBy('ds.segment')
+      ->having('COUNT(ds.id) > 1');
+    $result = $qb->getQuery()->getOneOrNullResult(Query::HYDRATE_ARRAY);
+    return (int)($result['segmentCount'] ?? 0);
   }
 }

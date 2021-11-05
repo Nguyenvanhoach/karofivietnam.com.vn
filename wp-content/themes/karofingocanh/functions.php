@@ -880,21 +880,22 @@ function my_custom_fonts() {
 }
 add_action( 'admin_init', 'register_settings' );
 function register_settings(){
-    //đăng ký các fields dữ liệu cần lưu
-    //register_setting( string $option_group, string $option_name, array $args = array() ) 
-    register_setting( 'my-settings-group', 'address_company' ); // dòng 1 là group name, dòng 2 là option name , dòng 3 là phần mở rộng, mình chưa có nhé.
-    register_setting( 'my-settings-group', 'phone_company' );
-    register_setting( 'my-settings-group', 'mail_company' );
-    register_setting( 'my-settings-group', 'copy_right' );
-    register_setting( 'my-settings-group', 'hotline' );
-    register_setting( 'my-settings-group', 'hotline_2' );   
-    register_setting( 'my-settings-group', 'fax_company' );
-    register_setting( 'my-settings-group', 'facebook_company' );
-    register_setting( 'my-settings-group', 'twitter_company' );
-    register_setting( 'my-settings-group', 'youtube_company' );
-    register_setting( 'my-settings-group', 'pinterest_company' );
-    register_setting( 'my-settings-group', 'zalo' );    
+	//đăng ký các fields dữ liệu cần lưu
+	//register_setting( string $option_group, string $option_name, array $args = array() ) 
+	register_setting( 'my-settings-group', 'address_company' ); // dòng 1 là group name, dòng 2 là option name , dòng 3 là phần mở rộng, mình chưa có nhé.
+	register_setting( 'my-settings-group', 'phone_company' );
+	register_setting( 'my-settings-group', 'mail_company' );
+	register_setting( 'my-settings-group', 'copy_right' );
+	register_setting( 'my-settings-group', 'hotline' );
+	register_setting( 'my-settings-group', 'hotline_2' );   
+	register_setting( 'my-settings-group', 'fax_company' );
+	register_setting( 'my-settings-group', 'facebook_company' );
+	register_setting( 'my-settings-group', 'twitter_company' );
+	register_setting( 'my-settings-group', 'youtube_company' );
+	register_setting( 'my-settings-group', 'pinterest_company' );
+	register_setting( 'my-settings-group', 'zalo' );    
 	register_setting( 'my-settings-group', 'google_map' );
+	register_setting( 'my-settings-group', 'designer' );    
 }
 function wpdocs_register_my_custom_menu_page(){
 	 // add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
@@ -961,7 +962,10 @@ function my_custom_menu_page() { ?>
 				 <p><label for="google_map">Chèn Google Map</label><br/></p>
 				 <textarea name="google_map" cols="40" rows="5" style="width:100%;"><?php echo get_option('google_map')?></textarea>
 				</div>
-
+				<div class="px-15 h-w">
+				 <p><label for="designer">Designer</label><br/>
+				 <input style="width:100%; height: 38px;" type="text" name="designer" value="<?php echo get_option('designer')?>" /></p>
+				</div>
 				<div class="px-15" style="clear: both;">
 				 <p class="submit">
 				 <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
@@ -1018,7 +1022,7 @@ function remove_wp_logo($wp_admin_bar ) {
 }
 add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
 function tp_admin_logo() {
-    echo '<br/> <img src="'. get_template_directory_uri() .'/assets/images/logo.jpg"/>';
+    echo '<br/> <img src="'. get_template_directory_uri() .'/assets/images/logo.png"/>';
 }
 add_action( 'admin_notices', 'tp_admin_logo' );
 function tp_admin_footer_credits( $text ) {	
@@ -1028,7 +1032,7 @@ function tp_admin_footer_credits( $text ) {
 add_filter( 'admin_footer_text', 'tp_admin_footer_credits' );
 function custom_loginlogo() {
 echo '<style type="text/css">
-h1 a {background-image: url("'. get_template_directory_uri() .'/assets/images/logo.jpg") !important; background-size: contain  !important;width: auto !important;}
+h1 a {background-image: url("'. get_template_directory_uri() .'/assets/images/logo.png") !important; background-size: contain  !important;width: auto !important;}
 </style>';
 }
 add_action('login_head', 'custom_loginlogo');
@@ -1062,66 +1066,201 @@ function share_social() { ?>
         </div>
     </div>
 <?php }
+/*start crumbs*/
+$opt 						= array();
+$opt['home'] 				= '<i class="fas fa-home mr-1"></i>Trang chủ';
+$opt['blog'] 				= "";
+$opt['sep'] 				= '<i class="fa fa-angle-right mx-1" style="color: #646464;"></i>';
+$opt['prefix']				= "";
+$opt['boldlast'] 			= true;
+$opt['nofollowhome'] 		= true;
+$opt['singleparent'] 		= 0;
+$opt['singlecatprefix']		= true;
+$opt['archiveprefix'] 		= "";
+$opt['searchprefix'] 		= "Search for ";
+update_option("bt_breadcrumbs",$opt);
+function bt_breadcrumb($prefix = '', $suffix = '', $display = true) {
+	global $wp_query, $post;
+	$opt = get_option("bt_breadcrumbs");
+	if (!function_exists('bold_or_not')) {
+		function bold_or_not($input) {
+			$opt = get_option("bt_breadcrumbs");
+			if ($opt['boldlast']) {
+				return '<span class="current">'.$input.'</span>';
+			} else {
+				return $input;
+			}
+		}
+	}
+	if (!function_exists('bt_get_category_parents')) {
+		// Copied and adapted from WP source
+		function bt_get_category_parents($id, $link = FALSE, $separator = '/', $nicename = FALSE){
+			$chain = '';
+			$parent = &get_category($id);
+			if ( is_wp_error($parent ) )
+			   return $parent;
+			if ($nicename )
+			   $name = $parent->slug;
+			else
+			   $name = $parent->cat_name;
+			if ($parent->parent && ($parent->parent != $parent->term_id) )
+			   $chain .= get_category_parents($parent->parent, true, $separator, $nicename);
+			$chain .= bold_or_not($name);
+			return $chain;
+		}
+	}
+	$nofollow = ' ';
+	if ($opt['nofollowhome']) {
+		$nofollow = ' rel="nofollow" ';
+	}
+	$on_front = get_option('show_on_front');
+	if ($on_front == "page") {
+		$homelink = '<a'.$nofollow.'href="'.get_permalink(get_option('page_on_front')).'"><i class="fa fa-home" aria-hidden="true"></i> '.$opt['home'].'</a>';
+		$bloglink = $homelink.'  <a href="'.get_permalink(get_option('page_for_posts')).'">'.$opt['blog'].'</a>';
+	} else {
+		$homelink = '<a'.$nofollow.'href="'.get_bloginfo('url').'">'.$opt['home'].'</a>';
+		$bloglink = $homelink;
+	}
+	if ( ($on_front == "page" && is_front_page()) || ($on_front == "posts" && is_home()) ) 	{
+		$output = bold_or_not($opt['home']);
+	} elseif ($on_front == "page" && is_home() ) {
+		$output = $homelink.' '.$opt['sep'].' '.bold_or_not($opt['blog']);
+	} elseif ( !is_page() ) {
+		$output = $bloglink.' '.$opt['sep'].' ';
+		if ( ( is_single() || is_category() || is_tag() || is_date() || is_author() ) && $opt['singleparent'] != false)
+		{
+			$output .= '<a href="'.get_permalink($opt['singleparent']).'">'.get_the_title($opt['singleparent']).'</a> '.$opt['sep'].' ';
+		}
+		if (is_single() && $opt['singlecatprefix']) {
+			$cats = get_the_category();
+			$cat = $cats[0];
+			if ( is_object($cat) ) {
+				if ($cat->parent != 0) {
+					$output .= get_category_parents($cat->term_id, true, " ".$opt['sep']." ");
+				} else {
+				   //	$output .= '<a href="'.get_category_link($cat->term_id).'">'.$cat->name.'</a> '.$opt['sep'].' ';
+				}
+			}
+		}
+		if ( is_category() )
+		{
+			$cat = intval( get_query_var('cat') );
+			$output .= bt_get_category_parents($cat, false, " ".$opt['sep']." ");
+		} elseif ( is_tag() )
+		{
+			$output .= bold_or_not($opt['archiveprefix']." ".single_cat_title('',false));
+		} elseif ( is_date() )
+		{
+			$output .= bold_or_not($opt['archiveprefix']." ".single_month_title(' ',false));
+		} elseif ( is_author() )
+		{
+			$user = get_userdatabylogin($wp_query->query_vars['author_name']);
+			$output .= bold_or_not($opt['archiveprefix']." ".$user->display_name);
+		} elseif ( is_search() )
+		{
+			//$output .= bold_or_not('Tìm kiếm "'.stripslashes(strip_tags(get_search_query())).'"');
+			$output .= bold_or_not('Tìm kiếm');
+		}
+		else if ( is_tax() )
+		{
+			$taxonomy 	= get_taxonomy ( get_query_var('taxonomy') );
+			//$term_title		=  single_term_title('',false);
+			$page= get_page_by_title($taxonomy->label, 'OBJECT', 'page');
+			$term = get_term_by('slug',get_query_var('term') , $taxonomy->name);
+			$output .='<a rel="nofollow" href="'.  get_permalink($page->ID) . '">'. $taxonomy->label.'</a> ';
+			$terms = array($term);
+			while($term->parent){
+				$term =get_term($term->parent	, $term->taxonomy );
+				$terms [] =$term ;
+			}
+			$terms = array_reverse($terms);
+			for ($i=0;$i<count($terms);$i++)
+			{
+				$link = get_term_link($terms[$i]);
+				if($i+1==count($terms))
+				{
+					$output .=$opt['sep']. ' '. bold_or_not($terms[$i]->name );
+				}
+				//else
+					//$output .=$opt['sep']. ' '. '<a rel="nofollow" href="'.  $link . '">'. $terms[$i]->name .'</a> ';
+			}
+		} else {
+				if($post->post_type !='page')
+				{
+					$post_type_label = $opt['blog'];
+					if($post->post_type !='post') {
+							global $wp_post_types;
+							$obj = $wp_post_types[$post->post_type];
+							$post_type_label = $obj->labels->name;
+					}
+					$page= get_page_by_title($post_type_label, 'OBJECT', 'page');
+					if($page) {
+						$output .= '<a rel="nofollow" href="'. get_permalink($page->ID). '">'. $post_type_label.'</a>';
+					}
+					//wp_die($post->post_type);
+					if(is_singular('post')){}
+					else
+					$output .= ' '.$opt['sep'].' ';
+		}
+		$output .= bold_or_not(get_the_title());
+		}
+	} else {
+		$post = $wp_query->get_queried_object();
+		// If this is a top level Page, it's simple to output the breadcrumb
+		if ( 0 == $post->post_parent ) {
+			$output = $homelink." ".$opt['sep']." ".bold_or_not(get_the_title());
+		} else {
+			if (isset($post->ancestors)) {
+				if (is_array($post->ancestors))
+					$ancestors = array_values($post->ancestors);
+				else
+					$ancestors = array($post->ancestors);
+			} else {
+				$ancestors = array($post->post_parent);
+			}
+			// Reverse the order so it's oldest to newest
+			$ancestors = array_reverse($ancestors);
+			// Add the current Page to the ancestors list (as we need it's title too)
+			$ancestors[] = $post->ID;
+			$links = array();
+			foreach ($ancestors as $ancestor ) {
+				$tmp  = array();
+				$tmp['title'] 	= strip_tags( get_the_title($ancestor ) );
+				$tmp['url'] 	= get_permalink($ancestor);
+				$tmp['cur'] = false;
+				if ($ancestor == $post->ID  ) {
+					$tmp['cur'] = true;
+				}
+				$links[] = $tmp;
+			}
+			$output = $homelink;
+			foreach ($links as $link ) {
+				$output .= ' '.$opt['sep'].' ';
+				if (!$link['cur']) {
+					$output .= '<a href="'.$link['url'].'">'.$link['title'].'</a>';
+				} else {
+					    $output .= bold_or_not($link['title']);
+				}
+			}
+		}
+	}
+	if ($opt['prefix'] != "")
+	{
+		$output = $opt['prefix']." ".$output;
+		$output = $opt['prefix'];
+	}
+	if ($display) {
+		$output = str_ireplace("(Not remove or edit)", "", $output);
+		echo $prefix.$output.$suffix;
+	} else {
+		return $prefix.$output.$suffix;
+	}
+}
 function breadcrumb() {
-    global $post; ?>
-    <div id="crumbs" class="list-crumb text-capitalize">
-    <?php 
-    	$name = 'Trang chủ'; 
-		
-		$home = get_bloginfo('url');
-    	if (!is_home()) {
-	    echo '<a href="'.$home.'"><i class="fas fa-home mr-1"></i>' . $name . '</a>';
-	    if (is_category()) {
-	        echo "<i class='fa fa-angle-right mx-2'></i>";
-	        echo single_cat_title(); 
-	        
-	    } elseif(is_single() && !is_attachment()) {
-	        $cat = get_the_category(); 	        
-	        $cat = $cat[0];
-	        echo "<i class='fa fa-angle-right mx-2'></i>";
-	        echo get_category_parents($cat, TRUE, '<i class="fa fa-angle-right mx-2"></i>');
-	        //echo get_category_parents($cat, TRUE);
-	        //echo "<i class='fa fa-angle-double-right'></i>";
-	        echo get_the_title();
-	    }       
-	    elseif (is_search()) {
-	        echo "<i class='fa fa-angle-right mx-2'></i>";
-	    }       
-	    elseif (is_page() && $post->post_parent) {
-	        echo '<i class="fa fa-angle-right mx-2"></i> <a href="'.get_permalink($post->post_parent).'">';
-	        echo get_the_title($post->post_parent);
-	        echo "</a><i class='fa fa-angle-right mx-2'></i> ";
-	        echo get_the_title();       
-	    }
-	    elseif (is_page() OR is_attachment()) {
-	        echo "<i class='fa fa-angle-right mx-2'></i>"; 
-	        echo get_the_title();
-	    }
-	    elseif (is_author()) {
-	        echo wp_title('<i class="fa fa-angle-right mx-2"></i> Profilo');
-	        echo "";
-	    }
-	    elseif (is_404()) {
-	        echo "<i class='fa fa-angle-right mx-2'></i>"; 
-	        echo 'errore_404';
-	    }       
-	    elseif (is_archive()) {
-	    	$taxomy = get_queried_object();
-	    	$term = get_term( $taxomy->parent, $taxomy->taxonomy );
-	    	echo '<i class="fa fa-angle-right mx-2"></i>';
-	    	if($taxomy->parent == 0) {
-		    	echo $taxomy->name;		    	
-		    } else {
-		    	echo'<a href="'.get_term_link($taxomy->parent,$taxomy->taxonomy).'" title="'.$term->name.'">'.$term->name.'</a>';
-		    	echo '<i class="fa fa-angle-right mx-2"></i>';
-		    	echo $taxomy->name;
-
-		    }
-	        //echo wp_title('<i class="fa fa-angle-double-right"></i>');       
-	    }
-    }?>
-	</div>
-<?php }
+		bt_breadcrumb('<div id="crumbs" class="list-crumb text-capitalize">','</div>');
+	return;
+}
+/*end crumbs*/
 
 function slideshow_register() {
     register_post_type( 'slideshow',  	
@@ -1254,7 +1393,7 @@ function getSliderBanner($post_page = '-1') {
 function contactForm() {
 	$success = '';  $errcaptacha = ''; 
    if(isset($_POST['btn-send']) ) { 
-	   $address_company = '564 Lũy Bán Bích - Phường Hoà Thạnh - Quận Tân phú - TP Hồ Chí Minh';$phone_company = '0907 078 040';$mail_company = 'info@iq-house.vn';
+	   $address_company = '537 Đỗ Xuân Hợp, Phường Phước Long B, Quận 9, Tp.Hồ Chí Minh';$phone_company = '0936.275.345';$mail_company = 'tuonglk01@gmail.com';
 	   if(get_option('address_company') !='') {
 		   $address_company = get_option('address_company');
 	   }
@@ -1286,7 +1425,6 @@ function contactForm() {
 		   $email = trim($_POST['your-email']);
 		   $yourName = trim($_POST['your-name']);
 		   $yourTel = trim($_POST['your-tel']);
-		   $sanphamquantam = trim($_POST['san-pham-quan-tam']);
 		   $yourMessage = trim($_POST['your-message']);
 		   $result = array('status' => 0);
 		   require(get_stylesheet_directory().'/PHPMailer-5.2.16/PHPMailerAutoload.php');
@@ -1316,10 +1454,10 @@ function contactForm() {
 					   <tr>
 						   <td width='360' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding:10px 0 10px 10px'>
 							   <a href='".get_bloginfo( 'url' )."' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif' target='_blank'>
-								   <img src='".get_template_directory_uri()."/assets/images/logo.png' style='border:0;max-width: 100%;height: auto' alt='Martoyo'></a>
+								   <img src='".get_template_directory_uri()."/assets/images/logo.png' style='border:0;max-width: 100%;height: auto' alt=''></a>
 						   </td>
 						   <td width='30' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'></td>
-						   <td width='90' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'><a href='".get_bloginfo( 'url' )."/ve-chung-toi' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px;display:inline-block' target='_blank'>Về Chúng Tôi</a></td>
+						   <td width='90' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'><a href='".get_bloginfo( 'url' )."/gioi-thieu' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px;display:inline-block' target='_blank'>Về Chúng Tôi</a></td>
 						   <td width='30' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'></td>
 						   <td width='90' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'><a href='".get_bloginfo( 'url' )."/lien-he' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px;display:inline-block' target='_blank'>Liên Hệ</a></td>
 					   </tr>
@@ -1331,9 +1469,6 @@ function contactForm() {
 			   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding-bottom: 30px'>
 			   <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse:collapse' bgcolor='#ffffff'>
 				   <tbody>
-					   <tr>
-					   <td bgcolor='#105aa6' width='100%' height='15px' valign='top'></td>
-					   </tr>
 					   <tr>
 						   <td>
 							   <table border='0' cellpadding='0' cellspacing='0' width='100%' bgcolor='#ffffff'>
@@ -1354,7 +1489,6 @@ function contactForm() {
 												   <div style='background-color: #eee;border:2px solid #f50; padding:20px;margin-bottom:15px'>
 													   <div style='margin-bottom:10px;'>Tên khách hàng: <b>".$yourName."</b></div>
 													   <div style='margin-bottom:10px;'>Email khách hàng: <b>".$email."</b></div>
-													   <div style='margin-bottom:10px;'>Sản phẩm quan tâm: <b>".$sanphamquantam."</b></div>
 													   <div>Nội dung: <b>".$yourMessage."</b></div>
 												   </div>
 												   </td>
@@ -1437,30 +1571,321 @@ function contactForm() {
    } ?>
 	<form action="" method="post" accept-charset="utf-8">                                
 		<div class="row form-group">
-			<div class="col-sm-6"><label>Họ và tên *</label><input type="text" name="your-name" class="form-control" required=""></div>
-			<div class="col-sm-6 mt-m-3"><label>Email *</label><input type="email" name="your-email" required="" class="form-control"></div>
+			<div class="col-sm-4 col-lg-3"><label>Họ tên *</label></div>
+			<div class="col-sm-8 col-lg-9"><input type="text" name="your-name" class="form-control" required></div>
 		</div>
 		<div class="row form-group">
-			<div class="col-sm-6"><label>Số điện thoại </label><input type="tel" name="your-tel" class="form-control"></div>
-			<div class="col-sm-6"><label>Sản phẩm quan tâm</label><input type="text" name="san-pham-quan-tam" class="form-control"></div>
+			<div class="col-sm-4 col-lg-3"><label>Email *</label></div>
+			<div class="col-sm-8 col-lg-9"><input type="email" name="your-email" required class="form-control"></div>
 		</div>
 		<div class="row form-group">
-			<div class="col-sm-12"><label>Nội dung </label><textarea name="your-message" cols="40" rows="5" class="form-control"></textarea></div>
-			
+			<div class="col-sm-4 col-lg-3"><label>Điện thoại *</label></div>
+			<div class="col-sm-8 col-lg-9"><input type="tel" name="your-tel" required class="form-control"></div>
 		</div>
+		<div class="row form-group">
+			<div class="col-sm-4 col-lg-3"><label>Thông tin liên hệ *</label></div>
+			<div class="col-sm-8 col-lg-9"><textarea name="your-message" cols="40" rows="3" class="form-control"></textarea></div>
+		</div>
+		<div class="row form-group">
+			<div class="col-sm-4 col-lg-3"></div>
+			<div class="col-sm-8 col-lg-9"><input type="submit" value="Gửi liên hệ" class="btn btn-send px-3 px-lg-4 py-2" name="btn-send"></div>
+		</div>
+		
 		<div class="form-group g-recaptcha-block row align-items-center">
-			<div class="col-12 col-sm-8 mb-4 mb-sm-0">
-			<div class="g-recaptcha" data-sitekey="6Lfh3CQbAAAAAB7SDcpDT0XmJcnbFbdCWD8q4V1v"></div>
+			<div class="col-12"><div class="g-recaptcha" data-sitekey="6Lfh3CQbAAAAAB7SDcpDT0XmJcnbFbdCWD8q4V1v"></div></div>
 		</div>
-		<div class="col-12 col-sm-4 text-right">
-			<input type="submit" value="Gửi yêu cầu" class="btn btn-send text-uppercase px-3 px-lg-4 py-2 py-lg-3" name="btn-send">
-		</div>
-		</div>
-		<div class="form-group text-danger">
-		<?php
-			echo $errcaptacha;
-		?>
-		</div>
+		<div class="form-group text-danger"><?php	echo $errcaptacha;?></div>
 	</form>
 <?php 		
 }
+function revcon_change_post_label() {
+	global $menu;
+	global $submenu;
+	$menu[5][0] = 'Tin Tức';
+	$submenu['edit.php'][5][0] = 'Tin Tức';
+	$submenu['edit.php'][10][0] = 'Thêm Tin Tức';
+	$submenu['edit.php'][16][0] = 'Thẻ Tin Tức';
+}
+function revcon_change_post_object() {
+	global $wp_post_types;
+	$labels = &$wp_post_types['post']->labels;
+	$labels->name = 'Tin Tức';
+	$labels->singular_name = 'Tin Tức';
+	$labels->add_new = 'Thêm Tin Tức';
+	$labels->add_new_item = 'Thêm Tin Tức';
+	$labels->edit_item = 'Chỉnh Sửa Tin Tức';
+	$labels->new_item = 'Tin Tức';
+	$labels->view_item = 'Xem Tin Tức';
+	$labels->search_items = 'Tìm Kiếm Tin Tức';
+	$labels->not_found = 'Tin Tức Không Tìm Thấy';
+	$labels->not_found_in_trash = 'Tin Tức Không Tìm Thấy Trong Thùng Rác';
+	$labels->all_items = 'Tất Cả Tin Tức';
+	$labels->menu_name = 'Tin Tức';
+	$labels->name_admin_bar = 'Tin Tức';
+}
+
+add_action( 'admin_menu', 'revcon_change_post_label' );
+add_action( 'init', 'revcon_change_post_object' );
+
+add_post_type_support( 'page', 'excerpt' );
+
+
+//CODE LAY LUOT XEM
+function getPostViews($postID){
+	$count_key = 'post_views_count';
+	$count = get_post_meta($postID, $count_key, true);
+	if($count==''){
+			delete_post_meta($postID, $count_key);
+			add_post_meta($postID, $count_key, '0');
+			return "01 lượt xem";
+	}
+	return $count.' lượt xem';
+} 
+// CODE DEM LUOT XEM
+function setPostViews($postID) {
+	$count_key = 'post_views_count';
+	$count = get_post_meta($postID, $count_key, true);
+	if($count==''){
+			$count = 0;
+			delete_post_meta($postID, $count_key);
+			add_post_meta($postID, $count_key, '0');
+	}else{
+			$count++;
+			update_post_meta($postID, $count_key, $count);
+	}
+}
+
+function yeucauBaoGiaForm() {
+	global $wp;
+	$success = '';  $errcaptacha = ''; 
+  if(isset($_POST['btn-yeucau']) ) { 
+	   $address_company = '537 Đỗ Xuân Hợp, Phường Phước Long B, Quận 9, Tp.Hồ Chí Minh';$phone_company = '0936.275.345';$mail_company = 'tuonglk01@gmail.com';
+	   if(get_option('address_company') !='') {
+		   $address_company = get_option('address_company');
+	   }
+	   if(get_option('phone_company') !='') {
+		   $phone_company = get_option('phone_company');
+	   }
+	   if(get_option('hotline') !='') {
+		   $hotline = get_option('hotline');
+	   }
+	   if(get_option('mail_company') !='') {
+		   $mail_company = get_option('mail_company');
+	   }
+	   if(isset($_POST['g-recaptcha-response'])){  
+		 $tut_captcha=$_POST['g-recaptcha-response'];
+	   } 
+	   if(!$tut_captcha){
+		 $errcaptacha = '<div class="text-danger">Bạn chưa xác thực reCAPTCHA!.</div>';
+	   }  
+	   $kiemtra=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lfh3CQbAAAAAKB0sZQlNdqPYGzvqyakLIHQYhza&response=".$tut_captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	   
+	   $kiemtra = json_decode($kiemtra);
+	   
+	   if($kiemtra->success == false) {
+		 $errcaptacha = 'Bạn đã nhập sai mã Captcha ?';
+		 echo '<script> window.alert("Bạn chưa chọn Captcha ?");
+					   window.location = "'.home_url($wp->request).'"</script>';	
+		 die();
+	   } else {
+		   $email = trim($_POST['your-email']);
+		   $yourName = trim($_POST['your-name']);
+		   $yourTel = trim($_POST['your-tel']);
+		   $tuvan1 =  $_POST['tuvan1'];
+			 $tuvan2 =  $_POST['tuvan2'];
+			 $tuvan3 =  $_POST['tuvan3'];			
+		   $result = array('status' => 0);
+		   require(get_stylesheet_directory().'/PHPMailer-5.2.16/PHPMailerAutoload.php');
+
+		   $mail  = new PHPMailer();
+		   $body = "";		
+		   $mail->IsSMTP();
+		   $mail->CharSet = "UTF-8";
+		   $mail->SMTPDebug  = 2;
+		   $mail->SMTPAuth   = true;
+		   $mail->Host       = "smtp.gmail.com";
+		   $mail->SMTPSecure = 'tls';
+		   $mail->Port       = 587;
+		   $mail->Username   = "automails123@gmail.com";
+		   $mail->Password   = "Khongthequen89";
+		   $mail->SetFrom('admin@gmail.com');
+		   $mail->addAddress($mail_company);
+		//    $mail->addCC($email,'ducnguyen6318@gmail.com','xuanngoc@martoyo.vn');
+		   $mail->addCC('automails123@gmail.com');
+		   $mail->Subject    = "THÔNG TIN YÊU CẦU TƯ VẤN - ".get_bloginfo( 'name' )."";
+		   $body.="<div style='background-color:#ffffff;color:#000000;font-family:Arial,Helvetica,sans-serif;font-size:15px;margin:0 auto;padding:0'>
+		   <table align='center' border='0' cellpadding='0' cellspacing='0' style='padding:0;border-spacing:0px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;background-color:#f5f5f5;'>
+		   <tbody><tr><td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding-left:40px' bgcolor='#e4e6ea'></td></tr><tr>
+			   <td bgcolor='#f5f5f5' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'>
+				   <table border='0' cellpadding='0' cellspacing='0' width='688' align='center' style='padding:0;border-spacing:0px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif'>
+					   <tbody>
+					   <tr>
+						   <td width='360' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding:10px 0 10px 10px'>
+							   <a href='".get_bloginfo( 'url' )."' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif' target='_blank'>
+								   <img src='".get_template_directory_uri()."/assets/images/logo.png' style='border:0;max-width: 100%;height: auto' alt=''></a>
+						   </td>
+						   <td width='30' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'></td>
+						   <td width='90' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'><a href='".get_bloginfo( 'url' )."/gioi-thieu' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px;display:inline-block' target='_blank'>Về Chúng Tôi</a></td>
+						   <td width='30' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'></td>
+						   <td width='90' align='left' style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif'><a href='".get_bloginfo( 'url' )."/lien-he' style='text-decoration:none;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px;display:inline-block' target='_blank'>Liên Hệ</a></td>
+					   </tr>
+					   </tbody>
+				   </table>
+			   </td>
+		   </tr>
+		   <tr>
+			   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding-bottom: 30px'>
+			   <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse:collapse' bgcolor='#ffffff'>
+				   <tbody>
+					   <tr>
+						   <td>
+							   <table border='0' cellpadding='0' cellspacing='0' width='100%' bgcolor='#ffffff'>
+								   <tbody>
+								   <tr>
+									   <td style='background-color:#105aa6;width:16px;height:100%;padding:0;margin:0;line-height:0;border:none'></td>
+									   <td style='padding:0px 0 22px 0'>
+										   <table border='0' cellpadding='0' cellspacing='0' width='100%' style='padding:15px 0 0 0'>
+											   <tbody>
+											   <tr>
+												   <td style='padding:14px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#1a7138'><b>Thông Tin Tư Vấn</b></td>
+											   </tr>
+											   <tr>
+												   <td style='padding:18px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666666'>Cảm ơn quý khách ".$yourName." đã gửi thông tin sau tới ".get_bloginfo( 'name' ).":</td>
+											   </tr>
+											   <tr>
+												   <td style='padding:18px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666666'>
+												   <div style='background-color: #eee;border:2px solid #f50; padding:20px;margin-bottom:15px'>
+													   <div style='margin-bottom:10px;'>Họ Và Tên: <b>".$yourName."</b></div>
+													   <div style='margin-bottom:10px;'>Số Điện Thoại: <b>".$yourTel."</b></div>
+													   <div style='margin-bottom:10px;'>Email: <b>".$email."</b></div>
+													   <div>Nội dung tư vấn: <b>".$tuvan1.", ".$tuvan2.", ".$tuvan3."</b></div>
+												   </div>
+												   </td>
+											   </tr>
+																					   
+											   <tr>
+												   <td style='padding:3px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666;margin-top:30px;'>► Email hỗ trợ: <a href='mailto:".$mail_company."' target='_blank'> <span style='color:#0388cd'>".$mail_company."</span></a> hoặc</td>
+											   </tr>
+											   <tr>
+												   <td style='padding:3px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666666'>► Tổng đài Chăm sóc khách hàng: <span style='font-weight:bold'>".$hotline." </span></td>
+											   </tr>
+											   <tr>
+												   <td style='padding:16px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#666666'><span style='font-weight:bold'>".get_bloginfo( 'name' )."</span> trân trọng cảm ơn và rất hân hạnh được phục vụ Quý khách.</td>
+											   </tr>
+											   <tr>
+												   <td style='padding:12px 10px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#666666;font-style:italic'>*Quý khách vui lòng không trả lời email này*.</td>
+											   </tr>
+											   </tbody>
+										   </table>
+									   </td>
+									   <td style='background-color:#105aa6;width:16px;height:100%;padding:0;margin:0;line-height:0;border:none'></td>
+								   </tr>
+								   </tbody>
+							   </table>
+						   </td>
+					   </tr>
+				   </tbody>
+			   </table>
+			   </td>
+		   </tr>
+		   </tbody>
+		   </table>
+		   <table border='0' cellpadding='0' cellspacing='0' width='600' align='center' style='padding:0;border-spacing:0px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;'>
+		   <tbody>
+			   <tr>
+			   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding-bottom:20px'>
+				   <table border='0' cellpadding='0' cellspacing='0' width='100%' style='padding:0;border-spacing:0px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif'>
+				   <tbody>
+					   <tr>
+					   <td style='margin:0;font-family:Arial,Helvetica,sans-serif;padding:20px 0'>
+						   <table border='0' cellpadding='0' cellspacing='0' width='100%' style='padding:0;border-spacing:0px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif'>
+						   <tbody>
+							   <tr>
+							   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:15px;line-height:20px'><b>".get_bloginfo( 'name' )."</b></td>
+							   </tr>
+							   <tr>
+							   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px'><b>Địa chỉ giao dịch: </b>".$address_company."</td>
+							   </tr>
+							   <tr>
+							   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:12px;line-height:20px'><b>Hotline:</b> ".$hotline." - Email: <b>".$mail_company."</b></td>
+							   </tr>				                   
+						   </tbody>
+						   </table>
+					   </td>
+					   </tr>
+				   </tbody>
+				   </table>
+			   </td>
+			   </tr>
+		   </tbody>
+		   </table>
+		   </div>";
+		   $mail->MsgHTML($body);	
+		   // if  update user return true then lets send user an email containing the new password
+
+		   if(!$mail->Send()) {
+			   echo "Mailer Error: " . $mail->ErrorInfo;
+			   $result['msg'] = 'There is an error, please check your input and try again';
+			   $result['debug'] = $mail->ErrorInfo;
+		   } else {
+			   $result['status'] = 1;
+			   echo '<script> window.alert("Cảm ơn Quý Khách đã gửi thông tin cần tư vấn tới '.get_bloginfo( 'name' ).'. '.get_bloginfo( 'name' ).' sẽ sớm phản hồi lại Quý khách hàng.");
+				   window.location = "'.get_bloginfo( 'url' ).'"</script>';	
+		   }
+	   }
+	   
+   } ?>
+	<form action="" method="post" accept-charset="utf-8" class="form-tuvan py-3 py-md-4 px-3 px-lg-5">    
+		<h3 class="text-uppercase text-center mb-3"><i class="fa fa-headphones" aria-hidden="true"></i> Yêu cầu tư vấn</h3>                            
+		<div class="row form-group">
+			<div class="col-12"><input type="text" name="your-name" class="form-control text-center" required="" placeholder="Họ và tên *"></div>
+		</div>
+		<div class="row form-group">
+			<div class="col-12"><input type="tel" name="your-tel" class="form-control text-center" required="" placeholder="Số điện thoại *"></div>
+		</div>
+		<div class="row form-group">
+			<div class="col-12"><input type="email" name="your-email" required="" class="form-control text-center" placeholder="Email"></div>
+		</div>
+		<div class="row form-group">
+			<div class="col-sm-12">
+				<div class="checkbox"><label><input class="mr-1" type="checkbox" name="tuvan1" value="Tư vấn sản phẩm phù hợp">Tư vấn sản phẩm phù hợp</label></div>
+				<div class="checkbox"><label><input class="mr-1" type="checkbox" name="tuvan2" value="Yêu cầu báo giá">Yêu cầu báo giá</label></div>
+				<div class="checkbox"><label><input class="mr-1" type="checkbox" name="tuvan3" value="Yêu cầu tư vấn kỹ thuật">Yêu cầu tư vấn kỹ thuật</label></div>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col-12 text-center"><input type="submit" value="Gửi liên hệ" class="btn btn-yeucau text-uppercase px-3 px-lg-4 py-2 w-100" name="btn-yeucau"></div>
+		</div>
+		<div class="row form-group g-recaptcha-block">
+			<div class="col-12"><div class="g-recaptcha" data-sitekey="6Lfh3CQbAAAAAB7SDcpDT0XmJcnbFbdCWD8q4V1v"></div></div>
+		</div>
+		<div class="form-group text-danger"><?php	echo $errcaptacha;?></div>
+	</form>
+<?php 		
+}
+function related_posts($post_page = '4') {
+	global $post;
+	$categories = get_the_category($post->ID);
+	if ($categories) {
+		$category_ids = array();
+		foreach($categories as $individual_category) $category_ids[] = $individual_category->term_id;
+		$args=array(
+		'category__in' => $category_ids[0],
+		'post__not_in' => array($post->ID),
+		'posts_per_page'=> $post_page, // Number of related posts that will be shown.
+		'ignore_sticky_posts'=>1
+		);
+
+		$my_query = new wp_query( $args );
+		if( $my_query->have_posts() ) {
+		echo '<div id="related_posts"><h3 class="text-uppercase text-20 font-weight-bold">Bài viết liên quan</h3><div class="row space-1">';
+		while( $my_query->have_posts() ) {
+			$my_query->the_post();
+			echo '<div class="col-6 col-md-3 my-2"><a href="'.get_the_permalink().'" rel="bookmark" title="'.get_the_title().'">'. get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' => 'img-fluid d-block w-100 mx-auto mb-2','loading' => 'lazy', 'alt' => get_the_title() )) .'</a><a class="text-14 font-weight-bold" style="color:#165fe6" href="'.get_the_permalink().'" rel="bookmark" title="'.get_the_title().'">'.get_the_title().'</a><time class="text-12 py-1 d-block">'.get_the_time('d-m-Y, g:i a').'</time></div>';		
+		}
+		echo '</div></div>';
+		}
+	}
+	wp_reset_query(); 
+}
+
