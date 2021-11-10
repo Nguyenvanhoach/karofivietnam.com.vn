@@ -177,7 +177,7 @@
 			</div>
 			<a href="javascript:void(0)" id="totop" style=""><i class="fa fa-chevron-up"></i></a>
 		<?php wp_footer(); ?>
-		<script src="<?php echo get_template_directory_uri();?>/assets/js/jquery.min.js"></script>
+		<!-- <script src="<?php echo get_template_directory_uri();?>/assets/js/jquery.min.js"></script> -->
 		<script src="<?php echo get_template_directory_uri();?>/assets/js/script.js"></script>
 	</body>
 </html>

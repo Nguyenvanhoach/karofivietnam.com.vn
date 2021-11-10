@@ -60,7 +60,7 @@
 							if($post_cat_child->have_posts()) {
 								$stt = 1;
 								echo '<div class="row mb-4">';
-									echo '<div class="col-12"><h2 class="article-cate-title mb-3 d-flex justify-content-between align-items-center"><a href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'" class="text-uppercase">'.$c->cat_name.'</a><a class="view-all" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'"> Xem tất cả &gt;&gt;</a></h2></div>';
+									echo '<div class="col-12"><h2 class="article-cate-title mb-3 d-flex justify-content-between align-items-center"><a href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'" class="text-uppercase font-weight-bold">'.$c->cat_name.'</a><a class="view-all" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'"> Xem tất cả &gt;&gt;</a></h2></div>';
 									while ($post_cat_child->have_posts()) { 
 										$post_cat_child->the_post(); 
 										if($stt == 1) {		
@@ -92,21 +92,7 @@
 			</div>
 			<div class="col-md-4 col-lg-3 pl-md-0">
 				<div class="bg-white p-2">
-					<div class="list-news-view mb-3">
-						<h3 class="title-right font-weight-bold text-uppercase">TIN XEM NHIỀU</h3>
-						<div class="list-item">							
-							<?php
-								$cf = new WP_Query(array('category' => $catID,'post_status' => 'publish','posts_per_page' => 10, 'meta_key' => 'post_views_count', 'orderby'=> 'meta_value_num', 'order' => 'DESC'));
-								$stt = 0;
-								while ($cf->have_posts()) : $cf->the_post();
-									echo '<a title="'. get_the_title() . '" href="'.get_permalink().'" class="item border-top media py-2">
-									<span class="no">'. $stt+1 .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
-										$stt++;
-								endwhile;
-                wp_reset_postdata();
-              ?>
-						</div>
-					</div>
+					<?php if(function_exists('newsViewMore')){newsViewMore();} ?>
 					<h3 class="title-right font-weight-bold text-uppercase">TIN XEM NHIỀU</h3>
 				</div>
 			</div>

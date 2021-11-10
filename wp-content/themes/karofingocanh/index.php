@@ -79,7 +79,6 @@ get_header();
   <div class="container text-center mb-2">
     <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/karofi_chinhanh.png" alt="" class="img-fluid d-inline-block">
   </div>
-
   <div class="product-home">
     <div class="container">
       <div class="bg-white">
@@ -87,12 +86,12 @@ get_header();
           <h2 class="text-uppercase text-center m-0 font-weight-bold title-parent d-flex align-items-center"><img loading="lazy" class="img-fluid mr-3" src="<?php echo get_template_directory_uri();?>/assets/images/christmas-bag.png" alt="">KHUYẾN MÃI CỰC SỐC KHI MUA ONLINE</h2>        
           <div class="list-hortial d-flex justify-content-center align-items-center float-right">
             <ul class="list-inline mb-0 mt-2">
-              <li class="list-inline-item active"><a class="d-block py-2 px-2 px-md-3" href="" title="Nổi bật">Nổi bật</a></li>
-              <li class="list-inline-item "><a class="d-block py-2 px-2 px-md-3" href="" title="Máy lọc nước tủ đứng">Máy lọc nước tủ đứng</a></li>
-              <li class="list-inline-item "><a class="d-block py-2 px-2 px-md-3" href="" title="Máy lọc nước không tủ để gầm">Máy lọc nước không tủ để gầm</a></li>
-              <li class="list-inline-item "><a class="d-block py-2 px-2 px-md-3" href="" title="Máy lọc nước Hydrogen Karofi">Máy lọc nước Hydrogen Karofi</a></li>
-              <li class="list-inline-item "><a class="d-block py-2 px-2 px-md-3" href="" title="Cây nước nóng lạnh Karofi">Cây nước nóng lạnh Karofi</a></li>
-              <li class="list-inline-item mr-2"><a class="d-block py-2 px-2 px-md-3" href="" title="Lõi lọc nước Karofi">Lõi lọc nước Karofi</a></li>
+              <li class="list-inline-item active"><a class="d-block py-2 px-2" href="" title="Nổi bật">Nổi bật</a></li>
+              <li class="list-inline-item "><a class="d-block py-2 px-2" href="" title="Máy lọc nước tủ đứng">Máy lọc nước tủ đứng</a></li>
+              <li class="list-inline-item "><a class="d-block py-2 px-2" href="" title="Máy lọc nước không tủ để gầm">Máy lọc nước không tủ để gầm</a></li>
+              <li class="list-inline-item "><a class="d-block py-2 px-2" href="" title="Máy lọc nước Hydrogen Karofi">Máy lọc nước Hydrogen Karofi</a></li>
+              <li class="list-inline-item "><a class="d-block py-2 px-2" href="" title="Cây nước nóng lạnh Karofi">Cây nước nóng lạnh Karofi</a></li>
+              <li class="list-inline-item mr-2"><a class="d-block py-2 px-2" href="" title="Lõi lọc nước Karofi">Lõi lọc nước Karofi</a></li>
             </ul>
           </div>
         </div>

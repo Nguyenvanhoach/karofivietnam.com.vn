@@ -14,7 +14,7 @@ setPostViews(get_the_ID());
 $catalog = get_the_category();
 $cat_slug = $catalog[0]->slug;
 $catID_now = $catalog[0]->cat_ID;
-$catID = 20;
+$catID = 1;
 ?>
 <div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
 <div class="container">
@@ -44,28 +44,15 @@ $catID = 20;
 							}
 						}
 						if(function_exists('yeucauBaoGiaForm')){yeucauBaoGiaForm();}
-						echo '<hr>';
-						if(function_exists('related_posts')){related_posts();}
+						if(function_exists('share_social')){share_social();}
+						if(function_exists('related_posts')){echo '<hr>';related_posts();}
 					?>          
         </div>
 			</div>
 			<div class="col-md-4 col-lg-3 pl-md-0">
 				<div class="bg-white p-2">
-					<div class="list-news-view mb-3">
-						<h3 class="title-right font-weight-bold text-uppercase">TIN XEM NHIỀU</h3>
-						<div class="list-item">							
-							<?php
-								$cf = new WP_Query(array('category' => $catID,'post_status' => 'publish','posts_per_page' => 10, 'meta_key' => 'post_views_count', 'orderby'=> 'meta_value_num', 'order' => 'DESC'));
-								$stt = 0;
-								while ($cf->have_posts()) : $cf->the_post();
-									echo '<a title="'. get_the_title() . '" href="'.get_permalink().'" class="item border-top media py-2">
-									<span class="no">'. $stt+1 .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
-										$stt++;
-								endwhile;
-                wp_reset_postdata();
-              ?>
-						</div>
-					</div>
+					<?php if(function_exists('newsViewMore')){newsViewMore();} ?>				
+					
 					<h3 class="title-right font-weight-bold text-uppercase">TIN XEM NHIỀU</h3>
 				</div>
 			</div>

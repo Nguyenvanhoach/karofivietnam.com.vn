@@ -1052,20 +1052,7 @@ function sdt_remove_ver_css_js( $src ) {
  return $src;
 }
 remove_action( 'wp_head', 'wp_generator' );
-function share_social() { ?>
-	<div class="action-post d-flex flex-wrap align-items-center justify-content-center my-4">
-		<div class="item-g btn-goback mr-1 mr-md-3 mb-3"><a title="Quay lại" rel="nofollow" href="javascript:window.history.back(-1);"><i class="fa fa-reply-all mr-1" aria-hidden="true"></i>Quay lại</a></div>
-        <div class="item-g print mr-1 mr-md-3 mb-3"><a title="In bài này" onclick="javascript:window.print();" rel="nofollow" href="javascript:void(0)"><i class="fa fa-print mr-1" aria-hidden="true"></i>In bài này</a></div>
-        <div class="item-g mr-1 mr-md-3 mb-3">Chia sẻ trên:</div>
-        <div class="share-social d-flex flex-wrap align-items-center justify-content-center">
-            <a class="mr-2 fb mb-3" title="Chia sẻ trên Facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a class="mr-3 mr-sm-2 instagram mb-3 rounded" title="Chia sẻ trên Instagram" href="https://www.instagram.com/?url=<?php echo urlencode(get_permalink()); ?>" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a class="mr-3 mr-sm-2 twinter mb-3 rounded" title="Chia sẻ trên Twinter" href="https://twitter.com/intent/tweet?text=<?php echo urlencode(get_the_title()); ?>+<?php echo get_permalink(); ?>" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a class="mr-3 mr-sm-2 pinterest mb-3 rounded" title="Chia sẻ trên Pinterest" href="https://www.pinterest.com/pin/create/link/?url=<?php echo urlencode(get_permalink()); ?>&media=<?php echo the_post_thumbnail_url('large'); ?>&description=<?php echo get_the_title(get_the_ID()); ?>" target="_blank"><i class="fab fa-pinterest-p"></i></a>
-            <a class="linkedin mb-3 rounded" title="Chia sẻ trên Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(get_permalink()); ?>&title=<?php echo get_the_title(get_the_ID()); ?>&source=<?php echo site_url();?>" target="_blank"><i class="fab fa-linkedin-in"></i></a>			    
-        </div>
-    </div>
-<?php }
+
 /*start crumbs*/
 $opt 						= array();
 $opt['home'] 				= '<i class="fas fa-home mr-1"></i>Trang chủ';
@@ -1835,7 +1822,7 @@ function yeucauBaoGiaForm() {
 	   }
 	   
    } ?>
-	<form action="" method="post" accept-charset="utf-8" class="form-tuvan py-3 py-md-4 px-3 px-lg-5">    
+	<form id="tuvan" action="" method="post" accept-charset="utf-8" class="form-tuvan py-3 py-md-4 px-3 px-lg-5">    
 		<h3 class="text-uppercase text-center mb-3"><i class="fa fa-headphones" aria-hidden="true"></i> Yêu cầu tư vấn</h3>                            
 		<div class="row form-group">
 			<div class="col-12"><input type="text" name="your-name" class="form-control text-center" required="" placeholder="Họ và tên *"></div>
@@ -1889,3 +1876,33 @@ function related_posts($post_page = '4') {
 	wp_reset_query(); 
 }
 
+function share_social() { ?>
+	<div class="action-post d-flex flex-wrap align-items-center justify-content-center my-4">
+		<div class="item-g btn-goback mr-1 mr-md-3 mb-3"><a title="Quay lại" rel="nofollow" href="javascript:window.history.back(-1);"><i class="fa fa-reply-all mr-1" aria-hidden="true"></i>Quay lại</a></div>
+			<div class="item-g print mr-1 mr-md-3 mb-3"><a title="In bài này" onclick="javascript:window.print();" rel="nofollow" href="javascript:void(0)"><i class="fa fa-print mr-1" aria-hidden="true"></i>In bài này</a></div>
+			<div class="item-g mr-1 mr-md-3 mb-3">Chia sẻ trên:</div>
+			<div class="share-social d-flex flex-wrap align-items-center justify-content-center">
+					<a class="mr-2 fb mb-3" title="Chia sẻ trên Facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
+					<a class="mr-3 mr-sm-2 instagram mb-3 rounded" title="Chia sẻ trên Instagram" href="https://www.instagram.com/?url=<?php echo urlencode(get_permalink()); ?>" target="_blank"><i class="fab fa-instagram"></i></a>
+					<a class="mr-3 mr-sm-2 twinter mb-3 rounded" title="Chia sẻ trên Twinter" href="https://twitter.com/intent/tweet?text=<?php echo urlencode(get_the_title()); ?>+<?php echo get_permalink(); ?>" target="_blank"><i class="fab fa-twitter"></i></a>
+					<a class="mr-3 mr-sm-2 pinterest mb-3 rounded" title="Chia sẻ trên Pinterest" href="https://www.pinterest.com/pin/create/link/?url=<?php echo urlencode(get_permalink()); ?>&media=<?php echo the_post_thumbnail_url('large'); ?>&description=<?php echo get_the_title(get_the_ID()); ?>" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+					<a class="linkedin mb-3 rounded" title="Chia sẻ trên Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(get_permalink()); ?>&title=<?php echo get_the_title(get_the_ID()); ?>&source=<?php echo site_url();?>" target="_blank"><i class="fab fa-linkedin-in"></i></a>			    
+			</div>
+	</div>
+<?php }
+function newsViewMore() {
+	$cf = new WP_Query(array('category' => $catID,'post_status' => 'publish','posts_per_page' => 10, 'meta_key' => 'post_views_count', 'orderby'=> 'meta_value_num', 'order' => 'DESC'));
+	$stt = 0;
+	$n;
+	if( $cf->have_posts() ) {
+		echo '<div class="list-news-view mb-3"><h3 class="title-right font-weight-bold text-uppercase mb-3">TIN XEM NHIỀU</h3><div class="list-item">';
+		while ($cf->have_posts()) {
+			$cf->the_post();
+			$n=$stt+1;
+			echo '<a title="'. get_the_title() . '" href="'.get_permalink().'" class="item border-top media py-2"><span class="no">'. $n .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
+			$stt++;
+		}
+		echo '</div></div>';
+	}
+	wp_reset_postdata();
+}

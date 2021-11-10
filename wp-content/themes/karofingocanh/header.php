@@ -19,7 +19,7 @@
 		<link rel="Shortcut Icon" href="<?php echo get_template_directory_uri();?>/assets/images/favicon.png" type="image/x-icon">
 		<meta name="description" content="<?php bloginfo('description'); ?>" />
 		<?php wp_head();
-			echo '<link href="'.get_template_directory_uri().'/assets/revslider/settings.css" type="text/css" rel="stylesheet" media="screen" />';
+			//echo '<link href="'.get_template_directory_uri().'/assets/revslider/settings.css" type="text/css" rel="stylesheet" media="screen" />';
 			if (is_home() || is_front_page()) {
 			echo '<meta property="og:image" content="'.get_template_directory_uri().'/assets/images/thumbnail.jpg"> ';    
 			}
@@ -84,8 +84,8 @@
 									</div>
 								</div>
 								<?php
-									if(get_option('phone_company') !='') {
-										echo '<a href="tel:'.get_option('phone_company').'" title="'.get_option('phone_company').'" class="media area-icon-top d-none d-md-flex ml-3 ml-md-5 color-3"><div class="icon-c d-flex align-items-center justify-content-center"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/hotline-top.png" class="img-fluid d-block" alt="Hotline"></div><div class="media-body ml-2 lh-18"><strong>Hotline</strong><div class="hotline font-weight-bold">'.get_option('phone_company').'</div></div></a>';
+									if(get_option('hotline') !='') {
+										echo '<a href="tel:'.get_option('hotline').'" title="'.get_option('hotline').'" class="media area-icon-top d-none d-md-flex ml-3 ml-md-5 color-3"><div class="icon-c d-flex align-items-center justify-content-center"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/hotline-top.png" class="img-fluid d-block" alt="Hotline"></div><div class="media-body ml-2 lh-18"><strong>Hotline</strong><div class="hotline font-weight-bold">'.get_option('hotline').'</div></div></a>';
 									}
 								?>
 								<div class="minicart-header position-relative ml-3 ml-md-4">
@@ -151,6 +151,48 @@
 							<!-- <div class="col-3 cus-col-3 pr-0"> -->
 							<div class="position-relative">
 								<div class="list-dm">
+									<?php 
+										$taxonomy = 'product_cat';
+										$args = array('taxonomy'     => $taxonomy,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
+										$all_categories = get_categories( $args );
+										if ( $all_categories && !is_wp_error( $all_categories ) ) {   
+											foreach ($all_categories as $cat) {
+												if($cat->category_parent == 0) {
+													$category_id = $cat->term_id;  
+													$get_children_cats = array(
+														'child_of' => $category_id //get children of this parent using the catID variable from earlier
+													);
+													$classHasChild = '';
+													if($get_children_cats) {$classHasChild = 'hasChild';} else {$classHasChild = '';} 
+													echo '<div class="item '.$classHasChild.'"><a href="'. get_term_link($cat->slug, 'product_cat') .'" title="'.$cat->name.'"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/'.$cat->slug.'.jpg" alt="'.$cat->name.'" class="cate-img"><span>'.$cat->name.'</span></a>';
+														$args2 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
+														$sub_cats = get_categories( $args2 );
+														if($sub_cats) {
+															echo '<div class="sub-menu width-1-col"><div class="list"><div class="col">';
+																foreach($sub_cats  as $key => $sub_category) { 
+																	$category_id = $sub_category->term_id; 
+																	$classSubChild = '';
+																	if($get_children_cats) {$classSubChild = 'has-submenu';} else {$classSubChild = '';}   
+																	echo '<div class="sub-menu2"><div class="item-sub">';
+																		echo '<a href="'.get_term_link($sub_category->slug, $taxonomy).'" title="'.$sub_category->name.'" class="'.$classSubChild.'">'.$sub_category->name.'</a>';
+																		$args3 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
+																		$sub_cats3 = get_categories( $args3 );
+																		if($sub_cats3) {
+																			echo '<div class="list-sub-hover">';
+																				foreach($sub_cats3  as $key => $sub_category3) { 
+																					echo '<a class="sub3" href="'.get_term_link($sub_category3->slug, $taxonomy).'" title="'.$sub_category3->name.'">'.$sub_category3->name.'</a>';
+																				}
+																			echo '</div>';
+																		} 
+																	echo '</div></div>';
+																}
+															echo '</div></div></div>';
+														} 
+													echo '</div>';
+												}
+											}
+										}
+									?>
 									<div class="item">
 										<a href=""><img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-tu-dung.jpg" alt="" class="cate-img"><span>Máy lọc nước tủ đứng</span></a>
 									</div>
@@ -160,19 +202,18 @@
 									<div class="item   ">
 										<a href=""> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-karofi-hydrogen.jpg" alt="" class="cate-img"><span>Máy lọc nước Hydrogen Karofi</span></a>
 									</div><!--item-->
-									<div class="item  hasChild   ">
+									<div class="item  hasChild">
 										<a href="/.html" id="cat6"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-thong-minh.jpg" alt="" class="cate-img"><span>Máy lọc nước thông minh</span></a>
 										<div class="sub-menu  width-1-col ">
 											<div class="list">
-												<div class="col">
-													
+												<div class="col">													
 													<div class="sub-menu2">
 														<div class="item-sub">
-														<a href="/may-loc-nuoc-karofi-iro-11.html" class="has-submenu">Máy Lọc Nước Karofi IRO 1.1</a>
-														<div class="list-sub-hover"> 
-																<a href="/may-loc-nuoc-iro-khong-tu.html" class="sub3">Máy Lọc nước IRO 1.1 không tủ</a>
-																<a href="/may-loc-nuoc-iro-tu-iq.html" class="sub3">Máy Lọc nước IRO 1.1 có tủ IQ</a>
-														</div>
+															<a href="/may-loc-nuoc-karofi-iro-11.html" class="has-submenu">Máy Lọc Nước Karofi IRO 1.1</a>
+															<div class="list-sub-hover"> 
+																	<a href="/may-loc-nuoc-iro-khong-tu.html" class="sub3">Máy Lọc nước IRO 1.1 không tủ</a>
+																	<a href="/may-loc-nuoc-iro-tu-iq.html" class="sub3">Máy Lọc nước IRO 1.1 có tủ IQ</a>
+															</div>
 														</div>
 													</div>
 													<div class="sub-menu2">

@@ -12,7 +12,7 @@
   // $cat = get_query_var( 'cat' );
   $cat_slug = $catalog->slug;
 	$catID_now = $catalog->cat_ID;
-  $catID = 20;
+  $catID = 1;
 
 ?>
 	<div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
