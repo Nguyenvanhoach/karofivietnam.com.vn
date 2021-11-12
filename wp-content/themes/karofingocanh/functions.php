@@ -1906,3 +1906,5 @@ function newsViewMore() {
 	}
 	wp_reset_postdata();
 }
+
+

@@ -81,6 +81,7 @@ $table_prefix = 'karonanh_';
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
+define( 'DISALLOW_FILE_MODS', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 

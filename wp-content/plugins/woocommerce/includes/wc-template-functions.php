@@ -1162,7 +1162,7 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 	 * Show the product title in the product loop. By default this is an H2.
 	 */
 	function woocommerce_template_loop_product_title() {
-		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<h3 class="title-product-home" ' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
 if ( ! function_exists( 'woocommerce_template_loop_category_title' ) ) {
@@ -1447,12 +1447,12 @@ if ( ! function_exists( 'woocommerce_catalog_ordering' ) ) {
 		$catalog_orderby_options = apply_filters(
 			'woocommerce_catalog_orderby',
 			array(
-				'menu_order' => __( 'Default sorting', 'woocommerce' ),
-				'popularity' => __( 'Sort by popularity', 'woocommerce' ),
-				'rating'     => __( 'Sort by average rating', 'woocommerce' ),
-				'date'       => __( 'Sort by latest', 'woocommerce' ),
-				'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
-				'price-desc' => __( 'Sort by price: high to low', 'woocommerce' ),
+				'menu_order' => __( 'Mặc định', 'woocommerce' ),
+				'popularity' => __( 'Theo mức độ phổ biến', 'woocommerce' ),
+				'rating'     => __( 'Điểm đánh giá', 'woocommerce' ),
+				'date'       => __( 'Sản phẩm mới nhất', 'woocommerce' ),
+				'price'      => __( 'Giá tăng dần', 'woocommerce' ),
+				'price-desc' => __( 'Giá giảm dần', 'woocommerce' ),
 			)
 		);
 
@@ -2268,11 +2268,11 @@ if ( ! function_exists( 'woocommerce_breadcrumb' ) ) {
 				'woocommerce_breadcrumb_defaults',
 				array(
 					'delimiter'   => '&nbsp;&#47;&nbsp;',
-					'wrap_before' => '<nav class="woocommerce-breadcrumb">',
-					'wrap_after'  => '</nav>',
+					'wrap_before' => '<div class="container"><nav class="woocommerce-breadcrumb my-3">',
+					'wrap_after'  => '</nav></div>',
 					'before'      => '',
 					'after'       => '',
-					'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+					'home'        => _x( 'Trang chủ', 'breadcrumb', 'woocommerce' ),
 				)
 			)
 		);

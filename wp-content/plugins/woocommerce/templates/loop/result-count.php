@@ -21,19 +21,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<p class="woocommerce-result-count">
+<div class="d-flex align-items-center px-3 mb-3 justify-content-between">
+<p class="woocommerce-result-count mb-md-0 pr-md-3">
 	<?php
 	// phpcs:disable WordPress.Security
 	if ( 1 === intval( $total ) ) {
 		_e( 'Showing the single result', 'woocommerce' );
 	} elseif ( $total <= $per_page || -1 === $per_page ) {
 		/* translators: %d: total results */
-		printf( _n( 'Showing all %d result', 'Showing all %d results', $total, 'woocommerce' ), $total );
+		printf( _n( 'Showing all %d result', 'Hiển thị tất cả %d sản phẩm', $total, 'woocommerce' ), $total );
 	} else {
 		$first = ( $per_page * $current ) - $per_page + 1;
 		$last  = min( $total, $per_page * $current );
 		/* translators: 1: first result 2: last result 3: total results */
-		printf( _nx( 'Showing %1$d&ndash;%2$d of %3$d result', 'Showing %1$d&ndash;%2$d of %3$d results', $total, 'with first and last result', 'woocommerce' ), $first, $last, $total );
+		printf( _nx( 'Showing %1$d&ndash;%2$d of %3$d result', 'Hiển thị %1$d&ndash;%2$d của %3$d sản phẩm', $total, 'with first and last result', 'woocommerce' ), $first, $last, $total );
 	}
 	// phpcs:enable WordPress.Security
 	?>

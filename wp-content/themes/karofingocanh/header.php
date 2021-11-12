@@ -159,216 +159,39 @@
 											foreach ($all_categories as $cat) {
 												if($cat->category_parent == 0) {
 													$category_id = $cat->term_id;  
-													$get_children_cats = array(
-														'child_of' => $category_id //get children of this parent using the catID variable from earlier
-													);
-													$classHasChild = '';
-													if($get_children_cats) {$classHasChild = 'hasChild';} else {$classHasChild = '';} 
-													echo '<div class="item '.$classHasChild.'"><a href="'. get_term_link($cat->slug, 'product_cat') .'" title="'.$cat->name.'"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/'.$cat->slug.'.jpg" alt="'.$cat->name.'" class="cate-img"><span>'.$cat->name.'</span></a>';
-														$args2 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
-														$sub_cats = get_categories( $args2 );
-														if($sub_cats) {
+													$args2 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
+													$sub_cats = get_categories( $args2 );
+													if($sub_cats) {
+														echo '<div class="item hasChild"><a href="'. get_term_link($cat->slug, 'product_cat') .'" title="'.$cat->name.'"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/'.$cat->slug.'.jpg" alt="'.$cat->name.'" class="cate-img"><span>'.$cat->name.'</span></a>';
 															echo '<div class="sub-menu width-1-col"><div class="list"><div class="col">';
 																foreach($sub_cats  as $key => $sub_category) { 
 																	$category_id = $sub_category->term_id; 
-																	$classSubChild = '';
-																	if($get_children_cats) {$classSubChild = 'has-submenu';} else {$classSubChild = '';}   
 																	echo '<div class="sub-menu2"><div class="item-sub">';
-																		echo '<a href="'.get_term_link($sub_category->slug, $taxonomy).'" title="'.$sub_category->name.'" class="'.$classSubChild.'">'.$sub_category->name.'</a>';
 																		$args3 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
 																		$sub_cats3 = get_categories( $args3 );
 																		if($sub_cats3) {
+																			echo '<a href="'.get_term_link($sub_category->slug, $taxonomy).'" title="'.$sub_category->name.'" class="has-submenu">'.$sub_category->name.'</a>';
 																			echo '<div class="list-sub-hover">';
 																				foreach($sub_cats3  as $key => $sub_category3) { 
 																					echo '<a class="sub3" href="'.get_term_link($sub_category3->slug, $taxonomy).'" title="'.$sub_category3->name.'">'.$sub_category3->name.'</a>';
 																				}
 																			echo '</div>';
+																		} else {
+																			echo '<a href="'.get_term_link($sub_category->slug, $taxonomy).'" title="'.$sub_category->name.'">'.$sub_category->name.'</a>';
 																		} 
 																	echo '</div></div>';
 																}
 															echo '</div></div></div>';
-														} 
-													echo '</div>';
+														echo '</div>';
+													} else {
+														echo '<div class="item"><a href="'. get_term_link($cat->slug, 'product_cat') .'" title="'.$cat->name.'"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/'.$cat->slug.'.jpg" alt="'.$cat->name.'" class="cate-img"><span>'.$cat->name.'</span></a></div>';
+													}
 												}
 											}
 										}
 									?>
-									<div class="item">
-										<a href=""><img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-tu-dung.jpg" alt="" class="cate-img"><span>Máy lọc nước tủ đứng</span></a>
-									</div>
-									<div class="item">
-										<a href=""> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-khong-tu-de-gam.jpg" alt="" class="cate-img"><span>Máy lọc nước không tủ để gầm</span></a>
-									</div><!--item-->
-									<div class="item   ">
-										<a href=""> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-karofi-hydrogen.jpg" alt="" class="cate-img"><span>Máy lọc nước Hydrogen Karofi</span></a>
-									</div><!--item-->
-									<div class="item  hasChild">
-										<a href="/.html" id="cat6"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-thong-minh.jpg" alt="" class="cate-img"><span>Máy lọc nước thông minh</span></a>
-										<div class="sub-menu  width-1-col ">
-											<div class="list">
-												<div class="col">													
-													<div class="sub-menu2">
-														<div class="item-sub">
-															<a href="/may-loc-nuoc-karofi-iro-11.html" class="has-submenu">Máy Lọc Nước Karofi IRO 1.1</a>
-															<div class="list-sub-hover"> 
-																	<a href="/may-loc-nuoc-iro-khong-tu.html" class="sub3">Máy Lọc nước IRO 1.1 không tủ</a>
-																	<a href="/may-loc-nuoc-iro-tu-iq.html" class="sub3">Máy Lọc nước IRO 1.1 có tủ IQ</a>
-															</div>
-														</div>
-													</div>
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-karofi-iro-20.html">Máy Lọc Nước Karofi IRO 2.0</a>
-														
-														</div>
-													</div>
-													
-												</div>
-											</div><!--list-->
-										</div><!--sub-menu-->
-									</div><!--item-->
-									<div class="item  hasChild   ">
-										<a href="/.html" id="cat24"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/cay-nuoc-nong-lanh-karofi.jpg" alt="" class="cate-img"><span>Cây nước nóng lạnh Karofi</span></a>
-										<div class="sub-menu  width-1-col ">
-											<div class="list">
-												<div class="col">
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-nong-lanh.html">Máy lọc nước nóng lạnh</a>
-														
-														</div>
-													</div>
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/cay-nuoc-nong-lanh-hut-binh.html">Cây nước nóng lạnh hút bình</a>
-														
-														</div>
-													</div>
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/cay-nuoc-nong-lanh-up-binh.html">Cây nước nóng lạnh úp bình</a>
-														
-														</div>
-													</div>
-													
-												</div>
-											</div><!--list-->
-										</div><!--sub-menu-->
-									</div><!--item-->
-									<div class="item  hasChild   ">
-										<a href="/.html" id="cat18"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-cong-suat-lon.jpg" alt="" class="cate-img"><span>Máy lọc công suất lớn</span></a>
-										<div class="sub-menu  width-1-col ">
-											<div class="list">
-												<div class="col">
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-ban-cong-nghiep.html">Máy lọc nước bán công nghiệp</a>
-														</div>
-													</div>
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-cong-nghiep.html">Máy lọc nước công nghiệp</a>
-														</div>
-													</div>
-												</div>
-											</div><!--list-->
-										</div><!--sub-menu-->
-									</div><!--item-->
-									<div class="item  hasChild   ">
-										<a href="/.html" id="cat21"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/phu-kien-may-loc-nuoc.jpg" alt="" class="cate-img"><span>Phụ kiện máy lọc nước</span></a>
-										<div class="sub-menu  width-1-col ">
-											<div class="list">
-												<div class="col">
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/loi-loc-karofi.html">Lõi lọc nước Karofi</a>
-														</div>
-													</div>
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/linh-kien-phu-kien.html">Linh kiện - Phụ kiện</a>
-														</div>
-													</div>
-												</div>
-											</div><!--list-->
-										</div><!--sub-menu-->
-									</div><!--item-->
-									<div class="item   ">
-										<a href="/.html" id="cat23"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-khong-khi-karofi.jpg" alt="" class="cate-img"><span>Máy lọc không khí Karofi</span></a>
-									</div><!--item-->
-									<div class="item   ">
-										<a href="/.html" id="cat28"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/cay-nuoc-nong-lanh-korihome.jpg" alt="" class="cate-img"><span>Cây nước nóng lạnh Korihome</span></a>
-									</div><!--item-->
-									<div class="item   ">
-										<a href="/.html" id="cat17"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-korihome.jpg" alt="" class="cate-img"><span>Máy Lọc Nước KoriHome</span></a>
-									</div><!--item-->
-									<div class="item  hasChild ">
-										<a href="/.html" id="cat11"> <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/may-loc-nuoc-karofi-optimus.jpg" alt="" class="cate-img"><span>Máy lọc nước Karofi Optimus</span></a>
-										<div class="sub-menu width-1-col">
-											<div class="list">
-												<div class="col">                    
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-optimus-i1.html">Máy Lọc Nước Optimus I1</a>
-														
-														</div>
-													</div>
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-optimus-i2.html">Máy Lọc Nước Optimus I2</a>
-														
-														</div>
-													</div>
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-optimus-s1.html">Máy Lọc Nước Optimus S1</a>
-														
-														</div>
-													</div>
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/may-loc-nuoc-optimus-plus.html">Máy lọc nước Optimus PLUS</a>
-														
-														</div>
-													</div>
-													
-												</div>
-											</div><!--list-->
-										</div><!--sub-menu-->
-									</div><!--item-->
-									<div class="item  hasChild   ">
-										<a href="/.html" id="cat39"> <img src="<?php echo get_template_directory_uri();?>/assets/images/quat-dieu-hoa-thong-minh.jpg" alt="" class="cate-img"><span>Quạt &amp; Quạt điều hòa</span></a>
-										<div class="sub-menu  width-1-col ">
-											<div class="list">
-												<div class="col">
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/quat-cay-thong-minh.html">Quạt Cây thông minh</a>
-														
-														</div>
-													</div>
-													
-													<div class="sub-menu2">
-														<div class="item-sub">
-														<a href="/quat-dieu-hoa-karofi.html">Quạt điều hòa Karofi</a>
-														
-														</div>
-													</div>
-													
-												</div>
-											</div><!--list-->
-										</div><!--sub-menu-->
-									</div><!--item-->
 								</div>
-							</div>
-			
+							</div>			
 						</div>
 						<div class="col px-1">
 							<div id="nav-right" class="d-flex align-items-center justify-content-between">
