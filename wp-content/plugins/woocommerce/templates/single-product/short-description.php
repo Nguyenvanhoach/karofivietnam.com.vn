@@ -28,6 +28,9 @@ if ( ! $short_description ) {
 }
 
 ?>
-<div class="woocommerce-product-details__short-description">
-	<?php echo $short_description; // WPCS: XSS ok. ?>
+<div class="special-offer border rounded mb-3">
+	<div class="title"><i class="fas fa-gift"></i> &nbsp; Khuyến mãi khi mua ONLINE hoặc gọi 0936.275.345</div>
+	<div class="woocommerce-product-details__short-description">
+		<?php echo $short_description; // WPCS: XSS ok. ?>
+	</div>
 </div>

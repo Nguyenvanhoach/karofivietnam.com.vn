@@ -67,7 +67,7 @@
 								<h4 class="mb-3">Hỗ trợ khách hàng</h4>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-bao-hanh">Chính sách bảo hành</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-giao-hang">Chính sách giao hàng</a>
-								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-doi-tra">Chính sách đổi trả hàng</a>
+								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-doi-tra-hang">Chính sách đổi trả hàng</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-bao-mat">Chính sách bảo mật</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/phuong-thuc-thanh-toan">Phương thức thanh toán</a>
 							</div>

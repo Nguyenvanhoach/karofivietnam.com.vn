@@ -19,8 +19,7 @@ get_header();
 
 <main id="site-content" role="main">
 	<div class="container wrap-banner mb-3">
-		<div class="row justify-content-end">
-			
+		<div class="row justify-content-end">			
 			<div class="col-6 px-1 cus-col-6">
         <div class="banner-home mt-2">
           <div class="slider slider-for">
@@ -55,17 +54,24 @@ get_header();
         <div class="news-home mt-2">
           <div class="bg-white">
             <h3 class="text-uppercase m-0 px-2 py-2"><i class="far fa-newspaper"></i> Tin tức nổi bật</h3>
-            <ul class="m-0 list-unstyled">
-              <li class="px-2 py-2">
-                <a class="d-block" href="" title="">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</a>
-              </li>
-              <li class="px-2 py-2">
-                <a class="d-block" href="/dich-vu-sua-chua-may-loc-nuoc-karofi-tai-nha.html">Dịch Vụ Sửa Máy Lọc Nước Karofi Tại Nhà Hà Nội Uy Tín Số 1</a>
-              </li>
-              <li class="px-2 py-2">
-                <a class="d-block" href="/thang-7-am-tro-gia-sap-san-cung-hang-ngan-qua-tang-khi-mua-online.html">Tháng 7 âm TRỢ GIÁ SẬP SÀN cùng hàng ngàn QUÀ TẶNG khi mua online </a>
-              </li>
-            </ul>
+            <?php 
+              $catID = 1;
+              $tin_tuc = new WP_Query(array(
+                'cat' => $catID,
+                'post_status' => 'publish',
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'posts_per_page' => '3', 
+              ));
+              if($tin_tuc->have_posts()) {
+                echo '<ul class="m-0 list-unstyled">';
+                  while ($tin_tuc->have_posts()) { 
+                    $tin_tuc->the_post(); 
+                    echo '<li class="px-2 py-2"><a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="d-block">' . get_the_title() .'</a></li>';
+                  }
+                echo '</ul>';
+              }
+            ?>         
           </div>
           <div class="promo-home">
             <a href="" title="" class="mt-1 d-block"><img src="<?php echo get_template_directory_uri();?>/assets/images/km_1.jpg" alt="" class="img-fluid w-100" loading="lazy"></a>
@@ -97,86 +103,27 @@ get_header();
         </div>
         <div class="product-list clearfix">
           <div class="row mx-0">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://karofivietnam.com.vn/media/product/225_d66_kms.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>           
-
-          </div>    
+            <?php
+              $tax_featured[] = array(
+                'taxonomy' => 'product_visibility',
+                'field'    => 'name',
+                'terms'    => 'featured',
+                'operator' => 'IN',
+              );
+            $args_featured = array( 'post_type' => 'product','posts_per_page' => 20,'ignore_sticky_posts' => 1, 'tax_query' => $tax_featured);
+            $getposts = new WP_query( $args_featured);
+            global $wp_query; $wp_query->in_the_loop = true;
+            while ($getposts->have_posts()) : $getposts->the_post();
+              global $product; 
+              echo '<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3"><div class="item"><a class="d-block img-cat position-relative" href="'.get_the_permalink().'" title="'.get_the_title().'">
+                '.get_the_post_thumbnail(get_the_ID(), 'thumnail', array( 'class' =>'img-fluid', 'loading' => 'lazy') ).'
+                  '. apply_filters( 'woocommerce_sale_flash', '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>', $post, $product ).'</a>
+                <a class="d-block" href="'.get_the_permalink().'" title="'.get_the_title().'"><h3 class="title-product-home">'.get_the_title().'</h3></a>
+                <div class="wrap-price">'. $product->get_price_html().'</div>
+                <div class="txt-promo">'.get_ecommerce_excerpt().'</div>
+              </div></div>';              
+            endwhile; wp_reset_postdata(); ?>
+          </div>
         </div>
       </div>
       <div class="text-center"><a href="/san-pham-xa-hang" class="btn-viewmore text-center px-3 py-2 my-3">Xem thêm sản phẩm giá sốc <i class="fa fa-caret-down"></i> </a></div>    
@@ -270,158 +217,103 @@ get_header();
         </div>
       </div>
     </div>
-    <div class="container mb-3">
-      <div class="bg-white">
-        <div class="prod-view wrap-title clearfix">
-          <h2 class="text-uppercase text-center m-0 font-weight-bold title-parent d-flex align-items-center py-2">Sản phẩm đã xem</h2>        
-        </div>
-        <div class="product-list clearfix">
-          <div class="row mx-0">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://karofivietnam.com.vn/media/product/225_d66_kms.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-              <div class="item">
-                <a class="d-block img-cat position-relative" href="" title="">
-                  <img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-                  <span class="onsale">- 13%</span>
-                </a>
-                <a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-                  <h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-                </a>
-                <div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-                <div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-              </div>
-            </div>          
-          </div>    
-        </div>
-      </div>
-    </div>
+    <?php echo productViewHome(); ?>
   </div>
   <div class="list-news-home mb-3">
     <div class="container">
       <div class="bg-white px-3 pt-3">
         <div class="row">
-          <div class="col-md-3 col-lg-2">
-            <div class="nav flex-md-column nav-pills" id="list-news-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link text-center text-uppercase mb-3 active" id="tin-tuc-tab" data-toggle="pill" href="#tin-tuc" role="tab" aria-controls="tin-tuc" aria-selected="true">Tin tức</a>
-              <a class="nav-link text-center text-uppercase mb-3" id="sua-may-loc-nuoc-tab" data-toggle="pill" href="#sua-may-loc-nuoc" role="tab" aria-controls="sua-may-loc-nuoc" aria-selected="false">Sửa máy lọc nước</a>
-              <a class="nav-link text-center text-uppercase mb-3" id="thay-loi-loc-nuoc-tab" data-toggle="pill" href="#thay-loi-loc-nuoc" role="tab" aria-controls="thay-loi-loc-nuoc" aria-selected="false">Thay lõi lọc nước</a>
-              <a class="nav-link text-center text-uppercase mb-3" id="tu-van-tab" data-toggle="pill" href="#tu-van" role="tab" aria-controls="tu-van" aria-selected="false">Tư vấn</a>
-              <a class="nav-link text-center text-uppercase mb-3" id="uu-dai-kmai-tab" data-toggle="pill" href="#uu-dai-kmai" role="tab" aria-controls="uu-dai-kmai" aria-selected="false">Ưu đãi khuyến mãi</a>
-            </div>
-          </div>
-          <div class="col-md-9 col-lg-10">
-            <div class="tab-content" id="list-news-tabContent">
-              <div class="tab-pane fade show active" id="tin-tuc" role="tabpanel" aria-labelledby="tin-tuc-tab">
-                <div class="row">
-                  <div class="col-md-7 px-md-0">
-                    <a href="" title="" class="position-relative first-news d-block mb-3">
-                      <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_1.jpg" alt="" class="img-fluid">
-                      <div class="info p-3"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
-                      <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
-                    </a>
+          <?php
+            $catID = 1;
+            $cat_child=get_categories(array( 'parent' => $catID )	);
+            if(count($cat_child) > 0){
+              echo '<div class="col-md-3 col-lg-2"><div class="nav flex-md-column nav-pills" id="list-news-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link text-center text-uppercase mb-3 active" id="tin-tuc-tab" data-toggle="pill" href="#tin-tuc" role="tab" aria-controls="tin-tuc" aria-selected="true">Tin tức</a>';
+              foreach ($cat_child as $c) {
+                $catID = $c->cat_ID;
+                echo '<a class="nav-link text-center text-uppercase mb-3" id="'.$c->slug.'-tab" data-toggle="pill" href="#'.$c->slug.'" role="tab" aria-controls="'.$c->slug.'" aria-selected="false">'.$c->cat_name.'</a>';
+              }
+              echo '</div></div>';
+              echo '<div class="col-md-9 col-lg-10">
+              <div class="tab-content" id="list-news-tabContent">
+                <div class="tab-pane fade show active" id="tin-tuc" role="tabpanel" aria-labelledby="tin-tuc-tab">
+                  <div class="row">
+                    <div class="col-md-7 px-md-0">
+                      <a href="" title="" class="position-relative first-news d-block mb-3">
+                        <img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_1.jpg" alt="" class="img-fluid">
+                        <div class="info p-3"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
+                        <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
+                      </a>
+                    </div>
+                    <div class="col-md-5">
+                      <a href="" title="" class="media mb-3">
+                        <div class="img-news-small mr-2"><div class="img-inner-small"><img class="img-fluid" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt=""></div></div>
+                        <div class="media-body">
+                          <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
+                          <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
+                        </div>
+                      </a>
+                      <a href="" title="" class="media mb-3">
+                        <img class="img-fluid mr-2 img-news-small" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt="">
+                        <div class="media-body">
+                          <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
+                          <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
+                        </div>
+                      </a>
+                      <a href="" title="" class="media mb-3">
+                        <img class="img-fluid mr-2 img-news-small" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt="">
+                        <div class="media-body">
+                          <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
+                          <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
+                        </div>
+                      </a>
+                      <a href="" title="" class="media mb-3">
+                        <img class="img-fluid mr-2 img-news-small" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt="">
+                        <div class="media-body">
+                          <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
+                          <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
+                        </div>
+                      </a>
+                    </div>
                   </div>
-                  <div class="col-md-5">
-                    <a href="" title="" class="media mb-3">
-                      <div class="img-news-small mr-2"><div class="img-inner-small"><img class="img-fluid" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt=""></div></div>
-                      <div class="media-body">
-                        <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
-                        <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
-                      </div>
-                    </a>
-                    <a href="" title="" class="media mb-3">
-                      <img class="img-fluid mr-2 img-news-small" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt="">
-                      <div class="media-body">
-                        <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
-                        <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
-                      </div>
-                    </a>
-                    <a href="" title="" class="media mb-3">
-                      <img class="img-fluid mr-2 img-news-small" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt="">
-                      <div class="media-body">
-                        <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
-                        <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
-                      </div>
-                    </a>
-                    <a href="" title="" class="media mb-3">
-                      <img class="img-fluid mr-2 img-news-small" loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/tin_tuc_2.jpg" alt="">
-                      <div class="media-body">
-                        <div class="info"><div class="title-article text-14 mb-2">Dịch Vụ Thay Lõi Lọc Nước Karofi Tại Nhà Uy Tín Chất Lượng Số 1 Hà Nội</div>
-                        <div class="time-article"><i class="fas fa-clock"></i> 19-07-2021, 2:44 pm</div></div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="sua-may-loc-nuoc" role="tabpanel" aria-labelledby="sua-may-loc-nuoc-tab">..2.</div>
-              <div class="tab-pane fade" id="thay-loi-loc-nuoc" role="tabpanel" aria-labelledby="thay-loi-loc-nuoc-tab">.3..</div>
-              <div class="tab-pane fade" id="tu-van" role="tabpanel" aria-labelledby="tu-van-tab">.4..</div>
-              <div class="tab-pane fade" id="uu-dai-kmai" role="tabpanel" aria-labelledby="uu-dai-kmai-tab">.4..</div>
-            </div>
-          </div>          
+                </div>';
+              foreach ($cat_child as $childItem) {
+                $catID = $childItem->cat_ID;
+                
+                echo '<div class="tab-pane fade" id="'.$childItem->slug.'" role="tabpanel" aria-labelledby="'.$childItem->slug.'-tab"><div class="row">';
+                  $post_cat_child = new WP_Query(array(
+                    'category' => $catID,
+                    'post_status' => 'publish',
+                    'orderby' => 'date',
+                    'order' => 'DESC',
+                    'posts_per_page' => '5', 
+                  ));
+                  if($post_cat_child->have_posts()) {
+                    $stt = 1;                      
+                    while ($post_cat_child->have_posts()) { 
+                      $post_cat_child->the_post(); 
+                      if($stt == 1) {	
+                        echo '<div class="col-md-7 px-md-0"><a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="position-relative first-news d-block mb-3">'. get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' => 'img-fluid','loading' => 'lazy', 'alt' => get_the_title() )) .'
+                            <div class="info p-3"><div class="title-article text-14 mb-2">' . get_the_title() .'</div>
+                            <div class="time-article"><i class="fas fa-clock"></i> '.get_the_time('d-m-Y, g:i a').'</div></div>
+                          </a>
+                        </div>';                          
+                      } else {
+                        if($stt == 2) {
+                          echo '<div class="col-md-5">';
+                        } else {
+                          echo '<a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="media mb-3"><div class="img-news-small mr-2"><div class="img-inner-small">'. get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' => 'img-fluid','loading' => 'lazy', 'alt' => get_the_title() )) .'</div></div>                          <div class="media-body"><div class="info"><div class="title-article text-14 mb-2">' . get_the_title() .'</div><div class="time-article"><i class="fas fa-clock"></i> '.get_the_time('d-m-Y, g:i a').'</div></div></div></a>';
+                        }
+                      }
+                      $stt++;			
+                    }
+                    echo '</div></div></div>';                    
+                  }
+                echo '</div></div>';
+              }
+              echo '</div></div>';
+            }
+          ?>      
         </div>
       </div>
     </div>

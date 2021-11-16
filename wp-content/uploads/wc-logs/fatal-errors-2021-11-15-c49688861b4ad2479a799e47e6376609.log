@@ -1,0 +1,10 @@
+2021-11-15T04:52:29+00:00 CRITICAL Unclosed '{' on line 1938 in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 1955
+
+2021-11-15T04:56:14+00:00 CRITICAL Unmatched '}' in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 1954
+
+2021-11-15T08:08:59+00:00 CRITICAL syntax error, unexpected token "?" in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\content-single-product.php on line 76
+
+2021-11-15T09:01:20+00:00 CRITICAL syntax error, unexpected identifier "GIÁ" in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product-reviews.php on line 31
+
+2021-11-15T09:01:33+00:00 CRITICAL syntax error, unexpected identifier "GIÁ" in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product-reviews.php on line 31
+

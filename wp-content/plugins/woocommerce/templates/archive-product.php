@@ -104,7 +104,10 @@ $cat_obj = $wp_query->get_queried_object();
 				?>
 		</div>
 		<div class="col-lg-3 d-none d-lg-block">
-			<div class="bg-white p-2 h-100"><?php do_action( 'woocommerce_sidebar' );?></div>
+			<div class="bg-white p-2 h-100">
+				<?php //dynamic_sidebar( 'sidebar-1' ); ?>
+				<?php do_action( 'woocommerce_sidebar' ); ?>
+			</div>
 		</div>
 	</div>
 	<div class="bg-white px-3 py-3 mt-2 border">

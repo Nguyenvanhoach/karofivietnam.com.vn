@@ -1,0 +1,57 @@
+2021-11-16T04:21:25+00:00 CRITICAL syntax error, unexpected identifier "wp_kses_post", expecting ":" in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product\price.php on line 76
+
+2021-11-16T07:47:35+00:00 CRITICAL Uncaught Error: Object of class WP_Query could not be converted to string in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\content-single-product.php:154
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\template.php(772): require()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\includes\wc-core-functions.php(284): load_template('G:\\Pxamp\\karofi...', false)
+#2 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product.php(37): wc_get_template_part('content', 'single-product')
+#3 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#4 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#5 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#6 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\content-single-product.php on line 154
+
+2021-11-16T08:24:52+00:00 CRITICAL syntax error, unexpected token "if", expecting "," or ";" in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product\product-image.php on line 52
+
+2021-11-16T08:40:18+00:00 CRITICAL Uncaught TypeError: count(): Argument #1 ($var) must be of type Countable|array, null given in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product\product-image.php:42
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1529): wc_get_template('single-product/...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-includes\class-wp-hook.php(303): woocommerce_show_product_images('')
+#3 G:\Pxamp\karofivietnam.com.vn\wp-includes\class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 G:\Pxamp\karofivietnam.com.vn\wp-includes\plugin.php(470): WP_Hook->do_action(Array)
+#5 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\content-single-product.php(45): do_action('woocommerce_bef...')
+#6 G:\Pxamp\karofivietnam.com.vn\wp-includes\template.php(772): require('G:\\Pxamp\\karofi...')
+#7 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\includes\wc-core-functions.php(284): load_template('G:\\Pxamp\\karofi...', false)
+#8 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product.php(37): wc_get_template_part('content', 'single-product')
+#9 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#10 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#11 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#12 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\single-product\product-image.php on line 42
+
+2021-11-16T14:33:28+00:00 CRITICAL Uncaught Error: Call to a member function get_price_html() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php:119
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#3 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php on line 119
+
+2021-11-16T14:34:04+00:00 CRITICAL Uncaught Error: Call to a member function get_price_html() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php:118
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#3 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php on line 118
+
+2021-11-16T14:49:29+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function add_percentage_to_sale_badge(), 0 passed in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php on line 121 and exactly 3 expected in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:911
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(121): add_percentage_to_sale_badge()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 911
+

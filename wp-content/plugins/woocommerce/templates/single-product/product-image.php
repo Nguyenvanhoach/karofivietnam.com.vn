@@ -35,21 +35,53 @@ $wrapper_classes   = apply_filters(
 		'images',
 	)
 );
-?>
-<div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
-	<figure class="woocommerce-product-gallery__wrapper">
-		<?php
-		if ( $post_thumbnail_id ) {
+global $product;
+$gallery_thumbnail_id = $product->get_gallery_image_ids();
+
+if ( $post_thumbnail_id ) {
+	if( count($gallery_thumbnail_id) == 0 ){
+		echo '<div class="single-img">';
 			$html = wc_get_gallery_image_html( $post_thumbnail_id, true );
-		} else {
-			$html  = '<div class="woocommerce-product-gallery__image--placeholder">';
-			$html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
-			$html .= '</div>';
-		}
+			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); 
 
-		echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
-
-		do_action( 'woocommerce_product_thumbnails' );
+			do_action( 'woocommerce_product_thumbnails' );
+		echo "</div>";
 		?>
-	</figure>
-</div>
+		
+	<?php } else { ?>
+		<div class="gallary-product <?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;"> 
+			<div class="slider-for mb-2"><?php do_action( 'woocommerce_product_thumbnails' ); ?></div>
+			<div class="slider-nav"><?php do_action( 'woocommerce_product_thumbnails' ); ?></div>
+		</div>
+	<?php
+	}
+} else {
+	$html  = '<div class="woocommerce-product-gallery__image--placeholder">';
+	$html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image img-fluid" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
+	$html .= '</div>';
+	echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+}
+
+$product_tskthuat = get_post_meta( $product->get_id(), '_bhww_tskthuat_wysiwyg', true );
+if ( ! empty( $product_tskthuat ) ) {
+	echo'<div data-toggle="modal" data-target="#tsokthuat" class="text-12 text-center cursor-pointer"><i class="fa fa-info-circle" aria-hidden="true"></i><br>Xem thông<br>số kỹ thuật</div>';
+	echo '<div class="clearfix"></div>';
+	// Modal
+	echo '<div class="modal fade modal-general" id="tsokthuat" tabindex="-1" role="dialog" aria-labelledby="tsokthuatTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="modal-title pb-2 font-weight-bold">Thông số kỹ thuật</div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">';
+					// Updated to apply the_content filter to WYSIWYG content
+					echo apply_filters( 'the_content', $product_tskthuat );
+				echo '</div>
+			</div>
+		</div>
+	</div>';
+}
+?>

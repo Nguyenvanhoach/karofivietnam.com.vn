@@ -786,7 +786,87 @@ function twentytwenty_get_elements_array() {
 	 */
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+//tạo field tring product
+function woo_add_custom_general_fields() {
+  
+  global $woocommerce, $post;
+   
+  echo '<div class="options_group">';   
+  	woocommerce_wp_text_input( 
+			array( 
+					'id'          => 'baohanh', 
+					'label'       => __( 'Bảo Hành:', 'woocommerce' ), 
+					'placeholder' => 'Nhập thời gian bảo hành',
+					'desc_tip'    => '',
+					'description' => __( 'Nhập thời gian bảo hành', 'woocommerce' ) 
+			)
+		);   
+  echo '</div>';
+	echo '<div class="options_group">';   
+		woocommerce_wp_select( 
+			array( 
+					'id'      => 'kieudang', 
+					'label'   => __( 'Kiểu dáng:', 'woocommerce' ), 
+					'options' => array(
+							'Không tủ'   => __( 'Không tủ', 'woocommerce' ),
+							'Có tủ'   => __( 'Có tủ', 'woocommerce' ),
+							'4 cấp lọc' => __( '4 cấp lọc', 'woocommerce' ),
+							'5 cấp lọc' => __( '5 cấp lọc', 'woocommerce' )							
+							)
+					)
+			);
+	echo '</div>';
+     
+}
+add_action( 'woocommerce_product_options_general_product_data', 'woo_add_custom_general_fields' );
 
+add_action( 'woocommerce_process_product_meta', 'woo_add_custom_general_fields_save' );
+function woo_add_custom_general_fields_save( $post_id ){
+    // Text Field
+    $woocommerce_text_field = $_POST['baohanh'];
+    if( !empty( $woocommerce_text_field ) )
+        update_post_meta( $post_id, 'baohanh', esc_attr( $woocommerce_text_field ) );
+		// Select
+    $woocommerce_select = $_POST['kieudang'];
+    if( !empty( $woocommerce_select ) )
+        update_post_meta( $post_id, 'kieudang', esc_attr( $woocommerce_select ) );
+}
+
+//Set cookies
+function giniit_track_product_view() {
+	if ( ! is_singular( 'product' ) ) {
+		return;
+	}
+	global $post;
+
+	if ( empty( $_COOKIE['woocommerce_recently_viewed'] ) )
+		$viewed_products = array();
+	else
+		$viewed_products = (array) explode( '|', $_COOKIE['woocommerce_recently_viewed'] );
+
+	if ( ! in_array( $post->ID, $viewed_products ) ) {
+		$viewed_products[] = $post->ID;
+	}
+
+	if ( sizeof( $viewed_products ) > 15 ) {
+		array_shift( $viewed_products );
+	}
+
+	wc_setcookie( 'woocommerce_recently_viewed', implode( '|', $viewed_products ) );
+}
+
+add_action( 'template_redirect', 'giniit_track_product_view', 20 );
+
+function get_ecommerce_excerpt(){
+	$excerpt = get_the_excerpt();
+	$excerpt = preg_replace(" ([.*?])",'',$excerpt);
+	$excerpt = strip_shortcodes($excerpt);
+	$excerpt = strip_tags($excerpt);
+	$excerpt = substr($excerpt, 0, 80);
+	$excerpt = substr($excerpt, 0, strripos($excerpt, " "));
+	$excerpt = trim(preg_replace( '/s+/', ' ', $excerpt));
+	return $excerpt;
+	}
 /**Remove script woocommerce*/
 add_action( 'wp_enqueue_scripts', 'grd_woocommerce_script_cleaner', 99 );
 function grd_woocommerce_script_cleaner() {
@@ -829,28 +909,28 @@ add_theme_support('woocommerce');
 
 add_filter( 'woocommerce_sale_flash', 'add_percentage_to_sale_badge', 20, 3 );
 function add_percentage_to_sale_badge( $html, $post, $product ) {
-    if( $product->is_type('variable')){
-        $percentages = array();
+	if( $product->is_type('variable')){
+			$percentages = array();
 
-        // Get all variation prices
-        $prices = $product->get_variation_prices();
+			// Get all variation prices
+			$prices = $product->get_variation_prices();
 
-        // Loop through variation prices
-        foreach( $prices['price'] as $key => $price ){
-            // Only on sale variations
-            if( $prices['regular_price'][$key] !== $price ){
-                // Calculate and set in the array the percentage for each variation on sale
-                $percentages[] = round(100 - ($prices['sale_price'][$key] / $prices['regular_price'][$key] * 100));
-            }
-        }
-        $percentage = max($percentages) . '%';
-    } else {
-        $regular_price = (float) $product->get_regular_price();
-        $sale_price    = (float) $product->get_sale_price();
+			// Loop through variation prices
+			foreach( $prices['price'] as $key => $price ){
+					// Only on sale variations
+					if( $prices['regular_price'][$key] !== $price ){
+							// Calculate and set in the array the percentage for each variation on sale
+							$percentages[] = round(100 - ($prices['sale_price'][$key] / $prices['regular_price'][$key] * 100));
+					}
+			}
+			$percentage = max($percentages) . '%';
+	} else {
+			$regular_price = (float) $product->get_regular_price();
+			$sale_price    = (float) $product->get_sale_price();
 
-        $percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
-    }
-    return '<span class="onsale">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
+			$percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
+	}
+	return '<span class="onsale">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
 }
 
 function add_fields_user($profile_fields){
@@ -1906,5 +1986,195 @@ function newsViewMore() {
 	}
 	wp_reset_postdata();
 }
+function wpb_widgets_init() {
+ 
+	register_sidebar( array(
+			'name' => __( 'Main Sidebar', 'wpb' ),
+			'id' => 'sidebar-1',
+			'description' => __( 'The main sidebar appears on the right on each page except the front page template', 'wpb' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+	) );
 
+	register_sidebar( array(
+			'name' =>__( 'Front page sidebar', 'wpb'),
+			'id' => 'sidebar-2',
+			'description' => __( 'Appears on the static front page template', 'wpb' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+	) );
+}
 
+add_action( 'widgets_init', 'wpb_widgets_init' );
+
+// Start Add metabox
+add_action( 'add_meta_boxes', 'create_custom_meta_box' );
+if ( ! function_exists( 'create_custom_meta_box' ) ) {
+	function create_custom_meta_box()	{
+		add_meta_box(
+				'custom_product_meta_box',
+				__( 'Thông số kỹ thuật', 'cmb' ),
+				'add_custom_content_meta_box',
+				'product',
+				'normal',
+				'default'
+		);
+	}
+}
+//  Custom metabox content in admin product pages
+if ( ! function_exists( 'add_custom_content_meta_box' ) ){
+    function add_custom_content_meta_box( $post ){
+        $prefix = '_bhww_'; // global $prefix;
+        $tskthuat = get_post_meta($post->ID, $prefix.'tskthuat_wysiwyg', true) ? get_post_meta($post->ID, $prefix.'tskthuat_wysiwyg', true) : '';
+        $args['textarea_rows'] = 6;
+        //echo '<p>'.__( 'Ingredients', 'cmb' ).'</p>';
+        wp_editor( $tskthuat, 'tskthuat_wysiwyg', $args );
+        echo '<input type="hidden" name="custom_product_field_nonce" value="' . wp_create_nonce() . '">';
+    }
+}
+//Save the data of the Meta field
+add_action( 'save_post', 'save_custom_content_meta_box', 10, 1 );
+if ( ! function_exists( 'save_custom_content_meta_box' ) )
+{
+    function save_custom_content_meta_box( $post_id ) {
+        $prefix = '_bhww_'; // global $prefix;
+        // We need to verify this with the proper authorization (security stuff).
+        // Check if our nonce is set.
+        if ( ! isset( $_POST[ 'custom_product_field_nonce' ] ) ) {
+            return $post_id;
+        }
+        $nonce = $_REQUEST[ 'custom_product_field_nonce' ];
+        //Verify that the nonce is valid.
+        if ( ! wp_verify_nonce( $nonce ) ) {
+            return $post_id;
+        }
+        // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return $post_id;
+        }
+        // Check the user's permissions.
+        if ( 'product' == $_POST[ 'post_type' ] ){
+            if ( ! current_user_can( 'edit_product', $post_id ) )
+                return $post_id;
+        } else {
+            if ( ! current_user_can( 'edit_post', $post_id ) )
+                return $post_id;
+        }
+        // Sanitize user input and update the meta field in the database.
+        update_post_meta( $post_id, $prefix.'tskthuat_wysiwyg', wp_kses_post($_POST[ 'tskthuat_wysiwyg' ]) );
+    }
+}
+
+// End Add metabox
+
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+  
+add_action( 'woocommerce_after_single_product_summary', 'bbloomer_wc_output_long_description', 10 );
+  
+function bbloomer_wc_output_long_description() {
+?>
+  <div class="bg-white p-3 mb-4">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class ="description-main content-collapse fix-mh position-relative">			
+					<?php wc_get_template( 'single-product/tabs/description.php' ); ?>
+					<?php wc_get_template( 'single-product/tabs/additional-information.php' ); ?>
+					<div id="btn-view-collap">
+						<div class="collap-on">Xem thêm <i class="fa fa-caret-down" style="font-family:'Font Awesome 5 Free' !important"></i></div>
+						<div class="collap-hide">Thu gọn <i class="fa fa-caret-up" style="font-family:'Font Awesome 5 Free' !important"></i></div>
+					</div>
+				</div>
+				<div class="my-3 my-md-4 text-center">
+					<div class="btn btn-tuvan px-4 px-lg-5" data-toggle="modal" data-target="#modalbaogia">
+						<b class="d-block font-weight-bold text-uppercase text-16">Yêu cầu gọi tư vấn trực tiếp</b>
+						<span>(Tư vấn viên luôn sẵn sàng phục vụ bạn 24/7)</span>
+					</div>
+				</div>				
+				<!-- Modal -->
+				<div class="modal fade modal-baogia" id="modalbaogia" tabindex="-1" role="dialog" aria-labelledby="modalbaogiaTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body p-0">
+								<?php echo yeucauBaoGiaForm(); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<?php comments_template(); ?>
+			</div>
+			<div class="col-lg-4">
+				<div class="right-des-product p-2">
+					<?php 
+						do_action( 'woocommerce_single_product_summary' );
+						echo '<div class="text-action border p-2 mb-3"><span>Cam kết sản phẩm <strong style="color: #f90011;">chính hãng 100%</strong>, Sản phẩm được kiểm soát chất lượng bởi các chuyên gia Karofi. Áp dụng cho toàn bộ sản phẩm. <a style="color: #165fe6" target="_blank" rel="nofollow" href="'.get_bloginfo( 'url' ).'/chinh-sach-bao-hanh">Chính sách bảo hành</a> và <a style="color: #165fe6" target="_blank" rel="nofollow" href="'.get_bloginfo( 'url' ).'/chinh-sach-doi-tra-hang">chính sách đổi trả hàng</a></span></div>';
+						echo '<ul class="hotline-sale list-unstyled m-0 text-center"><li class="title"><b>Gọi ngay! Sẽ có giá tốt hơn</b></li><li class="sale-item"><span><i class="fas fa-phone-volume red"></i> &nbsp;Hotline: <a href="tel:0936275345" class="track-hotline-sp"><b class="red">0936.275.345</b></a></span></li></ul>';
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end bg-white -->
+<?php }
+
+function productView() {
+	global $woocommerce;
+	$viewed_products = ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ? (array) explode( '|', $_COOKIE['woocommerce_recently_viewed'] ) : array();
+	$viewed_products = array_filter( array_map( 'absint', $viewed_products ) );
+	$query_args = array(
+		'posts_per_page' => 4, // Hiển thị số lượng sản phẩm đã xem
+		'post_status'    => 'publish', 
+		'post_type'      => 'product', 
+		'post__in'       => $viewed_products, 
+		'orderby'        => 'rand'
+	);
+	$query_args['meta_query'] = array();
+	$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
+	$r = new WP_Query($query_args);
+	if ( $r->have_posts() ) {
+		echo '<div class="product-viewed mb-4"> 
+			<h2 class="text-20 text-uppercase font-weight-bold">SẢN PHẨM VỪA XEM</h2> 
+			<div class="bg-white"><div class="product-list clearfix"><div class="row mx-0">';
+				while ( $r->have_posts() ) { $r->the_post();
+					wc_get_template_part( 'content', get_post_type());
+					//get_template_part( 'template-parts/content', get_post_type() ); // Giao diện hiển thị theo ý bạn muốn
+				}
+		echo '</div></div></div></div>';
+	}
+	wp_reset_postdata();
+}	
+
+function productViewHome() {
+	global $woocommerce;
+	$viewed_products = ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ? (array) explode( '|', $_COOKIE['woocommerce_recently_viewed'] ) : array();
+	$viewed_products = array_filter( array_map( 'absint', $viewed_products ) );
+	$query_args = array(
+		'posts_per_page' => 4, // Hiển thị số lượng sản phẩm đã xem
+		'post_status'    => 'publish', 
+		'post_type'      => 'product', 
+		'post__in'       => $viewed_products, 
+		'orderby'        => 'rand'
+	);
+	$query_args['meta_query'] = array();
+	$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
+	$r = new WP_Query($query_args);
+	if ( $r->have_posts() ) {
+		echo '<div class="container mb-3"><div class="bg-white"><div class="prod-view wrap-title clearfix"><h2 class="text-uppercase text-center m-0 font-weight-bold title-parent d-flex align-items-center py-2">Sản phẩm đã xem</h2></div><div class="product-list clearfix"><div class="row mx-0">';
+				while ( $r->have_posts() ) { $r->the_post();
+					global $post, $product; 
+				//	wc_get_template_part( 'content', get_post_type());
+				echo '<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3"><div class="item">
+						<a class="d-block img-cat position-relative" href="'.get_the_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail(get_the_ID(), 'thumnail', array( 'class' =>'img-fluid', 'loading' => 'lazy') ).''. apply_filters( 'woocommerce_sale_flash', '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>', $post, $product ).' </a>
+						<a class="d-block" href="'.get_the_permalink().'" title="'.get_the_title().'"><h3 class="title-product-home">'.get_the_title().'</h3></a>
+						<div class="wrap-price">'. $product->get_price_html().'</div>
+						<div class="txt-promo">'.get_ecommerce_excerpt().'</div>
+					</div></div>';				
+				}
+		echo '</div></div></div></div>';
+	}
+	wp_reset_postdata();
+}	

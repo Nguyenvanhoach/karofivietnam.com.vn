@@ -34,20 +34,22 @@ if ( $product->is_in_stock() ) : ?>
 
 		<?php
 		do_action( 'woocommerce_before_add_to_cart_quantity' );
-
-		woocommerce_quantity_input(
-			array(
-				'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-				'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-			)
-		);
-
+		echo '<div class="d-flex align-items-center mb-3 mb-md-4">';
+			echo '<strong class="mr-3">Số lượng:</strong>';
+			woocommerce_quantity_input(
+				array(
+					'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+					'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+					'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+				)
+			);
+		echo '</div>';
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
 		?>
-
-		<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-
+		<div class="row mb-3 mb-md-4 space-2">
+			<div class="col-6"><a href="<?php echo WC()->cart->get_cart_url(); ?>" title="Giỏ hàng" class="button btn btn-primary w-100 d-block"><div class="text-16 font-weight-bold text-uppercase">Mua ngay</div>Giao hàng tận nơi</a></div>
+			<div class="col-6"><button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt btn btn-warning w-100"><div class="text-16 font-weight-bold text-uppercase">Thêm vào giỏ</div>Tiếp tục mua hàng</button></div>
+		</div>	
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 	</form>
 

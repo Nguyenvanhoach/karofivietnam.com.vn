@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	// phpcs:disable WordPress.Security
 	if ( 1 === intval( $total ) ) {
-		_e( 'Showing the single result', 'woocommerce' );
+		_e( 'Hiển thị kết quả duy nhất', 'woocommerce' );
 	} elseif ( $total <= $per_page || -1 === $per_page ) {
 		/* translators: %d: total results */
 		printf( _n( 'Showing all %d result', 'Hiển thị tất cả %d sản phẩm', $total, 'woocommerce' ), $total );

@@ -25,45 +25,47 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 }
 ?>
               
-<div <?php wc_product_class( 'col-6 col-sm-4 col-md-3 prod-num-1 py-3', $product ); ?>><div class="item">
-	<?php
-		/**
-		 * Hook: woocommerce_before_shop_loop_item.
-		 *
-		 * @hooked woocommerce_template_loop_product_link_open - 10
-		 */
-		do_action( 'woocommerce_before_shop_loop_item' );
+<div <?php wc_product_class( 'col-6 col-sm-4 col-md-3 prod-num-1 py-3', $product ); ?>>
+	<div class="item">
+		<?php
+			/**
+			 * Hook: woocommerce_before_shop_loop_item.
+			 *
+			 * @hooked woocommerce_template_loop_product_link_open - 10
+			 */
+			do_action( 'woocommerce_before_shop_loop_item' );
 
-		/**
-		 * Hook: woocommerce_before_shop_loop_item_title.
-		 *
-		 * @hooked woocommerce_show_product_loop_sale_flash - 10
-		 * @hooked woocommerce_template_loop_product_thumbnail - 10
-		 */
-		echo '<div class="img-cat position-relative">';
-			do_action( 'woocommerce_before_shop_loop_item_title' );
-		echo '</div>';
-		/**
-		 * Hook: woocommerce_shop_loop_item_title.
-		 *
-		 * @hooked woocommerce_template_loop_product_title - 10
-		 */
-		do_action( 'woocommerce_shop_loop_item_title' );
+			/**
+			 * Hook: woocommerce_before_shop_loop_item_title.
+			 *
+			 * @hooked woocommerce_show_product_loop_sale_flash - 10
+			 * @hooked woocommerce_template_loop_product_thumbnail - 10
+			 */
+			echo '<div class="img-cat position-relative">';
+				do_action( 'woocommerce_before_shop_loop_item_title' );
+			echo '</div>';
+			/**
+			 * Hook: woocommerce_shop_loop_item_title.
+			 *
+			 * @hooked woocommerce_template_loop_product_title - 10
+			 */
+			do_action( 'woocommerce_shop_loop_item_title' );
 
-		/**
-		 * Hook: woocommerce_after_shop_loop_item_title.
-		 *
-		 * @hooked woocommerce_template_loop_rating - 5
-		 * @hooked woocommerce_template_loop_price - 10
-		 */
-		do_action( 'woocommerce_after_shop_loop_item_title' );
-		echo '<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>';
-		/**
-		 * Hook: woocommerce_after_shop_loop_item.
-		 *
-		 * @hooked woocommerce_template_loop_product_link_close - 5
-		 * @hooked woocommerce_template_loop_add_to_cart - 10
-		 */
-		//do_action( 'woocommerce_after_shop_loop_item' );
-		?>
-</div></div>
+			/**
+			 * Hook: woocommerce_after_shop_loop_item_title.
+			 *
+			 * @hooked woocommerce_template_loop_rating - 5
+			 * @hooked woocommerce_template_loop_price - 10
+			 */
+			do_action( 'woocommerce_after_shop_loop_item_title' );
+			echo '<div class="txt-promo">'.get_ecommerce_excerpt().'</div>';
+			/**
+			 * Hook: woocommerce_after_shop_loop_item.
+			 *
+			 * @hooked woocommerce_template_loop_product_link_close - 5
+			 * @hooked woocommerce_template_loop_add_to_cart - 10
+			 */
+			do_action( 'woocommerce_after_shop_loop_item' );
+			?>
+	</div>
+</div>

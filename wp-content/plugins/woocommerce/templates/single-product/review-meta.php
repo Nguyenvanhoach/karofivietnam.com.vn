@@ -22,7 +22,7 @@ $verified = wc_review_is_from_verified_owner( $comment->comment_ID );
 
 if ( '0' === $comment->comment_approved ) { ?>
 
-	<p class="meta">
+	<p class="meta mb-2">
 		<em class="woocommerce-review__awaiting-approval">
 			<?php esc_html_e( 'Your review is awaiting approval', 'woocommerce' ); ?>
 		</em>
@@ -30,7 +30,7 @@ if ( '0' === $comment->comment_approved ) { ?>
 
 <?php } else { ?>
 
-	<p class="meta">
+	<p class="meta mb-2">
 		<strong class="woocommerce-review__author"><?php comment_author(); ?> </strong>
 		<?php
 		if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && $verified ) {
