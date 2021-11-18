@@ -20,7 +20,7 @@ get_header();
 <div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
 <div class="container mb-4">
 	<div class="row justify-content-center">
-		<div class="col-xl-10">
+		<div class="col-xl-12">
 			<div class="content-page bg-white p-3 p-lg-4">
 				<h2 class="text-uppercase page-title text-20"><?php echo the_title(); ?></h2>
 				<?php if ( have_posts() ) : 

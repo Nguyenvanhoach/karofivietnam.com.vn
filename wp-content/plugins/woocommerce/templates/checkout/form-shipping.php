@@ -54,11 +54,11 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( ! WC()->cart->needs_shipping() || wc_ship_to_billing_address_only() ) : ?>
 
-			<h3><?php esc_html_e( 'Additional information', 'woocommerce' ); ?></h3>
+			<h3 class="font-weight-bold text-18 text-capitalize mt-4"><?php esc_html_e( 'Thông tin thêm', 'woocommerce' ); ?></h3>
 
 		<?php endif; ?>
 
-		<div class="woocommerce-additional-fields__field-wrapper">
+		<div class="woocommerce-additional-fields__field-wrapper pl-4 cus-field">
 			<?php foreach ( $checkout->get_checkout_fields( 'order' ) as $key => $field ) : ?>
 				<?php woocommerce_form_field( $key, $field, $checkout->get_value( $key ) ); ?>
 			<?php endforeach; ?>

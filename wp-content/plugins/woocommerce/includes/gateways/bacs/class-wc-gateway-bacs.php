@@ -299,22 +299,22 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 				$bacs_account = (object) $bacs_account;
 
 				if ( $bacs_account->account_name ) {
-					$account_html .= '<h3 class="wc-bacs-bank-details-account-name">' . wp_kses_post( wp_unslash( $bacs_account->account_name ) ) . ':</h3>' . PHP_EOL;
+					$account_html .= 'Chủ tài khoản: <strong class="wc-bacs-bank-details-account-name">' . wp_kses_post( wp_unslash( $bacs_account->account_name ) ) . '</strong>' . PHP_EOL;
 				}
 
-				$account_html .= '<ul class="wc-bacs-bank-details order_details bacs_details">' . PHP_EOL;
+				$account_html .= '<ul class="wc-bacs-bank-details order_details bacs_details list-unstyled">' . PHP_EOL;
 
 				// BACS account fields shown on the thanks page and in emails.
 				$account_fields = apply_filters(
 					'woocommerce_bacs_account_fields',
 					array(
-						'bank_name'      => array(
-							'label' => __( 'Bank', 'woocommerce' ),
-							'value' => $bacs_account->bank_name,
-						),
 						'account_number' => array(
-							'label' => __( 'Account number', 'woocommerce' ),
+							'label' => __( 'Số tài khoản', 'woocommerce' ),
 							'value' => $bacs_account->account_number,
+						),
+						'bank_name'      => array(
+							'label' => __( 'Tên Ngân hàng', 'woocommerce' ),
+							'value' => $bacs_account->bank_name,
 						),
 						'sort_code'      => array(
 							'label' => $sortcode,
@@ -325,7 +325,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 							'value' => $bacs_account->iban,
 						),
 						'bic'            => array(
-							'label' => __( 'BIC', 'woocommerce' ),
+							'label' => __( 'Chi nhánh', 'woocommerce' ),
 							'value' => $bacs_account->bic,
 						),
 					),
@@ -343,7 +343,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 			}
 
 			if ( $has_details ) {
-				echo '<section class="woocommerce-bacs-bank-details"><h2 class="wc-bacs-bank-details-heading">' . esc_html__( 'Our bank details', 'woocommerce' ) . '</h2>' . wp_kses_post( PHP_EOL . $account_html ) . '</section>';
+				echo '<section class="woocommerce-bacs-bank-details"><h2 class="wc-bacs-bank-details-heading text-16 text-uppercase">' . esc_html__( 'Thông tin ngân hàng', 'woocommerce' ) . '</h2><div class="block-c p-3">' . wp_kses_post( PHP_EOL . $account_html ) . '</div></section>';
 			}
 		}
 

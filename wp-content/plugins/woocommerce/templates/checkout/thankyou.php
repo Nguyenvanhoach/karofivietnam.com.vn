@@ -38,46 +38,64 @@ defined( 'ABSPATH' ) || exit;
 			</p>
 
 		<?php else : ?>
+			<div class="d-flex my-4 txt_thank justify-content-center align-items-center font-weight-bold">
+				<img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/sucess.png" alt="Thanks you" class="img-fluid mr-3" />
+				<div class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'CÁM ƠN QUÝ KHÁCH ĐÃ ĐẶT HÀNG', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+			</div>
+			<div class="row px-lg-5">
+				<div class="col-md-6 pr-lg-4">
+					<div class="mb-4">
+						<p>Xin chào Anh/Chị <strong>ninh</strong></p>
+						<p>Chúng tôi đã nhận được đơn hàng của quý khách trên website.<br>Đơn hàng này đang được xử lý.</p>
+						<p>Trong vòng 30 phút (giờ làm việc), bộ phận bán hàng trực tuyến sẽ liên hệ lại. Qúy khách để xác nhận thời gian và địa điểm giao hàng.</p>
+						<p>Thời gian giao hàng dự kiến khoảng 24h - 48h.</p>
+						<p style="color: #a90a0d;font-weight: bold;">Cám ơn quý khách !</p>
+					</div>
+					<h3 class="text-16 text-uppercase">Thông tin khách hàng</h3>
+					<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details list-unstyled block-c p-3">
+						<li class="woocommerce-order-overview__order order my-2 d-flex justify-content-between">
+						<strong><?php esc_html_e( 'Mã đơn hàng:', 'woocommerce' ); ?></strong>
+							<span class="text-right"><?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						</li>
 
-			<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+						<li class="woocommerce-order-overview__date date my-2 d-flex justify-content-between">
+							<strong><?php esc_html_e( 'Ngày đặt hàng:', 'woocommerce' ); ?></strong>
+							<span class="text-right"><?php echo wc_format_datetime( $order->get_date_created() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						</li>
 
-			<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
+						<?php if ( is_user_logged_in() && $order->get_user_id() === get_current_user_id() && $order->get_billing_email() ) : ?>
+							<li class="woocommerce-order-overview__email email my-2 d-flex justify-content-between">
+								<strong><?php esc_html_e( 'Email:', 'woocommerce' ); ?></strong>
+								<span class="text-right"><?php echo $order->get_billing_email(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							</li>
+						<?php endif; ?>
 
-				<li class="woocommerce-order-overview__order order">
-					<?php esc_html_e( 'Order number:', 'woocommerce' ); ?>
-					<strong><?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-				</li>
+						<li class="woocommerce-order-overview__total total my-2 d-flex justify-content-between">
+							<strong><?php esc_html_e( 'Tổng tiền:', 'woocommerce' ); ?></strong>
+							<span class="text-right"><?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						</li>
 
-				<li class="woocommerce-order-overview__date date">
-					<?php esc_html_e( 'Date:', 'woocommerce' ); ?>
-					<strong><?php echo wc_format_datetime( $order->get_date_created() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-				</li>
+						<?php if ( $order->get_payment_method_title() ) : ?>
+							<li class="woocommerce-order-overview__payment-method method my-2 d-flex justify-content-between">
+								<strong><?php esc_html_e( 'Payment method:', 'woocommerce' ); ?></strong>
+								<span class="text-right"><?php echo wp_kses_post( $order->get_payment_method_title() ); ?></span>
+							</li>
+						<?php endif; ?>
+					</ul>
+				
+					<?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>
+					
+				</div>
+				<div class="col-md-6 pl-lg-4">
+				<?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
+				</div>
+			</div>
 
-				<?php if ( is_user_logged_in() && $order->get_user_id() === get_current_user_id() && $order->get_billing_email() ) : ?>
-					<li class="woocommerce-order-overview__email email">
-						<?php esc_html_e( 'Email:', 'woocommerce' ); ?>
-						<strong><?php echo $order->get_billing_email(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-					</li>
-				<?php endif; ?>
-
-				<li class="woocommerce-order-overview__total total">
-					<?php esc_html_e( 'Total:', 'woocommerce' ); ?>
-					<strong><?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></strong>
-				</li>
-
-				<?php if ( $order->get_payment_method_title() ) : ?>
-					<li class="woocommerce-order-overview__payment-method method">
-						<?php esc_html_e( 'Payment method:', 'woocommerce' ); ?>
-						<strong><?php echo wp_kses_post( $order->get_payment_method_title() ); ?></strong>
-					</li>
-				<?php endif; ?>
-
-			</ul>
+			
 
 		<?php endif; ?>
 
-		<?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>
-		<?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
+		
 
 	<?php else : ?>
 

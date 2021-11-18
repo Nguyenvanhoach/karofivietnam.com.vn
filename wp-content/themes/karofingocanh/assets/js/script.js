@@ -19,6 +19,38 @@ $(document).ready(function() {
             
         });
     }
+    
+    if ($('[slide-viewed]').length) {
+        $('[slide-viewed]').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            // fade: true,
+            dots: false,
+            arrows: true,
+            autoplay: true,
+            infinite: true,
+            speed: 300,
+            responsive: [{
+                breakpoint: 1023,
+                settings: {
+                    slidesToShow: 4
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 3
+                }
+            },
+            {
+                breakpoint: 560,
+                settings: {
+                    slidesToShow: 2
+                }
+            }
+        ]
+        });
+    }
     if ($('.banner-home').length) {
         $('.slider-for').slick({
         slidesToShow: 1,

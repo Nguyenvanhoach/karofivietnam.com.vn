@@ -856,7 +856,10 @@ function giniit_track_product_view() {
 }
 
 add_action( 'template_redirect', 'giniit_track_product_view', 20 );
-
+add_action( 'wp_enqueue_scripts', function() {
+	$styles = wp_styles();
+	$styles->add_data( 'twentytwenty-style', 'after', array() );
+}, 20 );
 function get_ecommerce_excerpt(){
 	$excerpt = get_the_excerpt();
 	$excerpt = preg_replace(" ([.*?])",'',$excerpt);
@@ -1948,7 +1951,13 @@ function related_posts($post_page = '4') {
 		echo '<div id="related_posts"><h3 class="text-uppercase text-20 font-weight-bold">Bài viết liên quan</h3><div class="row space-1">';
 		while( $my_query->have_posts() ) {
 			$my_query->the_post();
-			echo '<div class="col-6 col-md-3 my-2"><a href="'.get_the_permalink().'" rel="bookmark" title="'.get_the_title().'">'. get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' => 'img-fluid d-block w-100 mx-auto mb-2','loading' => 'lazy', 'alt' => get_the_title() )) .'</a><a class="text-14 font-weight-bold" style="color:#165fe6" href="'.get_the_permalink().'" rel="bookmark" title="'.get_the_title().'">'.get_the_title().'</a><time class="text-12 py-1 d-block">'.get_the_time('d-m-Y, g:i a').'</time></div>';		
+			echo '<div class="col-6 col-md-3 my-2"><a href="'.get_the_permalink().'" rel="bookmark" title="'.get_the_title().'">';
+			if(has_post_thumbnail()) {
+				echo get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' => 'img-fluid d-block w-100 mx-auto mb-2','loading' => 'lazy', 'alt' => get_the_title() ));
+			} else {
+				echo '<img src="'.get_template_directory_uri().'/assets/images/no_img.png" alt="'.get_the_title().'" class="img-fluid mb-2 d-block mx-auto" loading="lazy">';
+			}	
+			echo '</a><a class="text-14 font-weight-bold" style="color:#165fe6" href="'.get_the_permalink().'" rel="bookmark" title="'.get_the_title().'">'.get_the_title().'</a><time class="text-12 py-1 d-block">'.get_the_time('d-m-Y, g:i a').'</time></div>';		
 		}
 		echo '</div></div>';
 		}
@@ -1970,7 +1979,7 @@ function share_social() { ?>
 			</div>
 	</div>
 <?php }
-function newsViewMore() {
+function newsViewMore() {$catID = 1;
 	$cf = new WP_Query(array('category' => $catID,'post_status' => 'publish','posts_per_page' => 10, 'meta_key' => 'post_views_count', 'orderby'=> 'meta_value_num', 'order' => 'DESC'));
 	$stt = 0;
 	$n;
@@ -1998,15 +2007,15 @@ function wpb_widgets_init() {
 			'after_title' => '</h3>',
 	) );
 
-	register_sidebar( array(
-			'name' =>__( 'Front page sidebar', 'wpb'),
-			'id' => 'sidebar-2',
-			'description' => __( 'Appears on the static front page template', 'wpb' ),
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => '</aside>',
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
-	) );
+	// register_sidebar( array(
+	// 		'name' =>__( 'Front page sidebar', 'wpb'),
+	// 		'id' => 'sidebar-2',
+	// 		'description' => __( 'Appears on the static front page template', 'wpb' ),
+	// 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+	// 		'after_widget' => '</aside>',
+	// 		'before_title' => '<h3 class="widget-title">',
+	// 		'after_title' => '</h3>',
+	// ) );
 }
 
 add_action( 'widgets_init', 'wpb_widgets_init' );
@@ -2094,16 +2103,7 @@ function bbloomer_wc_output_long_description() {
 						<span>(Tư vấn viên luôn sẵn sàng phục vụ bạn 24/7)</span>
 					</div>
 				</div>				
-				<!-- Modal -->
-				<div class="modal fade modal-baogia" id="modalbaogia" tabindex="-1" role="dialog" aria-labelledby="modalbaogiaTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-body p-0">
-								<?php echo yeucauBaoGiaForm(); ?>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 				<hr>
 				<?php comments_template(); ?>
 			</div>
@@ -2138,7 +2138,7 @@ function productView() {
 	if ( $r->have_posts() ) {
 		echo '<div class="product-viewed mb-4"> 
 			<h2 class="text-20 text-uppercase font-weight-bold">SẢN PHẨM VỪA XEM</h2> 
-			<div class="bg-white"><div class="product-list clearfix"><div class="row mx-0">';
+			<div class="bg-white"><div class="product-list clearfix"><div class="mx-0" slide-viewed>';
 				while ( $r->have_posts() ) { $r->the_post();
 					wc_get_template_part( 'content', get_post_type());
 					//get_template_part( 'template-parts/content', get_post_type() ); // Giao diện hiển thị theo ý bạn muốn
@@ -2163,7 +2163,7 @@ function productViewHome() {
 	$query_args['meta_query'][] = $woocommerce->query->stock_status_meta_query();
 	$r = new WP_Query($query_args);
 	if ( $r->have_posts() ) {
-		echo '<div class="container mb-3"><div class="bg-white"><div class="prod-view wrap-title clearfix"><h2 class="text-uppercase text-center m-0 font-weight-bold title-parent d-flex align-items-center py-2">Sản phẩm đã xem</h2></div><div class="product-list clearfix"><div class="row mx-0">';
+		echo '<div class="container mb-3"><div class="bg-white"><div class="prod-view wrap-title clearfix"><h2 class="text-uppercase text-center m-0 font-weight-bold title-parent d-flex align-items-center py-2">Sản phẩm đã xem</h2></div><div class="product-list clearfix"><div class="mx-0" slide-viewed>';
 				while ( $r->have_posts() ) { $r->the_post();
 					global $post, $product; 
 				//	wc_get_template_part( 'content', get_post_type());
@@ -2178,3 +2178,101 @@ function productViewHome() {
 	}
 	wp_reset_postdata();
 }	
+function get_product_cat($cat_id,$perPage= '5',) {
+	$args_cat = array( 'post_type' => 'product','posts_per_page' =>$perPage, 'product_cat' => $cat_id);
+	$getposts = new WP_query($args_cat);
+	global $wp_query; $wp_query->in_the_loop = true;global $product;
+	if ($getposts->have_posts()) { 
+		
+		
+		?>
+		<h2 class="block-title m-t mb-3"><a class="px-3 py-1 d-inline-block text-uppercase title-1" href="hot-products" title="Sản phẩm thực tế"><span>Sản phẩm<span> thực tế</span></span></a></h2>
+		<div class="row">
+				<?php while ($getposts->have_posts()) : $getposts->the_post(); 	    			
+						if($stt == 1) { ?>
+							<div class="col-lg-5 col-md-4 first-product"><div class="pr-lg-2"><div class="block-product"><div class="product-hot"><span>Hot</span></div>
+									<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+										<div class="wrap-img"><div class="overflow-hidden img-inner d-flex align-items-center justify-content-center"><?php echo get_the_post_thumbnail( get_the_id(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ); ?></div></div>
+										<div class="product-info p-2">
+											<h3 class="product-name"><?php the_title(); ?></h3>
+											<div class="price-box"><?php echo $product->get_price_html(); ?>	
+												<!-- <span class="special-price">
+													<span class="price product-price">12,000,000₫</span>
+												</span>	
+												<span class="product-item-price-sale old-price ml-2">
+													<span class="compare-price price product-price-old">1,400,000₫</span>
+												</span>		 -->					
+											</div>									
+										</div>
+									</a>
+									<div class="group_action d-inline-block p-2 mb-2">
+										<a class="btn btn-buy rounded-0 p-0 d-flex align-items-center" href="<?php the_permalink(); ?>" title="Tùy chọn">
+											<i class="fa fa-share-alt"></i><span class="text-uppercase px-3">Tùy chọn</span>
+										</a>								
+									</div>
+								</div>					
+							</div>
+						</div>
+						<div class="col-lg-7 col-md-8"><div class="row mx-mds-1">
+						<?php } else { ?>		    					
+							<div class="col-sm-6 col-md-4 mb-3 px-md-2">
+								<div class="block-product">
+									<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+										<div class="wrap-img px-1 py-1"><div class="overflow-hidden img-inner d-flex align-items-center justify-content-center"><?php echo get_the_post_thumbnail( get_the_id(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ); ?></div>
+										</div>
+										<div class="product-info p-2">
+											<h3 class="product-name"><?php the_title(); ?></h3>
+											<div class="price-box"><?php echo $product->get_price_html(); ?>	
+												<!-- <span class="special-price">
+													<span class="price product-price">12,000,000₫</span>
+												</span>	
+												<span class="product-item-price-sale old-price ml-2">
+													<span class="compare-price price product-price-old">1,400,000₫</span>
+												</span>		 -->					
+											</div>									
+										</div>
+									</a>
+									<div class="product-action"><!-- 
+										<a class="btn btn-buy rounded-0 p-0 d-flex align-items-center"  href="<?php the_permalink(); ?>" title="Đặt mua">
+											<i class="fa fa-shopping-basket"></i><span class="text-uppercase px-3">Đặt mua</span>
+										</a>	 -->
+										<form action="" method="post"><input type="hidden" name="add-to-cart" value="<?php the_id(); ?>"> <button type="submit" data-toggle="modal" data-target="#exampleModalCenter" title="Đặt mua" class="h-100 btn btn-buy rounded-0 p-0 d-flex align-items-center"><i class="fa fa-shopping-basket"></i><span class="text-uppercase px-3">Đặt mua</span></button></form>							
+									</div>
+								</div>
+							</div>										
+							
+						<?php } ?>	    
+			<?php $stt++; endwhile; 
+			echo '</div></div></div>';
+	}
+		wp_reset_postdata();
+}
+
+// tắt cập nhật tự động plugin
+add_filter( 'auto_update_plugin', '__return_false' );
+// tắt tự động cập nhật theme
+add_filter( 'auto_update_theme', '__return_false' );
+
+function featureProduct($perpage='6') {
+	$tax_featured[] = array(
+		'taxonomy' => 'product_visibility',
+		'field'    => 'name',
+		'terms'    => 'featured',
+		'operator' => 'IN',
+	);
+	$args_featured = array( 'post_type' => 'product','posts_per_page' => $perpage,'ignore_sticky_posts' => 1, 'tax_query' => $tax_featured);
+	$getposts = new WP_query( $args_featured);
+	global $wp_query; $wp_query->in_the_loop = true;
+	echo '<div class="feature-product product-list clearfix"><div class="row mx-0">';
+		while ($getposts->have_posts()) : $getposts->the_post();
+			global $post, $product; 
+			echo '<div class="col-6 prod-num-1 py-3"><div class="item"><a class="d-block img-cat position-relative" href="'.get_the_permalink().'" title="'.get_the_title().'">
+				'.get_the_post_thumbnail(get_the_ID(), 'thumnail', array( 'class' =>'img-fluid', 'loading' => 'lazy') ).'
+					'. apply_filters( 'woocommerce_sale_flash', '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>', $post, $product ).'</a>
+				<a class="d-block" href="'.get_the_permalink().'" title="'.get_the_title().'"><h3 class="title-product-home">'.get_the_title().'</h3></a>
+				<div class="wrap-price">'. $product->get_price_html().'</div>
+				<div class="txt-promo">'.get_ecommerce_excerpt().'</div>
+			</div></div>';              
+		endwhile;
+	echo '</div>'; wp_reset_postdata();
+}

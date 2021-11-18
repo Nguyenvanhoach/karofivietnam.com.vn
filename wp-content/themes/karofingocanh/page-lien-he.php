@@ -19,5 +19,5 @@ get_header();
     </div>
   </div>  
 </div>
-<?php get_footer(); ?>
+<?php get_footer(); echo "<script src='https://www.google.com/recaptcha/api.js' async defer></script>";?>
 

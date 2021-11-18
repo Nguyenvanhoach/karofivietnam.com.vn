@@ -1,0 +1,12 @@
+2021-11-17T07:50:35+00:00 CRITICAL Uncaught Error: Call to undefined function is_sidebar_active() in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\archive-product.php:110
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\taxonomy-product-cat.php(22): wc_get_template('archive-product...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#4 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#5 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\archive-product.php on line 110
+
+2021-11-17T09:46:17+00:00 CRITICAL syntax error, unexpected token "." in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 1957
+

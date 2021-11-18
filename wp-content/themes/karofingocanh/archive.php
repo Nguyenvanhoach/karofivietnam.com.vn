@@ -67,8 +67,8 @@
         </div>
 			</div>
 			<div class="col-md-4 col-lg-3 pl-md-0">
-				<div class="bg-white p-2">
-					<div class="list-news-view mb-3">
+				<div class="bg-white">
+					<div class="list-news-view mb-3 p-2">
 						<h3 class="title-right font-weight-bold text-uppercase">TIN XEM NHIỀU</h3>
 						<div class="list-item">							
 							<?php
@@ -83,96 +83,11 @@
               ?>
 						</div>
 					</div>
-					<h3 class="title-right font-weight-bold text-uppercase">TIN XEM NHIỀU</h3>
+					<h3 class="title-right font-weight-bold text-uppercase px-2">Sản phẩm nổi bật</h3>
+					<?php if(function_exists('featureProduct')){featureProduct();} ?>	
 				</div>
 			</div>
 		</div>
-		<div class="product-review bg-white py-3 mb-3">		
-			<h3 class="text-20 text-uppercase font-weight-bold mb-3 pl-3">Sản phẩm đã xem</h3>			
-			<div class="product-list clearfix">
-				<div class="row mx-0">
-					<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-						<div class="item">
-							<a class="d-block img-cat position-relative" href="" title="">
-								<img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-								<span class="onsale">- 13%</span>
-							</a>
-							<a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-								<h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-							</a>
-							<div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-							<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-						</div>
-					</div>
-					<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-						<div class="item">
-							<a class="d-block img-cat position-relative" href="" title="">
-								<img src="https://karofivietnam.com.vn/media/product/225_d66_kms.jpg" class="img-fluid" alt="" loading="lazy">
-								<span class="onsale">- 13%</span>
-							</a>
-							<a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-								<h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-							</a>
-							<div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-							<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-						</div>
-					</div>
-					<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-						<div class="item">
-							<a class="d-block img-cat position-relative" href="" title="">
-								<img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-								<span class="onsale">- 13%</span>
-							</a>
-							<a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-								<h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-							</a>
-							<div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-							<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-						</div>
-					</div>
-					<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-						<div class="item">
-							<a class="d-block img-cat position-relative" href="" title="">
-								<img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-								<span class="onsale">- 13%</span>
-							</a>
-							<a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-								<h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-							</a>
-							<div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-							<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-						</div>
-					</div>
-					<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-						<div class="item">
-							<a class="d-block img-cat position-relative" href="" title="">
-								<img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-								<span class="onsale">- 13%</span>
-							</a>
-							<a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-								<h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-							</a>
-							<div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-							<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-						</div>
-					</div>
-					<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3">
-						<div class="item">
-							<a class="d-block img-cat position-relative" href="" title="">
-								<img src="https://iq-house.vn/wp-content/uploads/2021/06/vlc397-cau-2-khoi-2997.jpg" class="img-fluid" alt="" loading="lazy">
-								<span class="onsale">- 13%</span>
-							</a>
-							<a class="d-block" href="https://iq-house.vn/san-pham/bo-bon-cau-2-khoi-cao-cap-vl-c397/" title="Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397">
-								<h3 class="title-product-home">Bộ Bồn Cầu 2 Khối Cao Cấp VL-C397</h3>
-							</a>
-							<div class="wrap-price"><ins><span class="woocommerce-Price-amount amount"><bdi>2.850.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>3.223.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></div>
-							<div class="txt-promo">Tặng quạt điều hòa Karofi KAC - E132 trị trá 4.760.000Đ</div>
-						</div>
-					</div>           
-
-				</div>    
-			</div>
-		</div>		
 	</div>
-		
+	<?php if(function_exists('productViewHome')){productViewHome();} ?>
 <?php get_footer();

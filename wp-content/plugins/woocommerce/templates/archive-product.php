@@ -32,18 +32,20 @@ $cat_obj = $wp_query->get_queried_object();
 ?>
 <div class="category-product container">
 	<div class="row">
-		<div class="col-12 col-lg-9 pr-lg-1">
+		<div class="col-12 col-lg-9 pr-lg-1 mb-3">
 			<div class="bg-white h-100">
 				<div class="woocommerce-products-header px-3 pt-3">
 					<?php
 						if($cat_obj) {
 							$category_ID  = $cat_obj->term_id;
 						}
-						$term = get_term( $category_ID, 'product_cat' ); 
-						// echo '('. $term->count . ')';
-						if ( apply_filters( 'woocommerce_show_page_title', true ) ) { ?>
-							<h1 class="woocommerce-products-header__title page-title category-product-title text-capitalize mb-3"><?php echo 'Có '. '<span class="pr-1 count-prod">'. $term->count . '</span>'; woocommerce_page_title(); ?></h1>
-						<?php } ?>
+						if($category_ID) {
+							$term = get_term( $category_ID, 'product_cat' ); 
+							// echo '('. $term->count . ')';
+							if ( apply_filters( 'woocommerce_show_page_title', true ) ) { ?>
+								<h1 class="woocommerce-products-header__title page-title category-product-title text-capitalize mb-3"><?php echo 'Có '. '<span class="pr-1 count-prod">'. $term->count . '</span>'; woocommerce_page_title(); ?></h1>
+							<?php } 
+						} ?>
 				</div>
 				<?php
 					if ( woocommerce_product_loop() ) {
@@ -103,24 +105,27 @@ $cat_obj = $wp_query->get_queried_object();
 					 */
 				?>
 		</div>
-		<div class="col-lg-3 d-none d-lg-block">
+		<div class="col-lg-3 d-none d-lg-block mb-3">
 			<div class="bg-white p-2 h-100">
-				<?php //dynamic_sidebar( 'sidebar-1' ); ?>
-				<?php do_action( 'woocommerce_sidebar' ); ?>
+				<?php //dynamic_sidebar( 'sidebar-1' );
+				do_action( 'woocommerce_sidebar' ); ?>
 			</div>
 		</div>
 	</div>
-	<div class="bg-white px-3 py-3 mt-2 border">
-		<?php
-			/**
-			 * Hook: woocommerce_archive_description.
-			 *
-			 * @hooked woocommerce_taxonomy_archive_description - 10
-			 * @hooked woocommerce_product_archive_description - 10
-			 */
-			do_action( 'woocommerce_archive_description' );
-		?>
-	</div>
+	<?php
+		/**
+		 * Hook: woocommerce_archive_description.
+		 *
+		 * @hooked woocommerce_taxonomy_archive_description - 10
+		 * @hooked woocommerce_product_archive_description - 10
+		 */
+		if ( category_description() ) {
+			echo '<div class="bg-white px-3 py-3 border mb-4">';
+				do_action( 'woocommerce_archive_description' );
+			echo '</div>';
+		}
+	?>
+	
 </div>
 <?php
 	get_footer( 'shop' );

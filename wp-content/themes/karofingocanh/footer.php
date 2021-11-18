@@ -157,7 +157,7 @@
 			</div>
 		</footer><!-- #site-footer -->
 			<div class="icon-right" id="ppoLeadCTA">    
-				<a href="javascript:void(0)" class="icon icon-phone" onclick="showPopup('popup-tuvan');">
+				<a href="javascript:void(0)" class="icon icon-phone" data-toggle="modal" data-target="#modalbaogia">
 						<span>Gọi ĐT tư vấn ngay</span>
 				</a>	
 				<?php if(get_option('facebook_company') !='') { $shopfb =  str_replace( 'https://www.facebook.com/', '', get_option('facebook_company') ); echo '<a target="_blank" href="https://www.messenger.com/t/'.$shopfb.'" title="Chat ngay qua Messenger" class="icon icon-messenger"><span>Chat ngay qua Messenger</span></a>'; } ?>	
@@ -176,6 +176,16 @@
 				</a>
 			</div>
 			<a href="javascript:void(0)" id="totop" style=""><i class="fa fa-chevron-up"></i></a>
+			<!-- Modal -->
+			<div class="modal fade modal-baogia" id="modalbaogia" tabindex="-1" role="dialog" aria-labelledby="modalbaogiaTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body p-0">
+								<?php echo yeucauBaoGiaForm(); ?>
+							</div>
+						</div>
+					</div>
+				</div>
 		<?php wp_footer(); ?>
 		<!-- <script src="<?php echo get_template_directory_uri();?>/assets/js/jquery.min.js"></script> -->
 		<script src="<?php echo get_template_directory_uri();?>/assets/js/script.js"></script>

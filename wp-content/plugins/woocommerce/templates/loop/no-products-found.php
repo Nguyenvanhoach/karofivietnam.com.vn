@@ -18,4 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<p class="woocommerce-info"><?php esc_html_e( 'No products were found matching your selection.', 'woocommerce' ); ?></p>
+<div class="p-3">
+  <p class="woocommerce-info font-weight-bold text-capitalize text-18"><?php esc_html_e( 'Không tìm thấy sản phẩm nào phù hợp với lựa chọn của bạn.', 'woocommerce' ); ?></p>
+
+</div>

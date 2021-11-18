@@ -157,7 +157,7 @@
 										$all_categories = get_categories( $args );
 										if ( $all_categories && !is_wp_error( $all_categories ) ) {   
 											foreach ($all_categories as $cat) {
-												if($cat->category_parent == 0) {
+												if($cat->category_parent == 0 && $cat->slug != 'san-pham-xa-hang') {
 													$category_id = $cat->term_id;  
 													$args2 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
 													$sub_cats = get_categories( $args2 );
