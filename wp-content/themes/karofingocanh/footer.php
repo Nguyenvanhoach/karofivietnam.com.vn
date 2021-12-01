@@ -16,7 +16,7 @@
     <div class="container">
       <div class="row mx-md-0">
         <div class="col-12 col-md-4 px-md-0">
-          <a href="tel:0936275345" title="0936275345" class="track-hotline-mb d-flex justify-content-md-center align-items-center my-2 my-md-3">
+          <a href="tel:0936275345" title="0936275345" class="track-hotline-mb d-flex justify-content-center align-items-center my-2 my-md-3">
             <i class="fas fa-phone-volume mr-2 mr-md-2"></i>
             <div class="hotline-MB">
               <span class="title text-uppercase">Hotline quận 9</span>
@@ -25,7 +25,7 @@
           </a>
         </div>
         <div class="col-12 col-md-4 px-md-0">
-          <a href="tel:0938551449" title="0938551449" class="track-hotline-mb d-flex justify-content-md-center align-items-center my-2 my-md-3">
+          <a href="tel:0938551449" title="0938551449" class="track-hotline-mb d-flex justify-content-center align-items-center my-2 my-md-3">
             <i class="fas fa-phone-volume mr-2 mr-md-2"></i>
             <div class="hotline-MB">
               <span class="title text-uppercase">Hotline quận 8</span>
@@ -34,7 +34,7 @@
           </a>
         </div>
         <div class="col-12 col-md-4 px-md-0">
-          <a href="tel:02866848383" title="" class="track-hotline-mb d-flex justify-content-md-center align-items-center my-2 my-md-3 border-right-0">
+          <a href="tel:02866848383" title="" class="track-hotline-mb d-flex justify-content-center align-items-center my-2 my-md-3 border-right-0">
             <i class="fas fa-phone-volume mr-2 mr-md-2"></i>
             <div class="hotline-MB">
               <span class="title text-uppercase">Hotline Gò vấp</span>
@@ -49,22 +49,22 @@
 			<div class="bg-white py-3">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-6 col-md-3">
+						<div class="col-6 col-md-3 mb-3 mb-md-0">
 							<div class="box-link">
-								<h4 class="mb-3">Thông tin Karofi Việt Nam</h4>
+								<h4 class="mb-2 mb-md-3">Thông tin Karofi Việt Nam</h4>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/gioi-thieu">Giới thiệu công ty</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/tam-nhin-su-menh">Tầm nhìn sứ mệnh</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/qua-trinh-phat-trien">Quá trình phát triển</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/cac-giai-thuong">Các giải thưởng</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/lien-he">Liên hệ, góp ý</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/tin-tuc">Tin tức</a>
-								<a class="d-block mb-2"  rel="nofollow" href="<?php echo get_bloginfo( 'url' );?>"> <img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri();?>/assets/images/bocongthuong.png" alt="bộ công thương"> </a>
+								<a class="d-block mb-md-2"  rel="nofollow" href="<?php echo get_bloginfo( 'url' );?>"> <img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri();?>/assets/images/bocongthuong.png" alt="bộ công thương"> </a>
 								<a class="d-block mb-2"  rel="nofollow" href="https://www.dmca.com/Protection/Status.aspx?ID=ede4b152-88b1-499e-a131-bb9e99aabb75&amp;refurl=<?php echo get_bloginfo( 'url' );?>" title="DMCA.com Protection Status" class="dmca-badge"> <img src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-07.png?ID=ede4b152-88b1-499e-a131-bb9e99aabb75" alt="DMCA.com Protection Status"></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-3">
+						<div class="col-6 col-md-3 mb-3 mb-md-0">
 							<div class="box-link">
-								<h4 class="mb-3">Hỗ trợ khách hàng</h4>
+								<h4 class="mb-2 mb-md-3">Hỗ trợ khách hàng</h4>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-bao-hanh">Chính sách bảo hành</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-giao-hang">Chính sách giao hàng</a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-doi-tra-hang">Chính sách đổi trả hàng</a>
@@ -72,16 +72,16 @@
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/phuong-thuc-thanh-toan">Phương thức thanh toán</a>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-3">
+						<div class="col-12 col-md-3 mb-3 mb-md-0">
 							<div class="box-link mb-3 mb-md-4">
-								<h4 class="mb-3">Tổng đài hỗ trợ</h4>
+								<h4 class="mb-2 mb-md-3">Tổng đài hỗ trợ</h4>
 								<a class="d-block mb-2" href="tel:0936275345">Hotline : <b>0936.275.345</b></a>
 								<a class="d-block mb-2" href="tel:0938551449">CSKH : <b>0938.551.449</b></a>
 								<a class="d-block mb-2" href="tel:02866848383">Khiếu nại : <b>02.866.848.383</b></a>
 								<a class="d-block mb-2" href="<?php echo get_bloginfo( 'url' );?>/huong-dan-mua-hang/">Hướng dẫn mua hàng</a>
 							</div>
 							<div class="box-link social-link">
-								<h4 class="mb-3">Kết nối với chúng tôi </h4>
+								<h4 class="mb-2 mb-md-3">Kết nối với chúng tôi </h4>
 								<div class="d-flex flex-wrap align-items-center justify-content-between">
 									<a rel="nofollow" href="https://www.facebook.com/maylocnuockarofi.karofivietnam/" target="_blank" class="social-fb"><i class="fab fa-facebook-f"></i> </a>
 									<a rel="nofollow" href="https://twitter.com/Karofivietnam2" target="_blank" class="social-twitter"><i class="fab fa-twitter"></i> </a>
@@ -92,9 +92,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-3">
+						<div class="col-12 col-md-3">
 							<div class="box-link">
-								<h4 class="mb-3">Kết nối cộng đồng Facebook</h4>
+								<h4 class="mb-2 mb-md-3">Kết nối cộng đồng Facebook</h4>
 								<?php if(get_option('facebook_company') !='') {
 									echo '<div><iframe src="https://www.facebook.com/plugins/page.php?href='.get_option('facebook_company').'&tabs=timeline&width=300&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=215651349123280" width="280" height="135" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe></div>';
 								} ?>
@@ -156,14 +156,24 @@
 				</div>
 			</div>
 		</footer><!-- #site-footer -->
-			<div class="icon-right" id="ppoLeadCTA">    
-				<a href="javascript:void(0)" class="icon icon-phone" data-toggle="modal" data-target="#modalbaogia">
+			<div class="icon-right d-flex flex-row flex-md-column justify-content-between px-3 px-md-0">   
+				<div class="d-md-none text-center">
+					<a href="tel:0936275345" title="Gọi ngay 24/7" class="icon icon-phone">
+						<div class="quick-alo-ph-img-circle"></div>
+					</a> 
+					<div class="txt-act-ftor">Gọi ngay</div>
+				</div>
+				<div class="text-center">
+					<a href="javascript:void(0)" class="icon icon-phone support" data-toggle="modal" data-target="#modalbaogia">
 						<span>Gọi ĐT tư vấn ngay</span>
-				</a>	
-				<?php if(get_option('facebook_company') !='') { $shopfb =  str_replace( 'https://www.facebook.com/', '', get_option('facebook_company') ); echo '<a target="_blank" href="https://www.messenger.com/t/'.$shopfb.'" title="Chat ngay qua Messenger" class="icon icon-messenger"><span>Chat ngay qua Messenger</span></a>'; } ?>	
-				<?php if(get_option('zalo') !='') { echo '<a target="_blank" href="'.get_option('zalo').'" title="Chat ngay qua Zalo" class="icon icon-zalo"><span>Chat ngay qua Zalo</span></a>'; } ?>		
+						<i class="fas fa-headphones-alt d-flex align-items-center justify-content-center d-md-none h-100"></i>
+					</a>
+					<div class="txt-act-ftor d-md-none">Support</div>
+				</div>	
+				<?php if(get_option('facebook_company') !='') { $shopfb =  str_replace( 'https://www.facebook.com/', '', get_option('facebook_company') ); echo '<div class="text-center"><a target="_blank" href="https://www.messenger.com/t/'.$shopfb.'" title="Chat ngay qua Messenger" class="icon icon-messenger"><span>Chat ngay qua Messenger</span></a><div class="d-md-none txt-act-ftor">Messenger</div></div>'; } ?>	
+				<?php if(get_option('zalo') !='') { echo '<div class="text-center"><a target="_blank" href="'.get_option('zalo').'" title="Chat ngay qua Zalo" class="icon icon-zalo"><span>Chat ngay qua Zalo</span></a><div class="d-md-none txt-act-ftor">Zalo</div></div>'; } ?>		
 			</div>
-			<div class="quick-alo-phone quick-alo-red quick-alo-show tracking-fixed-hotline" id="quick-alo-phoneIcon" data-id="hotline-block" onclick="window.location.href='tel:0936275345';">
+			<div class="quick-alo-phone quick-alo-red quick-alo-show tracking-fixed-hotline d-none d-md-block" id="quick-alo-phoneIcon" data-id="hotline-block" onclick="window.location.href='tel:0936275345';">
 				<div class="fixed-tuvan">
 					<a href="javascript:;" class="open-tuvan tracking-tuvan">
 					0936.275.345
@@ -187,7 +197,9 @@
 					</div>
 				</div>
 		<?php wp_footer(); ?>
+		<script src='https://www.google.com/recaptcha/api.js' async defer></script>
 		<!-- <script src="<?php echo get_template_directory_uri();?>/assets/js/jquery.min.js"></script> -->
 		<script src="<?php echo get_template_directory_uri();?>/assets/js/script.js"></script>
+		
 	</body>
 </html>

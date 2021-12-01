@@ -4,21 +4,21 @@
   $cat_slug = $catalog->slug;
 	$catID = $catalog->cat_ID;
 ?>
-	<div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
+	<div class="wrap-crumbs container my-2 my-md-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
 	<div class="container cat-tin-tuc">
 		<div class="row mb-3">
 			<div class="col-md-8 col-lg-9">
-				<ul class="nav nav-news mb-5">
-				<li class="nav-item pr-3">
-					<a title="Tin tức mới" class="text-uppercase px-0  nav-link <?php if($cat_slug == 'tin-tuc') {echo "active";}?>" href="<?php echo get_term_link($cat_slug, 'category'); ?>">Tin tức mới</a>
-				</li>			
-				<?php
-					$categories=get_categories(	array( 'parent' => $catID )	);
-				foreach ($categories as $c) {
-					echo '<li class="nav-item px-3"><a class="nav-link text-uppercase px-0" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'">'.$c->cat_name.'</a></li>';
-				}
-				?>
-			</ul>
+				<ul class="nav nav-news mb-3 mb-md-5">
+					<li class="nav-item pr-2 pr-md-3">
+						<a title="Tin tức mới" class="text-uppercase px-0  nav-link <?php if($cat_slug == 'tin-tuc') {echo "active";}?>" href="<?php echo get_term_link($cat_slug, 'category'); ?>">Tin tức mới</a>
+					</li>			
+					<?php
+						$categories=get_categories(	array( 'parent' => $catID )	);
+					foreach ($categories as $c) {
+						echo '<li class="nav-item px-2 px-md-3"><a class="nav-link text-uppercase px-0" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'">'.$c->cat_name.'</a></li>';
+					}
+					?>
+				</ul>
 			<div class="bg-white p-3">
 				<?php 
 					$tin_tuc = new WP_Query(array(
@@ -74,7 +74,7 @@
 									while ($post_cat_child->have_posts()) { 
 										$post_cat_child->the_post(); 
 										if($stt == 1) {		
-											echo '<div class="col-sm-6"><a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="top-news">';
+											echo '<div class="col-sm-6 mb-3 mb-md-0"><a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="top-news">';
 											if(has_post_thumbnail()) {
 												echo get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' => 'img-fluid d-block w-100 mx-auto mb-2','loading' => 'lazy', 'alt' => get_the_title() ));
 											} else {
@@ -95,7 +95,7 @@
 														echo '</a><div>'.trim_text_to_words(get_the_content(), 250).'</div>
 													</div>';
 												} else {
-													echo '<div class="item py-3 border-bottom"><a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="name">' . get_the_title() .'</a></div>';
+													echo '<div class="item py-2 py-md-3 border-bottom"><a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="name">' . get_the_title() .'</a></div>';
 												}
 											
 										}
@@ -118,9 +118,9 @@
 							<?php
 								$cf = new WP_Query(array('category' => $catID,'post_status' => 'publish','posts_per_page' => 10, 'meta_key' => 'post_views_count', 'orderby'=> 'meta_value_num', 'order' => 'DESC'));
 								$stt = 0;
-								while ($cf->have_posts()) : $cf->the_post();
+								while ($cf->have_posts()) : $cf->the_post();$n=$stt+1;
 									echo '<a title="'. get_the_title() . '" href="'.get_permalink().'" class="item border-top media py-2">
-									<span class="no">'. $stt+1 .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
+									<span class="no">'. $n .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
 										$stt++;
 								endwhile;
                 wp_reset_postdata();

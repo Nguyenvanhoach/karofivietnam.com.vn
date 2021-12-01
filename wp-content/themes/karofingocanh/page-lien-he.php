@@ -3,7 +3,7 @@
 /*Template Name: Contact Layout*/
 get_header();  
 ?>
-<div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
+<div class="wrap-crumbs container my-2 my-md-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
 <div class="contact-form">
   <div class="container">
     <div class="row">
@@ -19,5 +19,5 @@ get_header();
     </div>
   </div>  
 </div>
-<?php get_footer(); echo "<script src='https://www.google.com/recaptcha/api.js' async defer></script>";?>
+<?php get_footer(); ?>
 

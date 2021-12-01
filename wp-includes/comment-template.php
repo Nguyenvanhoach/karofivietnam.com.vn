@@ -2400,13 +2400,13 @@ function comment_form( $args = array(), $post_id = null ) {
 		$consent = empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"';
 
 		$fields['cookies'] = sprintf(
-			'<p class="comment-form-cookies-consent">%s %s</p>',
+			'<p class="comment-form-cookies-consent d-flex ">%s %s</p>',
 			sprintf(
 				'<input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"%s />',
 				$consent
 			),
 			sprintf(
-				'<label for="wp-comment-cookies-consent">%s</label>',
+				'<label for="wp-comment-cookies-consent" class="pl-1">%s</label>',
 				__( 'Save my name, email, and website in this browser for the next time I comment.' )
 			)
 		);

@@ -34,7 +34,7 @@ if ( post_password_required() ) {
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 	<div class="bg-white p-3 mb-4">
 		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-lg-4 mb-3 mb-md-0">
 				<?php
 				/**
 				 * Hook: woocommerce_before_single_product_summary.
@@ -61,8 +61,8 @@ if ( post_password_required() ) {
 					 * @hooked WC_Structured_Data::generate_product_data() - 60
 					 */
 					do_action( 'woocommerce_single_product_summary' );
-					echo '<div class="my-3 my-md-4 text-center"><div class="btn btn-tuvan tuvan2 px-4 px-lg-5 w-100" data-toggle="modal" data-target="#modalbaogia"><b class="d-block font-weight-bold text-uppercase text-16"><i class="fas fa-phone-square-alt tracking-tuvan"></i>  Yêu Cầu Gọi Tư Vấn Trực Tiếp</b><span>(tư vấn viên gọi lại cho quý khách trong vòng 5 phút)</span></div></div>';
-					echo '<div class="text-action border p-2">
+					echo '<div class="my-2 text-center"><div class="btn btn-tuvan tuvan2 px-4 px-lg-5 w-100" data-toggle="modal" data-target="#modalbaogia"><b class="d-block font-weight-bold text-uppercase text-16"><i class="fas fa-phone-square-alt tracking-tuvan"></i>  Yêu Cầu Gọi Tư Vấn Trực Tiếp</b><span>(tư vấn viên gọi lại cho quý khách trong vòng 5 phút)</span></div></div>';
+					echo '<div class="text-action border p-2 mb-3 mb-md-0">
 					<span>
 						Cam kết sản phẩm <strong style="color: #f90011;">chính hãng 100%</strong>, Sản phẩm được kiểm soát chất lượng bởi các chuyên gia Karofi. Áp dụng cho toàn bộ sản phẩm. <a style="color: #165fe6" target="_blank" rel="nofollow" href="'.get_bloginfo( 'url' ).'/chinh-sach-bao-hanh">Chính sách bảo hành</a> và <a style="color: #165fe6" target="_blank" rel="nofollow" href="'.get_bloginfo( 'url' ).'/chinh-sach-doi-tra-hang">chính sách đổi trả hàng</a>    
 					</span>
@@ -129,3 +129,15 @@ if ( post_password_required() ) {
 <?php 
 	echo productView();
 ?>
+<div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content rounded-0">
+			<div class="modal-body p-0">
+				<button type="button" class="btn btn-close d-flex align-items-center justify-content-center" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<img id="image-gallery-image" class="img-fluid mx-auto d-block" src="">
+				<button type="button" class="btn btn-secondary btn-arrow btn-prev" id="show-previous-image"><i class="fa fa-arrow-left"></i></button>
+				<button type="button" id="show-next-image" class="btn btn-secondary btn-arrow btn-next"><i class="fa fa-arrow-right"></i></button>
+			</div>
+		</div>
+	</div>
+</div>

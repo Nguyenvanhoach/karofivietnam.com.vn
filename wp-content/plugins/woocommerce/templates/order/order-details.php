@@ -43,7 +43,7 @@ if ( $show_downloads ) {
 	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
 	<h2 class="woocommerce-order-details__title text-16 text-uppercase"><?php esc_html_e( 'Chi tiết đơn hàng', 'woocommerce' ); ?></h2>
-	<div class="block-c p-3 p-lg-4 mb-4">
+	<div class="block-c p-md-3 p-lg-4 mb-md-4">
 		<div class="woocommerce-table woocommerce-table--order-details shop_table order_details">
 	
 			<!-- <thead>
@@ -53,7 +53,7 @@ if ( $show_downloads ) {
 				</tr>
 			</thead> -->
 	
-			<div class="bg-white p-3 rounded mb-4">
+			<div class="bg-white p-2 p-md-3 rounded mb-3 mb-md-4">
 				<?php
 				do_action( 'woocommerce_order_details_before_order_table_items', $order );
 	
@@ -93,9 +93,9 @@ if ( $show_downloads ) {
 										$qty_display = esc_html( $qty );
 									}
 										echo '<div class="mb-2">Số lượng:';
-											echo apply_filters( 'woocommerce_order_item_quantity_html', ' <span class="product-quantity">' . sprintf( '&nbsp;%s', $qty_display ) . '</span>', $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+											echo apply_filters( 'woocommerce_order_item_quantity_html', ' <span class="product-quantity font-weight-bold">' . sprintf( '&nbsp;%s', $qty_display ) . '</span>', $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										echo '</div>';
-										echo '<div>Giá: '. WC()->cart->get_product_price($product) .'</div>';
+										echo '<div class="wrap-price">Giá: '. WC()->cart->get_product_price($product) .'</div>';
 									do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, false );
 							
 									wc_display_item_meta( $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -132,7 +132,7 @@ if ( $show_downloads ) {
 				
 				<?php
 					if ( $order ) {					
-						echo '<div class="d-flex justify-content-between align-items-center"><div class="text-uppercase font-weight-bold">Tổng tiền:</div><div class="font-weight-bold red text-30">';
+						echo '<div class="d-flex justify-content-between align-items-center px-2 px-md-0 mb-2 mb-md-0"><div class="text-uppercase font-weight-bold">Tổng tiền:</div><div class="font-weight-bold red text-30">';
 							echo $order->get_formatted_order_total();
 						echo '</div></div>';
 					}

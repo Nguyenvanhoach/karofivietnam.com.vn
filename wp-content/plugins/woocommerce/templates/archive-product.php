@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 get_header( 'shop' );
 global $wp_query;
 // get the query object
-$cat_obj = $wp_query->get_queried_object();
+// $cat_obj = $wp_query->get_queried_object();
 /**
  * Hook: woocommerce_before_main_content.
  *
@@ -32,20 +32,20 @@ $cat_obj = $wp_query->get_queried_object();
 ?>
 <div class="category-product container">
 	<div class="row">
-		<div class="col-12 col-lg-9 pr-lg-1 mb-3">
+		<div class="col-12 col-md-8 col-lg-9 pr-lg-1 mb-3">
 			<div class="bg-white h-100">
 				<div class="woocommerce-products-header px-3 pt-3">
 					<?php
-						if($cat_obj) {
-							$category_ID  = $cat_obj->term_id;
-						}
-						if($category_ID) {
-							$term = get_term( $category_ID, 'product_cat' ); 
+						// if($cat_obj) {
+						// 	$category_ID  = $cat_obj->term_id;
+						// }
+						// if($category_ID) {
+						// 	$term = get_term( $category_ID, 'product_cat' ); 
 							// echo '('. $term->count . ')';
 							if ( apply_filters( 'woocommerce_show_page_title', true ) ) { ?>
-								<h1 class="woocommerce-products-header__title page-title category-product-title text-capitalize mb-3"><?php echo 'Có '. '<span class="pr-1 count-prod">'. $term->count . '</span>'; woocommerce_page_title(); ?></h1>
+								<h1 class="woocommerce-products-header__title page-title category-product-title text-capitalize mb-3"><?php echo woocommerce_page_title(); ?></h1>
 							<?php } 
-						} ?>
+						 ?>
 				</div>
 				<?php
 					if ( woocommerce_product_loop() ) {
@@ -105,11 +105,12 @@ $cat_obj = $wp_query->get_queried_object();
 					 */
 				?>
 		</div>
-		<div class="col-lg-3 d-none d-lg-block mb-3">
+		<div class="col-md-4 col-lg-3 float-sidebar d-flex justify-content-end d-md-block mb-3">
 			<div class="bg-white p-2 h-100">
 				<?php //dynamic_sidebar( 'sidebar-1' );
 				do_action( 'woocommerce_sidebar' ); ?>
 			</div>
+			<div class="close-sidebar d-md-none">Đóng lại</div>
 		</div>
 	</div>
 	<?php

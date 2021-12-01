@@ -786,6 +786,21 @@ function twentytwenty_get_elements_array() {
 	 */
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+
+
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+function custom_override_checkout_fields( $fields ) {
+	unset($fields['billing']['billing_state']);
+	unset($fields['billing']['billing_company']);
+	unset($fields['billing']['billing_postcode']);
+	unset($fields['billing']['billing_state']);
+	unset($fields['billing']['billing_address_2']);
+	unset($fields['billing']['billing_country']);
+	unset($fields['billing']['billing_city']);
+	
+	return $fields;
+}
+
 //tạo field tring product
 function woo_add_custom_general_fields() {
   
@@ -811,7 +826,10 @@ function woo_add_custom_general_fields() {
 							'Không tủ'   => __( 'Không tủ', 'woocommerce' ),
 							'Có tủ'   => __( 'Có tủ', 'woocommerce' ),
 							'4 cấp lọc' => __( '4 cấp lọc', 'woocommerce' ),
-							'5 cấp lọc' => __( '5 cấp lọc', 'woocommerce' )							
+							'5 cấp lọc' => __( '5 cấp lọc', 'woocommerce' ),
+							'Tủ IQ cao cấp' => __( 'Tủ IQ cao cấp', 'woocommerce' ),
+							'Tủ đứng'   => __( 'Tủ đứng', 'woocommerce' ),
+							'Để bàn - Để gầm'   => __( 'Để bàn - Để gầm', 'woocommerce' ),
 							)
 					)
 			);
@@ -928,12 +946,15 @@ function add_percentage_to_sale_badge( $html, $post, $product ) {
 			}
 			$percentage = max($percentages) . '%';
 	} else {
-			$regular_price = (float) $product->get_regular_price();
-			$sale_price    = (float) $product->get_sale_price();
-
+		$regular_price = (float) $product->get_regular_price();
+		$sale_price    = (float) $product->get_sale_price();
+		if($regular_price > 0) {
 			$percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
+		}
 	}
-	return '<span class="onsale">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
+	if ( $product->price > 0 ) {
+		return '<span class="onsale">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
+	}
 }
 
 function add_fields_user($profile_fields){
@@ -1426,37 +1447,92 @@ function banner_save($post_id) {
 add_action( 'save_post', 'banner_save' );
 
 function getSliderBanner($post_page = '-1') {  
-  	$args = array(
-    'post_type' => 'slideshow',
-    'orderby' => 'date',
-    'order' => 'ASC',
-    'posts_per_page' => $post_page,
-        // 'tax_query' => array(
-        //     array(
-        //         'taxonomy' => 'slider-location',
-        //         'field' => 'slug',
-        //         'terms' => 'homeslide-vi',//tên ở trong homslide
-        //         'operator' => 'IN'
-        //     )
-        //  )
-    );
-    $listbanner = new WP_Query($args); 
-    if ($listbanner->have_posts()) {
-    	echo '<ul>';
-		while ($listbanner->have_posts() ) : $listbanner->the_post();
-			$thumb = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_id()), 'full' );	
-			$post_id = get_the_ID();		
-			$des_banner = get_post_meta($post_id, 'des_banner', true );
-			$custom = get_post_custom(get_the_id());
-		    $url = $custom["url"][0]; 
-		    $url_open = $custom["url_open"][0];
-		    $custom_title = "#".get_the_id(); 
-		    //if ($url != "") { 
-		    ?>
-		    <li data-transition="random" data-slotamount="7" data-masterspeed="1000" ><img src="<?php echo $thumb['0']; ?>"  alt="<?php echo get_the_title(); ?>"  ></li>
-		    <?php ?>
-		<?php endwhile;
-		echo '</ul>';
+	$args = array(
+	'post_type' => 'slideshow',
+	'orderby' => 'date',
+	'order' => 'DESC',
+	'posts_per_page' => $post_page,
+	'tax_query' => array(
+			array(
+				'taxonomy' => 'slider-location',
+				'field' => 'slug',
+				'terms' => 'main',//tên ở trong homslide
+				'operator' => 'IN'
+			)
+		)
+	);
+	$listbanner = new WP_Query($args); 
+	if ($listbanner->have_posts()) {
+		echo '<div class="banner-home mt-md-2">';
+			$loop1 = '<div class="slider slider-for">';
+			$loop2 = '<div class="slider slider-nav">';
+			while ($listbanner->have_posts() ) : $listbanner->the_post();
+				$thumb = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_id()), 'full' );	
+				$post_id = get_the_ID();		
+				$des_banner = get_post_meta($post_id, 'des_banner', true );
+				$custom = get_post_custom(get_the_id());
+				$url = $custom["url"][0]; 
+				$url_open = $custom["url_open"][0];
+				$custom_title = "#".get_the_id(); 
+				$_blank = '';
+				
+				if($url_open) {
+					$_blank = 'target="_blank"';
+				}
+				if ($url) {
+					$loop1 .= '<div><a '.$_blank .' title="'. get_the_title() . '" href="'.$url.'" class="d-block">'.get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ).'</a></div>';
+				} else {
+					$loop1 .= '<div>'.get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ).'</div>';
+				}
+
+				$loop2 .= '<div class="banner-des h-auto text-center"><span class="d-flex align-items-center justify-content-center">'. get_the_title() . '</span></div>';
+					
+			endwhile;
+			$loop1 .= '</div>';
+			$loop2 .= '</div>';
+			echo $loop1;
+			echo $loop2;
+		echo '</div>';
+	}
+	wp_reset_query(); 
+}
+function sliderMainRight($post_page = '3') {  
+	$args = array(
+	'post_type' => 'slideshow',
+	'orderby' => 'date',
+	'order' => 'DESC',
+	'posts_per_page' => $post_page,
+	'tax_query' => array(
+			array(
+					'taxonomy' => 'slider-location',
+					'field' => 'slug',
+					'terms' => 'main-right',
+					'operator' => 'IN'
+			)
+		)
+	);
+	$listbanner = new WP_Query($args); 
+	if ($listbanner->have_posts()) {
+		echo '<div class="promo-home">';
+			while ($listbanner->have_posts() ) : $listbanner->the_post();
+				$thumb = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_id()), 'full' );	
+				$post_id = get_the_ID();		
+				$des_banner = get_post_meta($post_id, 'des_banner', true );
+				$custom = get_post_custom(get_the_id());
+				$url = $custom["url"][0]; 
+				$url_open = $custom["url_open"][0];
+				$custom_title = "#".get_the_id(); 
+				$_blank = '';
+				if($url_open) {
+					$_blank = 'target="_blank"';
+				}
+				if ($url) {
+					echo '<a '.$_blank .' title="'. get_the_title() . '" href="'.$url.'" class="mt-1 d-block">'.get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ).'</a>';
+				} else {
+					echo '<div class="mt-1 d-block">'.get_the_post_thumbnail(get_the_ID(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ).'</div>';
+				}
+			endwhile;
+		echo '</div>';
 	}
 	wp_reset_query(); 
 }
@@ -1482,7 +1558,7 @@ function contactForm() {
 	   if(!$tut_captcha){
 		 $errcaptacha = '<div class="text-danger">Bạn chưa xác thực reCAPTCHA!.</div>';
 	   }  
-	   $kiemtra=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lfh3CQbAAAAAKB0sZQlNdqPYGzvqyakLIHQYhza&response=".$tut_captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	   $kiemtra=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Le2jkQdAAAAAGEQzbxCRP7BxPpe4gJX6v2FnuFe&response=".$tut_captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
 	   
 	   $kiemtra = json_decode($kiemtra);
 	   
@@ -1539,6 +1615,7 @@ function contactForm() {
 			   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding-bottom: 30px'>
 			   <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse:collapse' bgcolor='#ffffff'>
 				   <tbody>
+					 <tr><td bgcolor='#105aa6' width='100%' height='15px' valign='top'></td></tr>
 					   <tr>
 						   <td>
 							   <table border='0' cellpadding='0' cellspacing='0' width='100%' bgcolor='#ffffff'>
@@ -1653,16 +1730,17 @@ function contactForm() {
 			<div class="col-sm-8 col-lg-9"><input type="tel" name="your-tel" required class="form-control"></div>
 		</div>
 		<div class="row form-group">
-			<div class="col-sm-4 col-lg-3"><label>Thông tin liên hệ *</label></div>
+			<div class="col-sm-4 col-lg-3"><label>Thông tin liên hệ</label></div>
 			<div class="col-sm-8 col-lg-9"><textarea name="your-message" cols="40" rows="3" class="form-control"></textarea></div>
+		</div>
+		
+		<div class="form-group g-recaptcha-block row align-items-center">
+			<div class="col-sm-4 col-lg-3"></div>
+			<div class="col-sm-8 col-lg-9"><div class="g-recaptcha" data-sitekey="6Le2jkQdAAAAAHxEYncFqBXcaTP0jq5jG-PJrYAy"></div></div>
 		</div>
 		<div class="row form-group">
 			<div class="col-sm-4 col-lg-3"></div>
 			<div class="col-sm-8 col-lg-9"><input type="submit" value="Gửi liên hệ" class="btn btn-send px-3 px-lg-4 py-2" name="btn-send"></div>
-		</div>
-		
-		<div class="form-group g-recaptcha-block row align-items-center">
-			<div class="col-12"><div class="g-recaptcha" data-sitekey="6Lfh3CQbAAAAAB7SDcpDT0XmJcnbFbdCWD8q4V1v"></div></div>
 		</div>
 		<div class="form-group text-danger"><?php	echo $errcaptacha;?></div>
 	</form>
@@ -1748,7 +1826,7 @@ function yeucauBaoGiaForm() {
 	   if(!$tut_captcha){
 		 $errcaptacha = '<div class="text-danger">Bạn chưa xác thực reCAPTCHA!.</div>';
 	   }  
-	   $kiemtra=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lfh3CQbAAAAAKB0sZQlNdqPYGzvqyakLIHQYhza&response=".$tut_captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	   $kiemtra=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Le2jkQdAAAAAGEQzbxCRP7BxPpe4gJX6v2FnuFe&response=".$tut_captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
 	   
 	   $kiemtra = json_decode($kiemtra);
 	   
@@ -1807,6 +1885,7 @@ function yeucauBaoGiaForm() {
 			   <td style='padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;padding-bottom: 30px'>
 			   <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse:collapse' bgcolor='#ffffff'>
 				   <tbody>
+					 	<tr><td bgcolor='#105aa6' width='100%' height='15px' valign='top'></td></tr>
 					   <tr>
 						   <td>
 							   <table border='0' cellpadding='0' cellspacing='0' width='100%' bgcolor='#ffffff'>
@@ -1927,7 +2006,7 @@ function yeucauBaoGiaForm() {
 			<div class="col-12 text-center"><input type="submit" value="Gửi liên hệ" class="btn btn-yeucau text-uppercase px-3 px-lg-4 py-2 w-100" name="btn-yeucau"></div>
 		</div>
 		<div class="row form-group g-recaptcha-block">
-			<div class="col-12"><div class="g-recaptcha" data-sitekey="6Lfh3CQbAAAAAB7SDcpDT0XmJcnbFbdCWD8q4V1v"></div></div>
+			<div class="col-12"><div class="g-recaptcha" data-sitekey="6Le2jkQdAAAAAHxEYncFqBXcaTP0jq5jG-PJrYAy"></div></div>
 		</div>
 		<div class="form-group text-danger"><?php	echo $errcaptacha;?></div>
 	</form>
@@ -2091,7 +2170,7 @@ function bbloomer_wc_output_long_description() {
 			<div class="col-lg-8">
 				<div class ="description-main content-collapse fix-mh position-relative">			
 					<?php wc_get_template( 'single-product/tabs/description.php' ); ?>
-					<?php wc_get_template( 'single-product/tabs/additional-information.php' ); ?>
+					<div class="mb-4 mb-md-5"><?php wc_get_template( 'single-product/tabs/additional-information.php' ); ?></div>
 					<div id="btn-view-collap">
 						<div class="collap-on">Xem thêm <i class="fa fa-caret-down" style="font-family:'Font Awesome 5 Free' !important"></i></div>
 						<div class="collap-hide">Thu gọn <i class="fa fa-caret-up" style="font-family:'Font Awesome 5 Free' !important"></i></div>
@@ -2107,7 +2186,7 @@ function bbloomer_wc_output_long_description() {
 				<hr>
 				<?php comments_template(); ?>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 d-none d-lg-block">
 				<div class="right-des-product p-2">
 					<?php 
 						do_action( 'woocommerce_single_product_summary' );
@@ -2126,7 +2205,7 @@ function productView() {
 	$viewed_products = ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ? (array) explode( '|', $_COOKIE['woocommerce_recently_viewed'] ) : array();
 	$viewed_products = array_filter( array_map( 'absint', $viewed_products ) );
 	$query_args = array(
-		'posts_per_page' => 4, // Hiển thị số lượng sản phẩm đã xem
+		'posts_per_page' => 12, // Hiển thị số lượng sản phẩm đã xem
 		'post_status'    => 'publish', 
 		'post_type'      => 'product', 
 		'post__in'       => $viewed_products, 
@@ -2153,7 +2232,7 @@ function productViewHome() {
 	$viewed_products = ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ? (array) explode( '|', $_COOKIE['woocommerce_recently_viewed'] ) : array();
 	$viewed_products = array_filter( array_map( 'absint', $viewed_products ) );
 	$query_args = array(
-		'posts_per_page' => 4, // Hiển thị số lượng sản phẩm đã xem
+		'posts_per_page' => 10, // Hiển thị số lượng sản phẩm đã xem
 		'post_status'    => 'publish', 
 		'post_type'      => 'product', 
 		'post__in'       => $viewed_products, 
@@ -2178,74 +2257,37 @@ function productViewHome() {
 	}
 	wp_reset_postdata();
 }	
-function get_product_cat($cat_id,$perPage= '5',) {
-	$args_cat = array( 'post_type' => 'product','posts_per_page' =>$perPage, 'product_cat' => $cat_id);
+function get_product_cat($cat_id,$perPage= '20') { 
+	$taxonomy = 'product_cat';
+	$args_cat = array( 'post_type' => 'product','posts_per_page' =>$perPage,'tax_query' => array(array('taxonomy'=> $taxonomy,'field' => 'term_id','terms' => $cat_id)));
 	$getposts = new WP_query($args_cat);
-	global $wp_query; $wp_query->in_the_loop = true;global $product;
+	global $wp_query; $wp_query->in_the_loop = true;
+	$term_children = get_term_children($cat_id,$taxonomy);  
+	
+
 	if ($getposts->have_posts()) { 
-		
-		
-		?>
-		<h2 class="block-title m-t mb-3"><a class="px-3 py-1 d-inline-block text-uppercase title-1" href="hot-products" title="Sản phẩm thực tế"><span>Sản phẩm<span> thực tế</span></span></a></h2>
-		<div class="row">
-				<?php while ($getposts->have_posts()) : $getposts->the_post(); 	    			
-						if($stt == 1) { ?>
-							<div class="col-lg-5 col-md-4 first-product"><div class="pr-lg-2"><div class="block-product"><div class="product-hot"><span>Hot</span></div>
-									<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-										<div class="wrap-img"><div class="overflow-hidden img-inner d-flex align-items-center justify-content-center"><?php echo get_the_post_thumbnail( get_the_id(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ); ?></div></div>
-										<div class="product-info p-2">
-											<h3 class="product-name"><?php the_title(); ?></h3>
-											<div class="price-box"><?php echo $product->get_price_html(); ?>	
-												<!-- <span class="special-price">
-													<span class="price product-price">12,000,000₫</span>
-												</span>	
-												<span class="product-item-price-sale old-price ml-2">
-													<span class="compare-price price product-price-old">1,400,000₫</span>
-												</span>		 -->					
-											</div>									
-										</div>
-									</a>
-									<div class="group_action d-inline-block p-2 mb-2">
-										<a class="btn btn-buy rounded-0 p-0 d-flex align-items-center" href="<?php the_permalink(); ?>" title="Tùy chọn">
-											<i class="fa fa-share-alt"></i><span class="text-uppercase px-3">Tùy chọn</span>
-										</a>								
-									</div>
-								</div>					
-							</div>
-						</div>
-						<div class="col-lg-7 col-md-8"><div class="row mx-mds-1">
-						<?php } else { ?>		    					
-							<div class="col-sm-6 col-md-4 mb-3 px-md-2">
-								<div class="block-product">
-									<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-										<div class="wrap-img px-1 py-1"><div class="overflow-hidden img-inner d-flex align-items-center justify-content-center"><?php echo get_the_post_thumbnail( get_the_id(), 'full', array( 'class' =>'img-fluid w-100', 'loading' => 'lazy') ); ?></div>
-										</div>
-										<div class="product-info p-2">
-											<h3 class="product-name"><?php the_title(); ?></h3>
-											<div class="price-box"><?php echo $product->get_price_html(); ?>	
-												<!-- <span class="special-price">
-													<span class="price product-price">12,000,000₫</span>
-												</span>	
-												<span class="product-item-price-sale old-price ml-2">
-													<span class="compare-price price product-price-old">1,400,000₫</span>
-												</span>		 -->					
-											</div>									
-										</div>
-									</a>
-									<div class="product-action"><!-- 
-										<a class="btn btn-buy rounded-0 p-0 d-flex align-items-center"  href="<?php the_permalink(); ?>" title="Đặt mua">
-											<i class="fa fa-shopping-basket"></i><span class="text-uppercase px-3">Đặt mua</span>
-										</a>	 -->
-										<form action="" method="post"><input type="hidden" name="add-to-cart" value="<?php the_id(); ?>"> <button type="submit" data-toggle="modal" data-target="#exampleModalCenter" title="Đặt mua" class="h-100 btn btn-buy rounded-0 p-0 d-flex align-items-center"><i class="fa fa-shopping-basket"></i><span class="text-uppercase px-3">Đặt mua</span></button></form>							
-									</div>
-								</div>
-							</div>										
-							
-						<?php } ?>	    
-			<?php $stt++; endwhile; 
-			echo '</div></div></div>';
+		echo '<div class="container mb-3"><div class="bg-white"><div class="feature-cat wrap-title clearfix">
+			<h2 class="text-uppercase text-center m-0 font-weight-bold title-parent d-flex align-items-center"><i class="fas fa-sort-down mr-3"></i>'.get_the_category_by_ID($cat_id).'</h2>';
+			if(count($term_children) > 0) { 
+				echo '<div class="list-hortial d-flex align-items-center"><ul class="list-inline mb-0 mt-md-2 mr-2">';
+				foreach ( $term_children as $child ) {    
+					$term = get_term_by('id', $child, $taxonomy);
+					echo '<li class="list-inline-item"><a class="d-block py-2 px-2 bg-transparent text-uppercase" href="' . get_term_link( $term->term_id, $taxonomy ) . '" title="'.$term->name.'">'.$term->name.'</a></li>';
+				}
+				echo '</div></ul>';
+			}       
+			echo '</div><div class="product-list clearfix"><div class="row mx-0">';        
+			while ($getposts->have_posts()) : $getposts->the_post(); 	
+				global $post, $product;
+					echo '<div class="col-6 col-sm-4 col-md-3 col-lg-cs-5 prod-num-1 py-3"><div class="item">
+						<a class="d-block img-cat position-relative" href="'.get_the_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail( get_the_id(), 'full', array( 'class' =>'img-fluid' , 'loading' => 'lazy') ).'
+						'. apply_filters( 'woocommerce_sale_flash', '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>', $post, $product ).'	</a>
+						<a class="d-block" href="'.get_the_permalink().'" title="'.get_the_title().'"><h3 class="title-product-home">'.get_the_title().'</h3></a>
+						<div class="wrap-price">'. $product->get_price_html().'</div><div class="txt-promo">'.get_ecommerce_excerpt().'</div></div></div>';					 
+			endwhile; 
+		echo '</div></div></div></div>';
 	}
-		wp_reset_postdata();
+	wp_reset_postdata();
 }
 
 // tắt cập nhật tự động plugin

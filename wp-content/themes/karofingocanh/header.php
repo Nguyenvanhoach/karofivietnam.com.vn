@@ -43,42 +43,62 @@
 		</div>
 		<div class="header-top-2 py-2">
 			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-12 col-md-6">
+				<div class="row align-items-center justify-content-between">
+					<div class="title-special">
 						<?php
 							if (is_home() || is_front_page()) {
 								echo '<a href="https://karofivietnam.com.vn/" class="pl-0"><h1 class="text-14 m-0"><i class="far fa-dot-circle yellow font-weight-bold"></i><b class="red"> Máy lọc nước Karofi chính hãng giá rẻ Tặng quạt điều hòa</b></h1></a>';
+							} else if(is_tax()) {
+								$taxonomy 	= get_taxonomy ( get_query_var('taxonomy') );
+								$page= get_page_by_title($taxonomy->label, 'OBJECT', 'page');
+								$term = get_term_by('slug',get_query_var('term') , $taxonomy->name);
+								// $output .='<a rel="nofollow" href="'.  get_permalink($page->ID) . '">'. $taxonomy->label.'</a> ';
+								$terms = array($term);
+								while($term->parent){
+									$term =get_term($term->parent	, $term->taxonomy );
+									$terms [] =$term ;
+								}
+								$terms = array_reverse($terms);
+								for ($i=0;$i<count($terms);$i++)
+								{
+									$link = get_term_link($terms[$i]);
+									if($i+1==count($terms))
+									{
+										echo '<a href="' . $link . '" title="' . $terms[$i]->name .'" class="pl-0"><h1 class="text-14 m-0"><i class="far fa-dot-circle yellow font-weight-bold"></i><b class="red"> ' . $terms[$i]->name .'</b></h1></a>';
+									}
+								}
 							} else {
 								echo '<a href="' . get_the_permalink() . '" title="' . get_the_title() .'" class="pl-0"><h1 class="text-14 m-0"><i class="far fa-dot-circle yellow font-weight-bold"></i><b class="red"> ' . get_the_title() .'</b></h1></a>';
 							}
 						?>
 						
 					</div>
-					<div class="col-12 col-md-6">
+					<div class="d-none d-md-block">
 						<ul class="list-inline text-right mb-0">
-							<li class="list-inline-item px-2 px-md-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/gioi-thieu" title="Giới thiệu">Giới thiệu</a></li>
-							<li class="list-inline-item px-2 px-md-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/phuong-thuc-thanh-toan" title="Phương thức thanh toán">Phương thức thanh toán</a></li>
-							<li class="list-inline-item px-2 px-md-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-bao-hanh" title="Chính sách bảo hành">Chính sách bảo hành</a></li>
-							<li class="list-inline-item pl-2 pl-md-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/lien-he" title="Liên hệ">Liên hệ</a></li>
+							<li class="list-inline-item px-2 px-lg-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/gioi-thieu" title="Giới thiệu">Giới thiệu</a></li>
+							<li class="list-inline-item px-2 px-lg-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/phuong-thuc-thanh-toan" title="Phương thức thanh toán">Phương thức thanh toán</a></li>
+							<li class="list-inline-item px-2 px-lg-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/chinh-sach-bao-hanh" title="Chính sách bảo hành">Chính sách bảo hành</a></li>
+							<li class="list-inline-item pl-2 pl-lg-3"><a class="text-capitalize" href="<?php echo get_bloginfo( 'url' );?>/lien-he" title="Liên hệ">Liên hệ</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="header-middle">
-			<div class="header-fixed py-2 py-md-3">
+			<div class="header-fixed py-1 py-md-3">
 				<div class="container">
-					<div class="row">
-						<div class="col-3">
+					<div class="row align-items-center">
+						<div class="col-6 col-md-3">
 							<h1 class="logo m-0 d-block"><span class="text-logo"><?php bloginfo('description'); ?></span><a class="d-block wrap-logo" href="<?php bloginfo('url'); ?>" title="<?php echo get_bloginfo( 'name' ); ?>"><img loading="lazy" src="<?php echo get_template_directory_uri();?>/assets/images/logo.png" class="img-fluid d-block rounded" alt="<?php echo get_bloginfo( 'name' ); ?>"></a></h1>
 						</div>
-						<div class="col">
+						<div class="col-6 col-md col-lg col-mb">
 							<div class="d-flex align-items-center justify-content-end">
-								<div class="search-header search-area mr-4 mr-md-0 d-inline-block">								
+								<div class="search-header search-area d-inline-block">	
+									<i data-click class="fas fa-search d-md-none"></i>							
 									<div class="inner-search">
 										<form role="search" method="get" class="woocommerce-product-search position-relative py-3 px-4 p-md-0" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 											<input type="search" id="woocommerce-product-search-field-<?php echo isset( $index ) ? absint( $index ) : 0; ?>" class="search-field form-control" placeholder="<?php echo esc_attr__( 'Bạn cần tìm gì', 'woocommerce' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
-											<button class="btn btn-searchbox px-2 px-lg-3" type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woocommerce' ); ?>"><i data-click class="fas fa-search"></i></button>
+											<button class="btn btn-searchbox px-3 px-md-2 px-lg-3" type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woocommerce' ); ?>"><i class="fas fa-search"></i></button>
 											<input type="hidden" name="post_type" value="product" />
 										</form>
 									</div>
@@ -89,7 +109,7 @@
 									}
 								?>
 								<div class="minicart-header position-relative ml-3 ml-md-4">
-										<div class="counter qty empty d-flex lh-18"><i class="fas fa-shopping-cart mr-1 mr-md-2"></i><span class="counter-number d-flex align-items-center"><span><strong class="d-block">Giỏ hàng</strong><?php echo sprintf (_n( '<span class="d-none d-md-inline-block">Sản phẩm</span> <strong>( %d )</strong>', '<span class="d-none d-md-inline-block">Sản phẩm</span> <strong>( %d )</strong>', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?></span>&nbsp;<i class="fas fa-caret-down ml-1"></i></span></div>  
+										<div class="counter qty empty d-flex lh-18"><i class="fas fa-shopping-cart mr-1 mr-md-2"></i><span class="counter-number d-flex align-items-center"><span><strong class="d-none d-lg-block">Giỏ hàng</strong><?php echo sprintf (_n( '<span class="d-none d-lg-inline-block">Sản phẩm</span> <strong><span class="d-none d-lg-inline-block">(</span>%d<span class="d-none d-lg-inline-block">)</span></strong>', '<span class="d-none d-lg-inline-block">Sản phẩm</span> <strong><span class="d-none d-lg-inline-block">(</span>%d<span class="d-none d-lg-inline-block">)</span></strong>', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?></span><i class="ml-1 fas fa-caret-down ml-lg-1 d-none d-lg-inline-block"></i></span></div>  
 									<?php if ( WC()->cart->is_empty() ) { ?>             
 										<div class="block-minicart empty">
 											<div class="inner-minicart">
@@ -138,6 +158,7 @@
 										</div>
 									<?php } ?>
 								</div>
+								<button type="button" class="navbar-toggler btn-m d-block d-md-none ml-4 text-right"><span class="burger"><span data-v-507bd8df=""></span></span></button>
 							</div>
 						</div>
 					</div>
@@ -147,7 +168,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-3 cus-col-3 pr-0 wrap-dm">
-							<div class="dmuc px-2 px-md-2"><i class="fa fa-bars mr-1"></i> DANH MỤC SẢN PHẨM </div>
+							<div class="dmuc px-2 px-md-2 d-none d-md-block"><i class="fa fa-bars mr-1"></i> DANH MỤC SẢN PHẨM </div>
 							<!-- <div class="col-3 cus-col-3 pr-0"> -->
 							<div class="position-relative">
 								<div class="list-dm">
@@ -157,12 +178,12 @@
 										$all_categories = get_categories( $args );
 										if ( $all_categories && !is_wp_error( $all_categories ) ) {   
 											foreach ($all_categories as $cat) {
-												if($cat->category_parent == 0 && $cat->slug != 'san-pham-xa-hang') {
+												if($cat->category_parent == 0 && $cat->slug != 'san-pham-xa-hang' && $cat->slug != 'khuyen-mai-soc-trong-thang') {
 													$category_id = $cat->term_id;  
 													$args2 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
 													$sub_cats = get_categories( $args2 );
 													if($sub_cats) {
-														echo '<div class="item hasChild"><a href="'. get_term_link($cat->slug, 'product_cat') .'" title="'.$cat->name.'"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/'.$cat->slug.'.jpg" alt="'.$cat->name.'" class="cate-img"><span>'.$cat->name.'</span></a>';
+														echo '<div class="item hasChild"><a href="'. get_term_link($cat->slug, 'product_cat') .'" title="'.$cat->name.'"><img loading="lazy" src="'.get_template_directory_uri().'/assets/images/'.$cat->slug.'.jpg" alt="'.$cat->name.'" class="cate-img"><span>'.$cat->name.'</span><i class="icon_child"></i></a>';
 															echo '<div class="sub-menu width-1-col"><div class="list"><div class="col">';
 																foreach($sub_cats  as $key => $sub_category) { 
 																	$category_id = $sub_category->term_id; 
@@ -170,7 +191,7 @@
 																		$args3 = array('taxonomy'=> $taxonomy,'child_of'=> 0,'parent'=> $category_id,'hide_empty' => false,'orderby'   => 'date','order' => 'ASC');
 																		$sub_cats3 = get_categories( $args3 );
 																		if($sub_cats3) {
-																			echo '<a href="'.get_term_link($sub_category->slug, $taxonomy).'" title="'.$sub_category->name.'" class="has-submenu">'.$sub_category->name.'</a>';
+																			echo '<a href="'.get_term_link($sub_category->slug, $taxonomy).'" title="'.$sub_category->name.'" class="has-submenu">'.$sub_category->name.'<i class="icon_child"></i></a>';
 																			echo '<div class="list-sub-hover">';
 																				foreach($sub_cats3  as $key => $sub_category3) { 
 																					echo '<a class="sub3" href="'.get_term_link($sub_category3->slug, $taxonomy).'" title="'.$sub_category3->name.'">'.$sub_category3->name.'</a>';
@@ -193,15 +214,15 @@
 								</div>
 							</div>			
 						</div>
-						<div class="col px-1">
+						<div class="col-9 px-md-1 d-none d-md-block">
 							<div id="nav-right" class="d-flex align-items-center justify-content-between">
-							<a href="https://karofivietnam.com.vn/collection/khuyen-mai-soc-trong-thang" class="item"> 
+							<a href="<?php echo get_bloginfo( 'url' );?>/product-category/khuyen-mai-soc-trong-thang/" class="item" title="KHUYẾN MÃI THÁNG <?php echo date('m');?>"> 
 								<div class="pulse-icon"><div class="icon-wrap"></div><div class="elements"><div class="pulse pulse-1"></div></div></div>KHUYẾN MÃI THÁNG <?php echo date('m');?>
 							</a>
-							<a href="<?php echo get_bloginfo( 'url' );?>/tin-tuc/sua-may-loc-nuoc/" class="item"><i class="fas fa-bolt"></i>SỬA MÁY LỌC NƯỚC</a>
-							<a href="<?php echo get_bloginfo( 'url' );?>/tin-tuc/thay-loi-loc-nuoc/" class="item"><i class="fas fa-fire"></i>THAY LÕI LỌC NƯỚC</a>
-							<a href="<?php echo get_bloginfo( 'url' );?>/he-thong-phan-phoi-karofi/" class="item"><i class="fas fa-fire"></i>HỆ THỐNG PHÂN PHỐI</a>
-							<a href="<?php echo get_bloginfo( 'url' );?>/tin-tuc" class="item"><i class="fas fa-bolt"></i>TIN TỨC</a>
+							<a href="<?php echo get_bloginfo( 'url' );?>/tin-tuc/sua-may-loc-nuoc/" class="item" title="SỬA MÁY LỌC NƯỚC"><i class="fas fa-bolt"></i>SỬA MÁY LỌC NƯỚC</a>
+							<a href="<?php echo get_bloginfo( 'url' );?>/tin-tuc/thay-loi-loc-nuoc/" class="item" title="THAY LÕI LỌC NƯỚC"><i class="fas fa-fire"></i>THAY LÕI LỌC NƯỚC</a>
+							<a href="<?php echo get_bloginfo( 'url' );?>/he-thong-phan-phoi-karofi/" class="item" title="HỆ THỐNG PHÂN PHỐI"><i class="fas fa-fire"></i>HỆ THỐNG PHÂN PHỐI</a>
+							<a href="<?php echo get_bloginfo( 'url' );?>/tin-tuc" class="item" title="TIN TỨC"><i class="fas fa-bolt"></i>TIN TỨC</a>
 						</div>
 					</div>
 					</div>

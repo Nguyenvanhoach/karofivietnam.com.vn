@@ -1,5 +1,5 @@
 <?php
-define( 'WP_CACHE', true );
+
 /**
  * The base configuration for WordPress
  *
@@ -21,7 +21,7 @@ define( 'WP_CACHE', true );
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'karofi_ngocanh');//gtscom12_karofiNgocanh/local: karofi_ngocanh
+define( 'DB_NAME', 'karofi_ngocanh');//gtscom12_karofiNgocanh/localkarofi_ngocanh
 
 /** MySQL database username */
 define( 'DB_USER', 'root');//gtscom12_karofiNgocanh// tkadmin: Karofivietnam//pas:Karofivietnam@20216868
@@ -81,8 +81,8 @@ $table_prefix = 'karonanh_';
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
-define( 'DISALLOW_FILE_MODS', true );
-
+// define( 'WP_AUTO_UPDATE_CORE', false );
+// define( 'DISALLOW_FILE_MODS', true );
 /* Add any custom values between this line and the "stop editing" line. */
 
 

@@ -46,7 +46,7 @@ if ( $product->is_in_stock() ) : ?>
 		echo '</div>';
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
 		?>
-		<div class="row mb-3 mb-md-4 space-2">
+		<div class="row mb-2 space-2">
 			<div class="col-6"><a href="<?php echo WC()->cart->get_cart_url(); ?>" title="Giỏ hàng" class="button btn btn-primary w-100 d-block"><div class="text-16 font-weight-bold text-uppercase">Mua ngay</div>Giao hàng tận nơi</a></div>
 			<div class="col-6"><button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt btn btn-warning w-100"><div class="text-16 font-weight-bold text-uppercase">Thêm vào giỏ</div>Tiếp tục mua hàng</button></div>
 		</div>	

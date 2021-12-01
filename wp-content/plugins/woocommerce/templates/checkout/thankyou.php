@@ -43,9 +43,9 @@ defined( 'ABSPATH' ) || exit;
 				<div class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'CÁM ƠN QUÝ KHÁCH ĐÃ ĐẶT HÀNG', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 			</div>
 			<div class="row px-lg-5">
-				<div class="col-md-6 pr-lg-4">
+				<div class="col-md-6 pr-lg-4 mb-3 mb-md-0">
 					<div class="mb-4">
-						<p>Xin chào Anh/Chị <strong>ninh</strong></p>
+						<p>Xin chào Anh/Chị <strong><?php if ( $order->get_billing_first_name() ) : echo esc_html( $order->get_billing_first_name() ); endif; ?></strong></p>
 						<p>Chúng tôi đã nhận được đơn hàng của quý khách trên website.<br>Đơn hàng này đang được xử lý.</p>
 						<p>Trong vòng 30 phút (giờ làm việc), bộ phận bán hàng trực tuyến sẽ liên hệ lại. Qúy khách để xác nhận thời gian và địa điểm giao hàng.</p>
 						<p>Thời gian giao hàng dự kiến khoảng 24h - 48h.</p>
@@ -72,7 +72,7 @@ defined( 'ABSPATH' ) || exit;
 
 						<li class="woocommerce-order-overview__total total my-2 d-flex justify-content-between">
 							<strong><?php esc_html_e( 'Tổng tiền:', 'woocommerce' ); ?></strong>
-							<span class="text-right"><?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<span class="text-right wrap-price"><?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 						</li>
 
 						<?php if ( $order->get_payment_method_title() ) : ?>

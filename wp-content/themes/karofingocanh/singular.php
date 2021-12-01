@@ -16,12 +16,12 @@ $cat_slug = $catalog[0]->slug;
 $catID_now = $catalog[0]->cat_ID;
 $catID = 1;
 ?>
-<div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
+<div class="wrap-crumbs container my-2 my-md-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
 <div class="container">
 	<div class="row mb-3">
 		<div class="col-md-8 col-lg-9">
-			<ul class="nav nav-news mb-5">
-				<li class="nav-item pr-3">
+			<ul class="nav nav-news mb-3 mb-md-5">
+				<li class="nav-item pr-2 pr-md-3">
 					<a title="Tin tức mới" class="text-uppercase px-0  nav-link <?php if($cat_slug == 'tin-tuc') {echo "active";}?>" href="<?php echo get_term_link($catID, 'category'); ?>">Tin tức mới</a>
 				</li>			
 				<?php
@@ -29,7 +29,7 @@ $catID = 1;
 				foreach ($categories as $c) {
 					$active = '';
 					if($c->slug == $cat_slug) {$active = 'active';}
-					echo '<li class="nav-item px-3"><a class="nav-link text-uppercase px-0 '.$active.'" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'">'.$c->cat_name.'</a></li>';
+					echo '<li class="nav-item px-2 px-md-3"><a class="nav-link text-uppercase px-0 '.$active.'" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'">'.$c->cat_name.'</a></li>';
 				}
 				?>
 			</ul>

@@ -15,12 +15,12 @@
   $catID = 1;
 
 ?>
-	<div class="wrap-crumbs container my-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
+	<div class="wrap-crumbs container my-2 my-md-3"><?php if(function_exists('breadcrumb')){breadcrumb();} ?></div>
 	<div class="container cat-tin-tuc">
 		<div class="row mb-3">
 			<div class="col-md-8 col-lg-9">
-				<ul class="nav nav-news mb-5">
-          <li class="nav-item pr-3">
+				<ul class="nav nav-news mb-3 mb-md-5">
+          <li class="nav-item pr-2 pr-md-3">
             <a title="Tin tức mới" class="text-uppercase px-0  nav-link <?php if($cat_slug == 'tin-tuc') {echo "active";}?>" href="<?php echo get_term_link($catID, 'category'); ?>">Tin tức mới</a>
           </li>			
           <?php
@@ -28,7 +28,7 @@
           foreach ($categories as $c) {
             $active = '';
             if($c->slug == $cat_slug) {$active = 'active';}
-            echo '<li class="nav-item px-3"><a class="nav-link text-uppercase px-0 '.$active.'" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'">'.$c->cat_name.'</a></li>';
+            echo '<li class="nav-item px-2 px-md-3"><a class="nav-link text-uppercase px-0 '.$active.'" href="'. get_term_link($c->slug, 'category') .'" title="'.$c->cat_name.'">'.$c->cat_name.'</a></li>';
           }
           ?>
         </ul>
@@ -74,9 +74,9 @@
 							<?php
 								$cf = new WP_Query(array('category' => $catID,'post_status' => 'publish','posts_per_page' => 10, 'meta_key' => 'post_views_count', 'orderby'=> 'meta_value_num', 'order' => 'DESC'));
 								$stt = 0;
-								while ($cf->have_posts()) : $cf->the_post();
+								while ($cf->have_posts()) : $cf->the_post();$n=$stt+1;
 									echo '<a title="'. get_the_title() . '" href="'.get_permalink().'" class="item border-top media py-2">
-									<span class="no">'. $stt+1 .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
+									<span class="no">'. $n .'</span><span class="name media-body pl-2">'. get_the_title() . '</span></a>';
 										$stt++;
 								endwhile;
                 wp_reset_postdata();

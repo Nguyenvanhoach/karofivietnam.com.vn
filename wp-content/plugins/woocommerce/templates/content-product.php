@@ -25,7 +25,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 }
 ?>
               
-<div <?php wc_product_class( 'col-6 col-sm-4 col-md-3 prod-num-1 py-3', $product ); ?>>
+<div <?php wc_product_class( 'col-6 col-lg-4 col-xl-3 prod-num-1 py-3', $product ); ?>>
 	<div class="item">
 		<?php
 			/**

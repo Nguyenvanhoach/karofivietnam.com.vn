@@ -27,6 +27,6 @@ $attachment_ids = $product->get_gallery_image_ids();
 if ( $attachment_ids && $product->get_image_id() ) {
 	foreach ( $attachment_ids as $attachment_id ) {
 		//echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', wc_get_gallery_image_html( $attachment_id ), $attachment_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
-		echo '<div class="item"><div class="inner-sli-item"><img src="'.wp_get_attachment_url( $attachment_id ).'" class="img-fluid" /></div></div>';
+		echo '<div class="item"><div class="inner-sli-item getimg cursor-pointer" data-image-id="" data-toggle="modal" data-image="'.wp_get_attachment_url( $attachment_id ).'"	data-target="#image-gallery"><img src="'.wp_get_attachment_url( $attachment_id ).'" class="img-fluid" /></div></div>';
 	}
 }

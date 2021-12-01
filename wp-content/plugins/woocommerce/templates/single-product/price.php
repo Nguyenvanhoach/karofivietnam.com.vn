@@ -29,14 +29,15 @@ $stock_p = $product->managing_stock();
 		if ( $product->price && isset( $product->regular_price ) ) {
 			$from = $product->regular_price;
 			$to = $product->price;
-			echo '<div class="wrap-price mb-2"><span class="pr-2 pr-lg-3 price-sale">Giá khuyến mãi: '.( ( is_numeric( $to ) ) ? woocommerce_price( $to ) : $to ) .'</span>Giá thị trường:<del>'. ( ( is_numeric( $from ) ) ? woocommerce_price( $from ) : $from ) .'</del></div>';
+			echo '<div class="wrap-price mb-2"><span class="pr-2 pr-lg-3 price-sale">Giá khuyến mãi: '.( ( is_numeric( $to ) ) ? woocommerce_price( $to ) : $to ) .'</span><span class="d-none d-md-inline-block">Giá thị trường:</span><del>'. ( ( is_numeric( $from ) ) ? woocommerce_price( $from ) : $from ) .'</del></div>';
 		} else {
 			$to = $product->price;
 			echo '<div class="wrap-price mb-2">Giá: ' . ( ( is_numeric( $to ) ) ? woocommerce_price( $to ) : $to ) . '</div>';
 		}
-	} else {
-	 echo '<div class="wrap-price mb-2">Liên hệ</div>';
-	}
+	} 
+	// else {
+	//  echo '<div class="wrap-price mb-2">Liên hệ</div>';
+	// }
 
 	//echo $product->get_price_html(); 
 	if( $product->is_type('variable')){
@@ -53,13 +54,16 @@ $stock_p = $product->managing_stock();
 				}
 		}
 		$percentage = max($percentages) . '%';
-} else {
-		$regular_price = (float) $product->get_regular_price();
-		$sale_price    = (float) $product->get_sale_price();
-
-		$percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
-}
-echo '<div class="discount-pdetail">Tiết kiệm:' . esc_html__( ' ', 'woocommerce' ) . '<span class="lable-discount">- ' . $percentage . '</span></div>';
+	} else {
+			$regular_price = (float) $product->get_regular_price();
+			$sale_price    = (float) $product->get_sale_price();
+		if($regular_price > 0) {
+			$percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
+		}
+	}
+	if ( $product->price > 0 ) {
+		echo '<div class="discount-pdetail">Tiết kiệm:' . esc_html__( ' ', 'woocommerce' ) . '<span class="lable-discount">- ' . $percentage . '</span></div>';
+	}
 ?>
 </div>
 
@@ -86,8 +90,8 @@ echo '<div class="discount-pdetail">Tiết kiệm:' . esc_html__( ' ', 'woocomme
 
 <?php 
 	if($stock_p == true){
-		echo '<div class="color-green font-weight-bold text-uppercase mb-3">Còn hàng</div>';
+		echo '<div class="mb-3">Tình trạng: <span class="color-green font-weight-bold text-uppercase">Còn hàng</span></div>';
 	} else {
-		echo '<div class="color-green font-weight-bold text-uppercase mb-3">Hết hàng</div>';
+		echo '<div class="mb-3">Tình trạng: <span class="color-green font-weight-bold text-uppercase">Hết hàng</span></div>';
 	}
 ?>

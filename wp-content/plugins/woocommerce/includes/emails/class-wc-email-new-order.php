@@ -161,7 +161,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Congratulations on the sale.', 'woocommerce' );
+			return __( '► Email hỗ trợ: tuonglk01@gmail.com hoặc<br>► Tổng đài Chăm sóc khách hàng: 0936.275.345<br>Trân trọng cảm ơn và rất hân hạnh được phục vụ Quý khách.	*Quý khách vui lòng không trả lời email này*.', 'woocommerce' );
 		}
 
 		/**

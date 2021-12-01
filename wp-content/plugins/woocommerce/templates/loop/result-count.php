@@ -21,8 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="d-flex align-items-center px-3 mb-3 justify-content-between">
-<p class="woocommerce-result-count mb-md-0 pr-md-3">
+<div class="d-flex flex-column flex-md-row align-items-md-center px-md-3 mb-md-3 justify-content-between">
+<p class="woocommerce-result-count pl-3 pr-3 pl-md-0 mb-md-0 pr-md-3">
 	<?php
 	// phpcs:disable WordPress.Security
 	if ( 1 === intval( $total ) ) {

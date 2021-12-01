@@ -1,0 +1,11 @@
+2021-11-19T06:48:20+00:00 CRITICAL Uncaught Error: Undefined constant "lengh" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:2187
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(132): get_product_cat('25')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2187
+
+2021-11-19T06:54:43+00:00 CRITICAL syntax error, unexpected identifier "url", expecting "," or ";" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2193
+

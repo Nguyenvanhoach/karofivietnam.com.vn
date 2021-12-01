@@ -1579,7 +1579,7 @@ function wc_get_gallery_image_html( $attachment_id, $main_image = false ) {
 		)
 	);
 
-	return '<div data-thumb="' . esc_url( $thumbnail_src[0] ) . '" data-thumb-alt="' . esc_attr( $alt_text ) . '" class="woocommerce-product-gallery__image"><a href="' . esc_url( $full_src[0] ) . '">' . $image . '</a></div>';
+	return '<div data-thumb="' . esc_url( $thumbnail_src[0] ) . '" data-thumb-alt="' . esc_attr( $alt_text ) . '" class="woocommerce-product-gallery__image"><div class="getimg cursor-pointer" data-image-id="" data-toggle="modal" data-image="' . esc_url( $full_src[0] ) . '"	data-target="#image-gallery">' . $image . '</div></div>';
 }
 
 if ( ! function_exists( 'woocommerce_output_product_data_tabs' ) ) {
@@ -2268,7 +2268,7 @@ if ( ! function_exists( 'woocommerce_breadcrumb' ) ) {
 				'woocommerce_breadcrumb_defaults',
 				array(
 					'delimiter'   => '&nbsp;&#47;&nbsp;',
-					'wrap_before' => '<div class="container"><nav class="woocommerce-breadcrumb my-3">',
+					'wrap_before' => '<div class="container"><nav class="woocommerce-breadcrumb my-2 my-md-3">',
 					'wrap_after'  => '</nav></div>',
 					'before'      => '',
 					'after'       => '',

@@ -70,8 +70,8 @@ if ( ! empty( $product_tskthuat ) ) {
 	echo '<div class="modal fade modal-general" id="tsokthuat" tabindex="-1" role="dialog" aria-labelledby="tsokthuatTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<div class="modal-title pb-2 font-weight-bold">Thông số kỹ thuật</div>
+				<div class="modal-header align-items-center pb-2">
+					<div class="modal-title text-uppercase font-weight-bold">Thông số kỹ thuật</div>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

@@ -118,3 +118,92 @@ Stack trace:
 #25 {main}
   thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\plugins\woocommerce\templates\order\order-details.php on line 98
 
+2021-11-18T13:54:04+00:00 CRITICAL syntax error, unexpected token "<" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2193
+
+2021-11-18T13:55:05+00:00 CRITICAL syntax error, unexpected token "<" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2193
+
+2021-11-18T14:01:22+00:00 CRITICAL Uncaught Error: Call to a member function get_price_html() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:2249
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2249
+
+2021-11-18T14:06:05+00:00 CRITICAL syntax error, unexpected token ";", expecting ")" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2182
+
+2021-11-18T14:06:17+00:00 CRITICAL syntax error, unexpected token ";", expecting ")" in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2182
+
+2021-11-18T14:06:32+00:00 CRITICAL Uncaught Error: Call to a member function get_price_html() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:2249
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2249
+
+2021-11-18T14:09:33+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function get_the_terms(), 1 passed in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2181 and exactly 2 expected in G:\Pxamp\karofivietnam.com.vn\wp-includes\category-template.php:1274
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php(2181): get_the_terms('16')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#4 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#5 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-includes\category-template.php on line 1274
+
+2021-11-18T14:13:48+00:00 CRITICAL Uncaught Error: Call to undefined function get_product_category_by_id() in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:2182
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2182
+
+2021-11-18T14:17:11+00:00 CRITICAL Unclosed '{' on line 2185 does not match ')' in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2194
+
+2021-11-18T14:18:04+00:00 CRITICAL Uncaught Error: Call to a member function is_type() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:915
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\class-wp-hook.php(303): add_percentage_to_sale_badge('<span class="on...', Object(WP_Post), NULL)
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\plugin.php(189): WP_Hook->apply_filters('<span class="on...', Array)
+#2 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php(2194): apply_filters('woocommerce_sal...', '<span class="on...', Object(WP_Post), NULL)
+#3 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#4 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#5 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#6 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#7 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 915
+
+2021-11-18T14:20:49+00:00 CRITICAL Uncaught Error: Call to a member function is_type() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:915
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-includes\class-wp-hook.php(303): add_percentage_to_sale_badge('<span class="on...', Object(WP_Post), NULL)
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\plugin.php(189): WP_Hook->apply_filters('<span class="on...', Array)
+#2 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php(2193): apply_filters('woocommerce_sal...', '<span class="on...', Object(WP_Post), NULL)
+#3 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#4 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#5 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#6 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#7 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 915
+
+2021-11-18T14:22:07+00:00 CRITICAL Uncaught Error: Call to a member function is_on_sale() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:2193
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2193
+
+2021-11-18T14:26:03+00:00 CRITICAL Uncaught Error: Call to a member function get_price_html() on null in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php:2196
+Stack trace:
+#0 G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\index.php(220): get_product_cat('16')
+#1 G:\Pxamp\karofivietnam.com.vn\wp-includes\template-loader.php(106): include('G:\\Pxamp\\karofi...')
+#2 G:\Pxamp\karofivietnam.com.vn\wp-blog-header.php(19): require_once('G:\\Pxamp\\karofi...')
+#3 G:\Pxamp\karofivietnam.com.vn\index.php(17): require('G:\\Pxamp\\karofi...')
+#4 {main}
+  thrown in G:\Pxamp\karofivietnam.com.vn\wp-content\themes\karofingocanh\functions.php on line 2196
+
