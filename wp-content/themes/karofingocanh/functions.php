@@ -830,6 +830,11 @@ function woo_add_custom_general_fields() {
 							'Tủ IQ cao cấp' => __( 'Tủ IQ cao cấp', 'woocommerce' ),
 							'Tủ đứng'   => __( 'Tủ đứng', 'woocommerce' ),
 							'Để bàn - Để gầm'   => __( 'Để bàn - Để gầm', 'woocommerce' ),
+							'Hút bình'   => __( 'Hút bình', 'woocommerce' ),
+							'Úp bình'   => __( 'Úp bình', 'woocommerce' ),
+							'Tích hợp hệ thống lọc RO'   => __( 'Tích hợp hệ thống lọc RO', 'woocommerce' ),
+
+							
 							)
 					)
 			);
@@ -2104,12 +2109,12 @@ add_action( 'add_meta_boxes', 'create_custom_meta_box' );
 if ( ! function_exists( 'create_custom_meta_box' ) ) {
 	function create_custom_meta_box()	{
 		add_meta_box(
-				'custom_product_meta_box',
-				__( 'Thông số kỹ thuật', 'cmb' ),
-				'add_custom_content_meta_box',
-				'product',
-				'normal',
-				'default'
+			'custom_product_meta_box',
+			__( 'Thông tin thêm sản phẩm', 'cmb' ),
+			'add_custom_content_meta_box',
+			'product',
+			'normal',
+			'default'
 		);
 	}
 }
@@ -2117,10 +2122,18 @@ if ( ! function_exists( 'create_custom_meta_box' ) ) {
 if ( ! function_exists( 'add_custom_content_meta_box' ) ){
     function add_custom_content_meta_box( $post ){
         $prefix = '_bhww_'; // global $prefix;
+
         $tskthuat = get_post_meta($post->ID, $prefix.'tskthuat_wysiwyg', true) ? get_post_meta($post->ID, $prefix.'tskthuat_wysiwyg', true) : '';
+				$ddnbat = get_post_meta($post->ID, $prefix.'ddnbat_wysiwyg', true) ? get_post_meta($post->ID, $prefix.'ddnbat_wysiwyg', true) : '';
+
         $args['textarea_rows'] = 6;
-        //echo '<p>'.__( 'Ingredients', 'cmb' ).'</p>';
+
+        echo '<p><strong>'.__( 'Thông số kỹ thuật', 'cmb' ).'</strong></p>';
         wp_editor( $tskthuat, 'tskthuat_wysiwyg', $args );
+
+				echo '<p><strong>'.__( 'Đặc điểm nổi bật', 'cmb' ).'</strong></p>';
+        wp_editor( $ddnbat, 'ddnbat_wysiwyg', $args );
+
         echo '<input type="hidden" name="custom_product_field_nonce" value="' . wp_create_nonce() . '">';
     }
 }
@@ -2154,9 +2167,9 @@ if ( ! function_exists( 'save_custom_content_meta_box' ) )
         }
         // Sanitize user input and update the meta field in the database.
         update_post_meta( $post_id, $prefix.'tskthuat_wysiwyg', wp_kses_post($_POST[ 'tskthuat_wysiwyg' ]) );
+				update_post_meta( $post_id, $prefix.'ddnbat_wysiwyg', wp_kses_post($_POST[ 'ddnbat_wysiwyg' ]) );
     }
 }
-
 // End Add metabox
 
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );

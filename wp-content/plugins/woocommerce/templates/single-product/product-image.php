@@ -84,4 +84,11 @@ if ( ! empty( $product_tskthuat ) ) {
 		</div>
 	</div>';
 }
+$product_ddnbat = get_post_meta( $product->get_id(), '_bhww_ddnbat_wysiwyg', true );
+if ( ! empty( $product_ddnbat ) ) {
+	echo '<div class="my-3 ddnbat"><p class="text-uppercase mb-2"><strong>Đặc điểm nổi bật</strong></p>';
+		echo apply_filters( 'the_content', $product_ddnbat );
+	echo '</div>';
+}
 ?>
+
