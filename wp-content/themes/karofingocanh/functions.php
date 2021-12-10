@@ -827,13 +827,17 @@ function woo_add_custom_general_fields() {
 							'Có tủ'   => __( 'Có tủ', 'woocommerce' ),
 							'4 cấp lọc' => __( '4 cấp lọc', 'woocommerce' ),
 							'5 cấp lọc' => __( '5 cấp lọc', 'woocommerce' ),
+							'6 cấp lọc' => __( '6 cấp lọc', 'woocommerce' ),
+							'8 cấp lọc' => __( '8 cấp lọc', 'woocommerce' ),
 							'Tủ IQ cao cấp' => __( 'Tủ IQ cao cấp', 'woocommerce' ),
 							'Tủ đứng'   => __( 'Tủ đứng', 'woocommerce' ),
 							'Để bàn - Để gầm'   => __( 'Để bàn - Để gầm', 'woocommerce' ),
 							'Hút bình'   => __( 'Hút bình', 'woocommerce' ),
 							'Úp bình'   => __( 'Úp bình', 'woocommerce' ),
 							'Tích hợp hệ thống lọc RO'   => __( 'Tích hợp hệ thống lọc RO', 'woocommerce' ),
-
+							'Máy lọc nước tích hợp nóng lạnh'   => __( 'Máy lọc nước tích hợp nóng lạnh', 'woocommerce' ),
+							'Công suất 1500l/h'   => __( 'Công suất 1500l/h', 'woocommerce' ),
+							'2 vòi nóng lạnh'   => __( '2 vòi nóng lạnh', 'woocommerce' ),
 							
 							)
 					)
