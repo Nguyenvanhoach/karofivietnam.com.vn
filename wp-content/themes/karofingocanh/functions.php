@@ -823,6 +823,7 @@ function woo_add_custom_general_fields() {
 					'id'      => 'kieudang', 
 					'label'   => __( 'Kiểu dáng:', 'woocommerce' ), 
 					'options' => array(
+							'o'   => __( 'o', 'woocommerce' ),
 							'Không tủ'   => __( 'Không tủ', 'woocommerce' ),
 							'Có tủ'   => __( 'Có tủ', 'woocommerce' ),
 							'4 cấp lọc' => __( '4 cấp lọc', 'woocommerce' ),
@@ -836,7 +837,14 @@ function woo_add_custom_general_fields() {
 							'Úp bình'   => __( 'Úp bình', 'woocommerce' ),
 							'Tích hợp hệ thống lọc RO'   => __( 'Tích hợp hệ thống lọc RO', 'woocommerce' ),
 							'Máy lọc nước tích hợp nóng lạnh'   => __( 'Máy lọc nước tích hợp nóng lạnh', 'woocommerce' ),
+							'Công suất 150l/h'   => __( 'Công suất 150l/h', 'woocommerce' ),
+							'Công suất 250l/h'   => __( 'Công suất 250l/h', 'woocommerce' ),
+							'Công suất 350l/h'   => __( 'Công suất 350l/h', 'woocommerce' ),
+							'Công suất 500l/h'   => __( 'Công suất 500l/h', 'woocommerce' ),
+							'Công suất 750l/h'   => __( 'Công suất 750l/h', 'woocommerce' ),
+							'Công suất 1000l/h'   => __( 'Công suất 1000l/h', 'woocommerce' ),
 							'Công suất 1500l/h'   => __( 'Công suất 1500l/h', 'woocommerce' ),
+							'Công suất 2000l/h'   => __( 'Công suất 2000l/h', 'woocommerce' ),
 							'2 vòi nóng lạnh'   => __( '2 vòi nóng lạnh', 'woocommerce' ),
 							
 							)

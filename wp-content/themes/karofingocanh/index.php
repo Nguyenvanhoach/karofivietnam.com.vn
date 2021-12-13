@@ -112,63 +112,7 @@ get_header();
       </div>
       <div class="text-center"><a href="<?php echo get_bloginfo( 'url' );?>/product-category/san-pham-xa-hang" class="btn-viewmore text-center px-3 py-2 my-3">Xem thêm sản phẩm giá sốc <i class="fa fa-caret-down"></i> </a></div>    
     </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <div class="getimg" href="#" data-image-id="" data-toggle="modal"
-                data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                data-target="#image-gallery">
-                <img class="img-thumbnail"
-                      src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                      alt="Another alt text">
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <div class="getimg" href="#" data-image-id="" data-toggle="modal"
-                data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                data-target="#image-gallery">
-                <img class="img-thumbnail"
-                      src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                      alt="Another alt text">
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <div class="getimg" href="#" data-image-id="" data-toggle="modal"
-                data-image="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                data-target="#image-gallery">
-                <img class="img-thumbnail"
-                      src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                      alt="Another alt text">
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <div class="getimg" href="#" data-image-id="" data-toggle="modal" 
-                data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                data-target="#image-gallery">
-                <img class="img-thumbnail"
-                      src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                      alt="Another alt text">
-            </div>
-        </div>           
-      </div>
-      <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content rounded-0">
-            <div class="modal-body p-0">
-              <button type="button" class="btn btn-close d-flex align-items-center justify-content-center" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-              <img id="image-gallery-image" class="img-fluid" src="">
-              <button type="button" class="btn btn-secondary btn-arrow btn-prev" id="show-previous-image"><i class="fa fa-arrow-left"></i></button>
-              <button type="button" id="show-next-image" class="btn btn-secondary btn-arrow btn-next"><i class="fa fa-arrow-right"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
+    
     <?php 
       echo get_product_cat('15');
       echo get_product_cat('20');
